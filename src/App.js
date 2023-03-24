@@ -6,7 +6,7 @@ import Navigation from './components/nav/navigation.jsx'
 function App() {
   return (
     <>
-      <Navigation />
+      <Navigation name="Alexander" />
       <BigCard />
       <SmallCard />
     </>

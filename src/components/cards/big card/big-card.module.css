@@ -1,5 +1,4 @@
 .wrapperCard {
-    border: 1px solid #000000;
     padding: 20px;
     font-family: 'Montserrat', sans-serif;
     max-width: 339px;
@@ -47,5 +46,6 @@
 
 .footerCount {
     font-size: 2rem;
+    margin: 0px;
     font-weight: 700;
 }
