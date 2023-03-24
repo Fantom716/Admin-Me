@@ -1,24 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
+import BigCard from './components/cards/big card/big-card';
+import SmallCard from './components/cards/small card/small-card';
+import Navigation from './components/nav/navigation.jsx'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navigation />
+      <BigCard />
+      <SmallCard />
+    </>
   );
 }
 
