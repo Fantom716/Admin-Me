@@ -1,0 +1,21 @@
+.infoCardWrapper {
+    padding: 30px 23px;
+    max-height: 618px;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 14px;
+}
+.infoCardTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0px;
+}
+
+.infoCardName {
+    margin-bottom: 12px;
+}
+
+.infoCardSub {
+    font-size: .8rem;
+    color: #9A9A9A;
+}
