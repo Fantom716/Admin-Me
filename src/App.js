@@ -3,21 +3,18 @@ import BigCard from './components/cards/big card/big-card';
 import SmallCard from './components/cards/small card/small-card';
 import Navigation from './components/nav/navigation.jsx'
 import InformationCard from './components/cards/card for information/informationCard';
-import FormSearch from './components/search form/form';
+import Header from './components/header/assemblyHeader/ready header';
+import Statistic from './components/statistic/statistic';
 
-function App() {
+function App(props) {
   return (
-    <>
-      <InformationCard />
+    <div style={{display: "flex", height: "100vh", width: "100vw"}}>
       <Navigation name="Alexander" />
-      <BigCard />
-      <BigCard />
-      <BigCard />
-
-      {/* <SmallCard />
-      <InformationCard titleCard="Менеджеры" name="Шеншин Акентий" mail="tefecreunnitta-4734@yopmail.com"/>
-      <FormSearch /> */}
-    </>
+      <div className='mainContent' style={{padding: "32px", width: "100vw", background: "#F9FAFE"}}>
+        <Header />
+        <Statistic />
+      </div>
+    </div>
   );
 }
 
