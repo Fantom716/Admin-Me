@@ -4,10 +4,10 @@ import styles from './informationCard.module.css'
 function InformationCard(props) {
     return(
         <div className={styles.infoCardWrapper}>
-            <p className={styles.infoCardTitle}>{props.titleCard}</p>
+            <p className={styles.infoCardTitle}>Менеджеры</p>
             <div className={styles.infoCardContent}>
-                <p className={styles.infoCardName}>{props.name}</p>
-                <a href={props.mail} className={styles.infoCardSub}>{props.mail}</a>
+                <p className={styles.infoCardName}>Тест</p>
+                <a href={`mailto: ${props.mail}`} className={styles.infoCardSub}>test@gegyf.com</a>
             </div>
         </div>
     )

@@ -6,7 +6,7 @@ import styles from "../../../src/components/nav/navigation.module.css";
 const linksNav = [
     {
         href: "/",
-        icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+        icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none">
             <path d="M8.95837 22.861C8.95837 20.4283 8.95837 19.212 9.45012 18.1428C9.94186 17.0737 10.8654 16.2821 12.7124 14.699L14.504 13.1632C17.8425 10.3017 19.5117 8.87096 21.5 8.87096C23.4884 8.87096 25.1576 10.3017 28.496 13.1632L30.2877 14.699C32.1347 16.2821 33.0582 17.0737 33.55 18.1428C34.0417 19.212 34.0417 20.4283 34.0417 22.861V30.4583C34.0417 33.8367 34.0417 35.5259 32.9922 36.5755C31.9426 37.625 30.2534 37.625 26.875 37.625H16.125C12.7466 37.625 11.0574 37.625 10.0079 36.5755C8.95837 35.5259 8.95837 33.8367 8.95837 30.4583V22.861Z" stroke="#222222" />
             <path d="M25.9792 37.625V27.875C25.9792 27.3227 25.5315 26.875 24.9792 26.875H18.0209C17.4686 26.875 17.0209 27.3227 17.0209 27.875V37.625" stroke="#222222" stroke-linecap="round" stroke-linejoin="round" />
         </svg>,
@@ -14,7 +14,7 @@ const linksNav = [
     },
     {
         href: "/",
-        icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+        icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none">
             <path d="M35.3449 36.6344C34.5283 34.3486 32.7288 32.3287 30.2255 30.8881C27.7223 29.4475 24.6552 28.6667 21.5 28.6667C18.3447 28.6667 15.2776 29.4475 12.7744 30.8881C10.2711 32.3287 8.47166 34.3486 7.65502 36.6344" stroke="#222222" stroke-linecap="round" />
             <circle cx="21.5" cy="14.3333" r="7.16667" stroke="#222222" stroke-linecap="round" />
         </svg>,
@@ -22,7 +22,18 @@ const linksNav = [
     },
     {
         href: "/",
-        icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+        icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none">
+            <path d="M6.27087 8.0625H10.2044C10.9001 8.0625 11.2479 8.0625 11.5098 8.25126C11.7717 8.44002 11.8817 8.77003 12.1017 9.43004L13.4375 13.4375" stroke="#222222" stroke-linecap="round" />
+            <path d="M31.3542 31.3542H14.4207C13.1545 31.3542 12.5214 31.3542 12.2221 30.9389C11.9227 30.5236 12.1233 29.9218 12.5246 28.7181V28.7181C12.9654 27.3955 13.1859 26.7342 13.7096 26.3567C14.2334 25.9792 14.9291 25.9792 16.3206 25.9792H25.9792" stroke="#222222" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M27.2412 25.9792H17.8667C16.5875 25.9792 15.9479 25.9792 15.4469 25.6488C14.946 25.3185 14.694 24.7306 14.1901 23.5548L11.6463 17.6193C10.8368 15.7304 10.4321 14.786 10.8767 14.1118C11.3213 13.4375 12.3488 13.4375 14.4037 13.4375H31.5596C33.8586 13.4375 35.0082 13.4375 35.4417 14.1846C35.8753 14.9317 35.305 15.9298 34.1643 17.9259L30.7141 23.9637C30.1522 24.9471 29.8712 25.4388 29.4057 25.709C28.9401 25.9792 28.3738 25.9792 27.2412 25.9792Z" stroke="#222222" stroke-linecap="round" />
+            <circle cx="30.4583" cy="35.8334" r="1.79167" fill="#222222" />
+            <circle cx="16.125" cy="35.8334" r="1.79167" fill="#222222" />
+        </svg>,
+        title: "Заказы"
+    },
+    {
+        href: "/",
+        icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none">
             <path d="M18.8125 27.7708L17.0209 21.5" stroke="#222222" stroke-linecap="round" />
             <path d="M15.2292 11.6458L11.6459 17.0208M27.7709 11.6458L31.3542 17.0208" stroke="#222222" stroke-linecap="round" />
             <path d="M24.1875 27.7708L25.9792 21.5" stroke="#222222" stroke-linecap="round" />
@@ -33,7 +44,7 @@ const linksNav = [
     },
     {
         href: "/",
-        icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+        icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none">
             <circle cx="21.5" cy="14.3333" r="4.875" stroke="#222222" stroke-linecap="round" />
             <path d="M24.3247 11.4479C24.7182 10.7663 25.305 10.2168 26.0109 9.86869C26.7167 9.52061 27.5099 9.38965 28.2902 9.49237C29.0705 9.5951 29.8027 9.92689 30.3944 10.4458C30.9861 10.9647 31.4107 11.6474 31.6144 12.4076C31.8181 13.1678 31.7918 13.9713 31.5388 14.7166C31.2858 15.4618 30.8175 16.1153 30.1932 16.5944C29.5688 17.0735 28.8164 17.3567 28.031 17.4081C27.2457 17.4596 26.4628 17.2771 25.7812 16.8836" stroke="#222222" />
             <path d="M18.6753 11.4479C18.2818 10.7663 17.695 10.2168 16.9891 9.86869C16.2833 9.52061 15.4901 9.38965 14.7098 9.49237C13.9295 9.5951 13.1973 9.92689 12.6056 10.4458C12.0139 10.9647 11.5893 11.6474 11.3856 12.4076C11.1819 13.1678 11.2082 13.9713 11.4612 14.7166C11.7142 15.4618 12.1825 16.1153 12.8068 16.5944C13.4312 17.0735 14.1836 17.3567 14.969 17.4081C15.7543 17.4596 16.5372 17.2771 17.2188 16.8836" stroke="#222222" />
@@ -45,6 +56,9 @@ const linksNav = [
     }
 ]
 
+const arrowLinks = <svg width="24" height="25" viewBox="0 0 24 25" fill="none"><path d="M18 9.5L12 15.5L6 9.5" stroke="#222222" /></svg>
+
+
 /* Output links */
 
 function Navigation(props) {
@@ -52,7 +66,7 @@ function Navigation(props) {
         <nav>
             <div className={styles.nav__header}>
                 <p className="nav__title">Admin</p>
-                <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="49" height="49" viewBox="0 0 49 49" fill="none">
                     <path d="M10.2084 14.2917H38.7917" stroke="#222222" stroke-linecap="round" />
                     <path d="M10.2084 24.5H30.625" stroke="#222222" stroke-linecap="round" />
                     <path d="M10.2084 34.7083H22.4584" stroke="#222222" stroke-linecap="round" />
@@ -60,11 +74,11 @@ function Navigation(props) {
             </div>
             <div className="nav__main">
                 <ul className="nav__list">
-                    {linksNav.map((item, idx) => <li key={idx} className={styles.navItem}><a href={item.href}>{item.icon}{item.title}</a></li>)}
+                    {linksNav.map((item, idx) => <li key={idx} className={styles.navItem}><a href={item.href}>{item.icon}{item.title}{arrowLinks}</a></li>)}
                 </ul>
             </div>
             <div className={styles.nav__footer}>
-                <p className={styles.nav__username}>{props.name}</p>
+                <p className={styles.navUsername}>{props.name}</p>
                 <img src="/navigation/image/Avatar.png" alt="" />
             </div>
         </nav>

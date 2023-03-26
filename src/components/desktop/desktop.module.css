@@ -1,0 +1,24 @@
+.workDesktop {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+}
+
+.statsticArea{
+    display: flex;
+    gap: 63px;
+}
+.statsticArea {
+    margin-bottom: 39px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 65%;
+    gap: 30px;
+}
+
+.info {
+    width: 30%;
+}
