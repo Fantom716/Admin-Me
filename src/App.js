@@ -7,7 +7,7 @@ function App(props) {
   return (
     <div style={{display: "flex", height: "100vh", width: "100vw"}}>
       <Navigation name="Alexander" />
-      <div className='mainContent' style={{padding: "32px", width: "100vw", background: "#F9FAFE", overflow: "scroll"}}>
+      <div className='mainContent' style={{padding: "32px", width: "100vw", background: "#F9FAFE", overflow: "auto"}}>
         <Header />
         <Desktop />
       </div>
