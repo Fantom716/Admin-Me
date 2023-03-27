@@ -40,7 +40,6 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    /* gap: 30px; */
 }
 
 .navItem {
@@ -92,7 +91,7 @@ a {
 }
 
 .iconSectionDisable {
-    margin-bottom: 60%;
+    margin-bottom: 100%;
 }
 
 img {
