@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../../../src/components/nav/navigation.module.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 /* Info about links */
 
@@ -14,7 +15,7 @@ const linksNav = [
         title: "Главная"
     },
     {
-        href: "/",
+        href: "/clients",
         icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none">
             <path d="M35.3449 36.6344C34.5283 34.3486 32.7288 32.3287 30.2255 30.8881C27.7223 29.4475 24.6552 28.6667 21.5 28.6667C18.3447 28.6667 15.2776 29.4475 12.7744 30.8881C10.2711 32.3287 8.47166 34.3486 7.65502 36.6344" stroke="#222222" strokeLinecap="round" />
             <circle cx="21.5" cy="14.3333" r="7.16667" stroke="#222222" strokeLinecap="round" />
@@ -22,7 +23,7 @@ const linksNav = [
         title: "Клиенты",
     },
     {
-        href: "/",
+        href: "/orders",
         icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none">
             <path d="M6.27087 8.0625H10.2044C10.9001 8.0625 11.2479 8.0625 11.5098 8.25126C11.7717 8.44002 11.8817 8.77003 12.1017 9.43004L13.4375 13.4375" stroke="#222222" strokeLinecap="round" />
             <path d="M31.3542 31.3542H14.4207C13.1545 31.3542 12.5214 31.3542 12.2221 30.9389C11.9227 30.5236 12.1233 29.9218 12.5246 28.7181V28.7181C12.9654 27.3955 13.1859 26.7342 13.7096 26.3567C14.2334 25.9792 14.9291 25.9792 16.3206 25.9792H25.9792" stroke="#222222" strokeLinecap="round" strokeLinejoin="round" />
@@ -33,7 +34,7 @@ const linksNav = [
         title: "Заказы"
     },
     {
-        href: "/",
+        href: "/sells",
         icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none">
             <path d="M18.8125 27.7708L17.0209 21.5" stroke="#222222" strokeLinecap="round" />
             <path d="M15.2292 11.6458L11.6459 17.0208M27.7709 11.6458L31.3542 17.0208" stroke="#222222" strokeLinecap="round" />
@@ -44,7 +45,7 @@ const linksNav = [
         title: "Продажи",
     },
     {
-        href: "/",
+        href: "/partners",
         icon: <svg width="43" height="43" viewBox="0 0 43 43" fill="none">
             <circle cx="21.5" cy="14.3333" r="4.875" stroke="#222222" strokeLinecap="round" />
             <path d="M24.3247 11.4479C24.7182 10.7663 25.305 10.2168 26.0109 9.86869C26.7167 9.52061 27.5099 9.38965 28.2902 9.49237C29.0705 9.5951 29.8027 9.92689 30.3944 10.4458C30.9861 10.9647 31.4107 11.6474 31.6144 12.4076C31.8181 13.1678 31.7918 13.9713 31.5388 14.7166C31.2858 15.4618 30.8175 16.1153 30.1932 16.5944C29.5688 17.0735 28.8164 17.3567 28.031 17.4081C27.2457 17.4596 26.4628 17.2771 25.7812 16.8836" stroke="#222222" />
@@ -84,7 +85,8 @@ function Navigation(props) {
             </div>
             <div className="nav__main">
                 <ul className="nav__list">
-                    {linksNav.map((item, idx) => <li key={idx} className={styles.navItem}>
+                    {linksNav.map((item, idx) =>
+                    <li key={idx} className={styles.navItem}>
                         <a href={item.href}>
                             <div className={isActive ? styles.iconSectionActive : styles.iconSectionDisable}>{item.icon}</div>
                             <p className={isActive ? styles.navTitleActive : styles.navTitleDisable}>{item.title}</p>
@@ -94,7 +96,7 @@ function Navigation(props) {
                 </ul>
             </div>
             <div className={styles.nav__footer}>
-                <p className={isActive ? styles.navUsernameActive : styles.navUsernameDisable}>{props.name}</p>
+                <p className={isActive ? styles.navUsernameActive : styles.navUsernameDisable}>Alexander</p>
                 <img src="/navigation/image/Avatar.png" alt="User avatar" />
             </div>
         </nav>

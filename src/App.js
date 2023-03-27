@@ -1,17 +1,22 @@
 import './App.css';
-import Navigation from './components/nav/navigation.jsx'
-import Header from './components/header/assemblyHeader/ready header';
-import Desktop from './components/desktop/desktop';
+import React from 'react';
+import Home from './pages/home';
+import { Routes, Route, Link, NavLink, BrowserRouter } from 'react-router-dom';
+import Clients from './pages/clients';
+import Navigation from './components/nav/navigation';
+import Orders from './pages/orders';
+import Sells from './pages/sells';
+import Partners from './pages/partners';
 
 function App(props) {
   return (
-    <div style={{display: "flex", height: "100vh", width: "100vw"}}>
-      <Navigation name="Alexander" />
-      <div className='mainContent' style={{padding: "32px", width: "100vw", background: "#F9FAFE", overflow: "auto"}}>
-        <Header />
-        <Desktop />
-      </div>
-    </div>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/clients' element={<Clients />}/>
+      <Route path='/orders' element={<Orders />}/>
+      <Route path='/sells' element={<Sells />}/>
+      <Route path='/partners' element={<Partners />}/>
+    </Routes>
   );
 }
 
