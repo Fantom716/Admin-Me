@@ -1,27 +1,36 @@
 .infoCardWrapper {
-  display: flex;
-  flex-direction: column;
-  padding: 30px 23px;
-  height: 100%;
-  width: 311px;
-  max-width: 26%;
-  font-family: 'Montserrat', sans-serif;
-  border-radius: 14px;
-  background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 23px;
+    height: 100%;
+    width: 311px;
+    max-width: 26%;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 14px;
+    background-color: #fff;
 }
 .infoCardTitle {
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0px;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .infoCardName {
     margin-bottom: 12px;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .infoCardSub {
     font-size: .8rem;
     color: #9A9A9A;
     justify-content: left;
-    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    display: inherit;
 }

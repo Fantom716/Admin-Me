@@ -24,6 +24,9 @@
     display: auto;
     font-family: 'Montserrat', sans-serif;
     font-size: 1.25rem;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 ul {

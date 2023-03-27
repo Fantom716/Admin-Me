@@ -44,6 +44,9 @@
 .footerSubtitle {
     color: #D6D6D6;
     margin-bottom: 9px;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .footerCount {
