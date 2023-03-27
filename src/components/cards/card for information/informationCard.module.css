@@ -1,14 +1,14 @@
 .infoCardWrapper {
-    display: flex;
-    flex-direction: column;
-    padding: 30px 23px;
-    max-height: 680px;
-    height: 100%;
-    width: 257px;
-    max-width: 109%;
-    font-family: 'Montserrat', sans-serif;
-    border-radius: 14px;
-    background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 23px;
+  max-height: 680px;
+  height: 100%;
+  width: 311px;
+  max-width: 25%;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 14px;
+  background-color: #fff;
 }
 .infoCardTitle {
     font-size: 1.5rem;
