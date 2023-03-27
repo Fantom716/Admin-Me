@@ -9,6 +9,8 @@
     background-color: #fff;
     align-items: center;
     word-wrap: anywhere;
+    border: 0px;
+    background-color: #fff;
 }
 
 .cardWrapper:hover {

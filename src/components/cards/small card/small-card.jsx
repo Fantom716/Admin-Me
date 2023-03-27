@@ -3,7 +3,7 @@ import styles from "./small-card.module.css";
 
 function SmallCard(props) {
     return (
-        <div className={styles.cardWrapper}>
+        <button className={styles.cardWrapper}>
             <div className={styles.iconCard}>
                 <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="50" height="50" rx="15" fill="#2F8447" />
@@ -12,7 +12,7 @@ function SmallCard(props) {
                 </svg>
             </div>
             <p className={styles.cardTitle}>Отчет</p>
-        </div>
+        </button>
     )
 }
 
