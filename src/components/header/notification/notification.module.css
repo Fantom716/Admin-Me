@@ -1,8 +1,16 @@
 .buttonNotification {
-    background-color: transparent;
+    background-color: #fff;
     border: transparent;
     max-width: 47px;
     max-height: 47px;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 14px;
+}
+
+.buttonNotification:hover {
+    background-color: #f9f9f9;
 }

@@ -72,6 +72,7 @@ a {
 .buttonNav {
     background-color: transparent;
     border: 0px;
+    border-radius: 14px;
 }
 
 .buttonNav:hover {
