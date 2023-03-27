@@ -21,6 +21,20 @@ function Desktop() {
                     <SmallCard />
                     <SmallCard />
                     <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
+                    <SmallCard />
                 </div>
                 <InformationCard mail="test@gmail.com" />
             </div>
