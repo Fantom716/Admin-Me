@@ -3,8 +3,11 @@ import Navigation from "../components/nav/navigation";
 
 function Partners() {
     return(
-        <div style={{display: 'flex'}}>
+        <div style={{display: "flex"}}>
             <Navigation/>
+            <div className='' style={{width: "100vw"}}>
+                <p>Partners</p>
+            </div>
         </div>
     )
 }

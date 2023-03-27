@@ -36,15 +36,12 @@ ul {
     padding: 0;
 }
 
-a {
+.navItem {
+    margin-bottom: 30%;
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: space-around;
-}
-
-.navItem {
-    margin-bottom: 30%;
 }
 
 .navItemDisable {
@@ -92,9 +89,42 @@ a {
 }
 
 .iconSectionDisable {
+    display: block;
     margin-bottom: 100%;
+}
+
+.iconSectionActive {
+    display: auto;
 }
 
 img {
     width: 60px;
+}
+
+.navLinkActive {
+  text-decoration: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+}
+
+.navLinkDisable {
+    display: block;
+}
+
+.navTitleActive {
+    display: auto;
+}
+
+.navTitleDisable {
+    display: none;
+}
+
+.linkTitleActive {
+    display: inline;
+}
+
+.linkTitleDisable {
+    display: none;
 }
