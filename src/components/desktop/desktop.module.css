@@ -5,11 +5,12 @@
     gap: 3%;
 }
 
-.statsticArea{
+.statsticArea {
     display: flex;
     gap: 63px;
     justify-content: space-between;
 }
+
 .statsticArea {
     margin-bottom: 39px;
 }

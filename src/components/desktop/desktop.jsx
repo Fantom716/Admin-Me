@@ -5,7 +5,7 @@ import SmallCard from "../cards/small card/small-card";
 import InformationCard from "../cards/card for information/informationCard";
 
 function Desktop() {
-    return(
+    return (
         <div className={styles.wrapperDesktop}>
             <div className={styles.statsticArea}>
                 <BigCard />

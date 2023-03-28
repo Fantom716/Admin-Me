@@ -3,11 +3,11 @@ import Navigation from "../components/nav/navigation";
 import Header from "../components/header/assemblyHeader/ready header";
 
 function Clients(props) {
-    return(
-        <div style={{display: "flex"}}>
-            <Navigation/>
-            <div className='' style={{width: "100vw"}}>
-                <Header/>
+    return (
+        <div style={{ display: "flex" }}>
+            <Navigation />
+            <div className='mainContent' style={{ padding: "32px", width: "100vw", background: "#F9FAFE", overflow: "auto" }}>
+                <Header />
             </div>
         </div>
     )

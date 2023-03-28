@@ -5,9 +5,9 @@ import style from './ready header.module.css'
 import FormSearch from "../search form/form";
 
 function Header(props) {
-    return(
+    return (
         <header>
-            <Greeting name={props.name}/>
+            <Greeting name={props.name} />
             <FormSearch />
             <Notification />
         </header>

@@ -2,7 +2,7 @@ import React from "react";
 import styles from './informationCard.module.css'
 
 function InformationCard(props) {
-    return(
+    return (
         <div className={styles.infoCardWrapper}>
             <p className={styles.infoCardTitle}>Менеджеры</p>
             <div className={styles.infoCardContent}>

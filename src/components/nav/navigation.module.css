@@ -21,7 +21,9 @@
     height: 93vh;
 }
 
-.navHeader, .navItem, .navUsernameActive {
+.navHeader,
+.navItem,
+.navUsernameActive {
     display: auto;
     font-family: 'Montserrat', sans-serif;
     font-size: 1.25rem;
@@ -84,7 +86,8 @@ ul {
     display: inline;
 }
 
-.iconActive, .navUsernameDisable  {
+.iconActive,
+.navUsernameDisable {
     display: none;
 }
 

@@ -6,7 +6,7 @@
     width: 42%;
 }
 
-.greetingText{
+.greetingText {
     font-size: 1.5rem;
     text-overflow: ellipsis;
     width: 100%;
@@ -15,7 +15,7 @@
     max-width: 100%;
 }
 
-.greetingBig{
+.greetingBig {
     font-size: 2rem;
     font-weight: 900;
 }
