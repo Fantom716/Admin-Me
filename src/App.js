@@ -8,7 +8,7 @@ import Orders from './pages/orders';
 import Sells from './pages/sells';
 import Partners from './pages/partners';
 
-function App(props) {
+function App() {
   return (
     <Routes>
       <Route path='/' element={<Home />} />

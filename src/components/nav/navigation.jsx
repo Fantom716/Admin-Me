@@ -58,7 +58,6 @@ const linksNav = [
     }
 ]
 
-const arrowLinks = <svg width="24" height="25" viewBox="0 0 24 25" fill="none"><path d="M18 9.5L12 15.5L6 9.5" stroke="#222222" /></svg>
 const hideMenu = <svg width="49" height="49" viewBox="0 0 49 49" fill="none"><path d="M10.2084 14.2917H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 24.5H30.625" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 34.7083H22.4584" stroke="#222222" stroke-linecap="round" /></svg>
 const showMenu = <svg width="49" height="49" viewBox="0 0 49 49" fill="none"><path d="M10.2084 14.2917H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 24.5H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 34.7083H38.7917" stroke="#222222" stroke-linecap="round" /></svg>
 
@@ -66,7 +65,7 @@ const showMenu = <svg width="49" height="49" viewBox="0 0 49 49" fill="none"><pa
 
 /* Output links */
 
-function Navigation(props) {
+function Navigation() {
 
     const [isActive, setActive] = useState("false");
 
@@ -90,7 +89,6 @@ function Navigation(props) {
                             <NavLink className={isActive ? styles.navLinkActive : styles.navLinkDisable} to={item.href}>
                                 <div className={isActive ? styles.iconSectionActive : styles.iconSectionDisable}>{item.icon}</div>
                                 <p className={isActive ? styles.linkTitleActive : styles.linkTitleDisable}>{item.title}</p>
-                                <svg className={isActive ? styles.iconDisable : styles.iconActive} width="24" height="25" viewBox="0 0 24 25" fill="none"><path d="M18 9.5L12 15.5L6 9.5" stroke="#222222" /></svg>
                             </NavLink>
                         </li>)}
                 </ul>

@@ -4,10 +4,10 @@ import Notification from "../notification/notification";
 import style from './ready header.module.css'
 import FormSearch from "../search form/form";
 
-function Header() {
+function Header(props) {
     return(
         <header>
-            <Greeting />
+            <Greeting name={props.name}/>
             <FormSearch />
             <Notification />
         </header>
