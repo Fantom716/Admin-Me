@@ -1,6 +1,5 @@
 import React from "react";
 import Navigation from "../components/nav/navigation";
-import Desktop from "../components/desktop/desktop";
 import Header from "../components/header/assemblyHeader/ready header";
 
 function Orders(props) {

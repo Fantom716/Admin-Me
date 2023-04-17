@@ -1,9 +1,8 @@
 import './App.css';
 import React from 'react';
 import Home from './pages/home';
-import { Routes, Route, Link, NavLink, BrowserRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Clients from './pages/clients';
-import Navigation from './components/nav/navigation';
 import Orders from './pages/orders';
 import Sells from './pages/sells';
 import Partners from './pages/partners';

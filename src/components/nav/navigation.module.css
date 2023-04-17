@@ -70,6 +70,16 @@ ul {
     justify-content: space-between;
     align-items: center;
     gap: 9px;
+    position: relative;
+    width: 100%;
+    border: 0px;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.nav__footer:hover {
+    background-color: #E7D1FF;
 }
 
 .buttonNav {

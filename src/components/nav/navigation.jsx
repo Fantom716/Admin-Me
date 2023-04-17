@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../../../src/components/nav/navigation.module.css";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import NotificationAccount from "../notifications/account/account";
 
 /* Info about links */
 
@@ -65,13 +66,18 @@ const showMenu = <svg width="49" height="49" viewBox="0 0 49 49" fill="none"><pa
 
 /* Output links */
 
+
 function Navigation() {
 
     const [isActive, setActive] = useState("false");
+    const [menuActive, setMenu] = useState("false");
 
     function Change() {
         setActive(!isActive);
-        console.log('click')
+    }
+
+    function openMenu() {
+        setMenu(!menuActive);
     }
 
     return (
@@ -93,10 +99,11 @@ function Navigation() {
                         </li>)}
                 </ul>
             </div>
-            <div className={styles.nav__footer}>
+            <button className={styles.nav__footer} onClick={openMenu}>
                 <p className={isActive ? styles.navUsernameActive : styles.navUsernameDisable}>Alexander</p>
+                <NotificationAccount openMenu={menuActive} name={isActive}/>
                 <img src="/navigation/image/Avatar.png" alt="User avatar" />
-            </div>
+            </button>
         </nav>
     )
 }
