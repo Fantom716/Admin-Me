@@ -9,8 +9,10 @@
     justify-content: center;
     align-items: center;
     border-radius: 14px;
+    position: fixed;
+    right: 30px;
 }
 
 .buttonNotification:hover {
-    background-color: #f9f9f9;
+    background-color: #E7D1FF;
 }
