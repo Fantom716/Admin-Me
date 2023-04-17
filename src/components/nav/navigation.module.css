@@ -76,7 +76,10 @@ ul {
     border-radius: 8px;
     background-color: #fff;
     padding: 10px;
+<<<<<<< HEAD
     justify-content: center;
+=======
+>>>>>>> 7a2096205ae61c668e7d692da21d48c2996b464a
 }
 
 .nav__footer:hover {
