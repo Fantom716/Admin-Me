@@ -6,7 +6,7 @@ import styles from './ready header.module.css'
 
 function Header(props) {
     return (
-        <header>
+        <header style={window.location.pathname == "/" ? {marginBottom: "0px"} : {marginBottom: "54px"}}>
             <Greeting name={props.name} />
             <FormSearch />
             <Notification />

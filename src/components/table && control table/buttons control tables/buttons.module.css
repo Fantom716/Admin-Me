@@ -1,0 +1,36 @@
+.addElementTable,
+.editElementTable,
+.deleteElementTable {
+    font-family: inherit;
+    border: 0px;
+    border-radius: 8px;
+    padding: 10px 10%;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.addElementTable {
+    background-color: #5bff58;
+}
+
+.addElementTable:hover {
+    background-color: #04ff00;
+}
+
+.editElementTable {
+    background-color: #587DFF;
+    color: #fff;
+}
+
+.editElementTable:hover {
+    background-color: #3964ff;
+}
+
+.deleteElementTable {
+    background-color: #FF4040;
+    color: #fff;
+}
+
+.deleteElementTable:hover {
+    background-color: #ff1919;
+}
