@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./small-card.module.css";
+import styles from "./small-card-type.module.css";
 
-function SmallCard(props) {
+function SmallCardType(props) {
     return (
         <button className={styles.cardWrapper}>
             <div className={styles.iconCard}>
@@ -16,4 +16,4 @@ function SmallCard(props) {
     )
 }
 
-export default SmallCard;
+export default SmallCardType;
