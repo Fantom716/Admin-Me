@@ -1,0 +1,75 @@
+.formWrapper,
+.authorizationWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.formWrapper {
+    height: 50vh;
+}
+
+.formInput {
+    background-color: #ececec;
+    border: 1px #C7C7C7;
+}
+
+.formInput:not(:last-child) {
+    margin-bottom: 2%;
+}
+
+.select {
+    width: 102%;
+    height: 100%;
+    background: #ececec;
+    border: 0px;
+    border-radius: 8px;
+    padding-left: 20px;
+    padding-right: 10%;
+    margin-bottom: 2%;
+    font-size: 1.25rem;
+    font-family: 'Montserrat';
+    font-weight: 200;
+}
+
+.RegistrationForm {
+    margin: 1%;
+    width: 40%;
+}
+
+.AuthorizationForm {
+    margin: 1% 0 5% 0;
+    width: 40%;
+}
+
+.headerNameSystem {
+    font-size: 2rem;
+}
+
+.headerGreetingForm,
+.footerArticle,
+.headerNameSystem,
+.registerLink,
+.footerForm,
+.headerForm {
+    text-align: center;
+    text-decoration: none;
+}
+
+.mainButton {
+    background-color: #dab7ff;
+    border: 0px;
+    border-radius: 8px;
+    padding: 2% 10%;
+    color: #fff;
+    margin: 0 auto;
+    display: block;
+    margin: 10% auto;
+    font-size: 1.2rem;
+}
+
+.mainButton:hover {
+    background-color: #CFA2FF;
+}

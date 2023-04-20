@@ -9,7 +9,7 @@ function Wrapper(Inside) {
 
 function Greeting(props) {
 
-    if (window.location.pathname === "/") {
+    if (window.location.pathname === "/dashboard") {
         return (
             Wrapper(
                 <p className={styles.greetingText}>Привет {props.name}, <br />
