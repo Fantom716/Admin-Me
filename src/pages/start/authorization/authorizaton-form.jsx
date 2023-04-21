@@ -1,16 +1,40 @@
 import React from "react";
 import styles from "../mainStartStyles.module.css"
+import { useState } from "react";
 
 const authorizationPlaceholder = [
     {
+        name: "login",
+        type: "text",
         title: "Логин"
     },
     {
+        name: "password",
+        type: "password",
         title: "Пароль"
     }
 ]
 
 function Authorization() {
+
+    const [formValue, setFormValue] = useState({
+        login: "",
+        password: "",
+    })
+
+    function handleChange(event) {
+        const {name, value} = event.target;
+        setFormValue({
+            ...formValue,
+            [name]: value
+        })
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        console.log(formValue);
+    }
+
     return(
         <div className={styles.authorizationWrapper}>
             <div className={styles.headerForm}>
@@ -18,8 +42,9 @@ function Authorization() {
                 <p className={styles.headerNameSystem}>Admin</p>
             </div>
             <div className=""></div>
-            <form className={styles.AuthorizationForm}>
-                {authorizationPlaceholder.map(authorizationPlaceholder => <input className={styles.formInput} placeholder={authorizationPlaceholder.title} />)}
+            <form onSubmit={handleSubmit} className={styles.AuthorizationForm}>
+                {authorizationPlaceholder.map(authorizationPlaceholder =>
+                <input name={authorizationPlaceholder.name} onChange={handleChange} type={authorizationPlaceholder.type} className={styles.formInput} placeholder={authorizationPlaceholder.title} />)}
                 <button className={styles.mainButton} type="submit">Авторизоваться</button>
                 <div className={styles.footerForm}>
                     <p className={styles.footerArticle}>или</p>
