@@ -6,8 +6,15 @@ function InformationCard(props) {
         <div className={styles.infoCardWrapper}>
             <p className={styles.infoCardTitle}>Менеджеры</p>
             <div className={styles.infoCardContent}>
-                <p className={styles.infoCardName}>Тест</p>
-                <a href={`mailto: ${props.mail}`} className={styles.infoCardSub}>test@gegyf.com</a>
+                {props.data.map((item, key) => (
+                    key > 4 ?
+                    <div key={key} className={styles.aboutPeople}>
+                        <p className={styles.infoCardName}>{item.login}</p>
+                        <a className={styles.infoCardEmail} href={`mailto: + ${item.mail}`}>{item.email}</a>
+                    </div>
+                    :
+                    <></>
+                ))}
             </div>
         </div>
     )

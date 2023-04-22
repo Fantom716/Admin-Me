@@ -63,7 +63,7 @@ function Registration() {
     function handleSubmit() {
 
         axios
-            .get("http://localhost:5000/users")
+            .get("http://localhost:5001/users")
             .then(res => {
                 const logins = res.data;
                 let loginsBool = false;
@@ -71,6 +71,9 @@ function Registration() {
                     if (item.login === formValue.login) {
                         loginsBool = true;
                         changeError("Логин уже занят");
+                    }
+                    else if(item.email === formValue.email) {
+                        changeError("Почта уже занята");
                     }
                 });
                 if (!loginsBool) {
@@ -86,7 +89,7 @@ function Registration() {
                         changeError("Пароли не совпадают");
                     } else {
                         changeError("");
-                        axios.post("http://localhost:5000/form", formValue);
+                        axios.post("http://localhost:5001/form", formValue);
                     }
                 }
             })

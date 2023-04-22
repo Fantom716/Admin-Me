@@ -18,12 +18,25 @@
     overflow: hidden;
 }
 
-.infoCardName {
-    margin-bottom: 12px;
+.aboutPeople {
+    margin-bottom: 20px;
     max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+.infoCardName {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.infoCardEmail {
+   font-size: .8rem;
+   text-decoration: none;
+}
+
 
 .infoCardSub {
     font-size: .8rem;
