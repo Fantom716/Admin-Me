@@ -20,7 +20,7 @@ function Orders(props) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5004/orders")
+        axios.get("http://localhost:5002/orders")
             .then((response) => {
                 setData(response.data);
             })

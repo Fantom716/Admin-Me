@@ -6,12 +6,15 @@ import InformationCard from "../cards/card for information/informationCard";
 import SmallCardType from "../cards/small card/small-card-add";
 
 function Desktop(props) {
+
+    console.log(props.data);
+
     return (
         <div className={styles.wrapperDesktop}>
             <div className={styles.statsticArea}>
-                <BigCard />
-                <BigCard />
-                <BigCard />
+                {props.statistic.map((item) => {
+                    return ( <BigCard data={item} /> )
+                })}
             </div>
             <div className={styles.workDesktop}>
                 <div className={styles.cards}>

@@ -15,29 +15,49 @@ function Home(props) {
     },
   ]);
 
+  const [statistic, setStatistic] = useState([
+    {
+      name: "",
+      value: 0,
+    },
+    {
+      name: "",
+      value: 0,
+    },
+    {
+      name: "",
+      value: 0,
+    }
+  ])
+
+  console.log("1" + statistic[0].image);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/dashboard")
+      .get("http://localhost:5001/dashboard/managers")
       .then((response) => {
         setData(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
+      console.log("2" + statistic[0].image);
+    axios.get("http://localhost:5001/dashboard/statistic").then((response) => {
+      setStatistic(response.data);
+    })
   }, []);
 
-  const dataM = data.map((item) => console.log("OBJ:" + item.login));
-  const logins = data.map((item) => item.login);
-  const emails = data.map((item) => item.email);
+  data.map((item) => {
+    console.log(item)
+  })
 
 
-    return (
+  return (
     <div style={{ display: "flex", height: "100vh", width: "100vw" }}>
       <Navigation name="Alexander" />
       <div className='mainContent' style={{ padding: "32px", width: "100vw", background: "#F0F3FF", overflow: "auto" }}>
         <p>{props.text}</p>
         <Header name="Alexander" />
-        <Desktop data={data} />
+        <Desktop statistic={statistic} data={data} />
       </div>
     </div>
   )

@@ -1,7 +1,10 @@
 import React from "react";
 import styles from "./big-card.module.css"
 
-function BigCard() {
+function BigCard(props) {
+
+    console.log(props.data.val);
+
     return (
         <div className={styles.wrapperCard}>
             <div className={styles.headerCard}>
@@ -26,8 +29,8 @@ function BigCard() {
                 </div>
             </div>
             <div className="footer__card">
-                <p className={styles.footerSubtitle}>Количество продаж</p>
-                <p className={styles.footerCount}>4, 321</p>
+                <p className={styles.footerSubtitle}>{props.data.name}</p>
+                <p className={styles.footerCount}>{props.data.value}</p>
             </div>
         </div>
     )

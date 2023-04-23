@@ -21,7 +21,7 @@ function Clients(props) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5002/clients")
+        axios.get("http://localhost:5000/clients")
             .then((response) => {
                 setData(response.data);
             })

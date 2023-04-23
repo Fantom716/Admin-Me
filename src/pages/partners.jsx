@@ -18,7 +18,7 @@ function Partners() {
     const [partners, setPartners] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5006/partners")
+        axios.get("http://localhost:5003/partners")
             .then(res => {
                 setPartners(res.data);
             })

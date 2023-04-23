@@ -63,7 +63,7 @@ function Registration() {
     function handleSubmit() {
 
         axios
-            .get("http://localhost:5001/users")
+            .get("http://localhost:5006/users")
             .then(res => {
                 const logins = res.data;
                 let loginsBool = false;
@@ -89,7 +89,7 @@ function Registration() {
                         changeError("Пароли не совпадают");
                     } else {
                         changeError("");
-                        axios.post("http://localhost:5001/form", formValue);
+                        axios.post("http://localhost:5006/form", formValue);
                     }
                 }
             })

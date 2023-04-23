@@ -5,7 +5,7 @@ const moment = require("moment");
 const bp = require("body-parser");
 
 const app = express();
-const PORT = 5001;
+const PORT = 5006;
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
@@ -18,7 +18,7 @@ const conn = mysql.createConnection({
     host: "DESKTOP-ASKKTC8",
     user: "serverJS",
     database: "mydb",
-    password: "FANTOM65265126",
+    password: "jK7JgP5YbFyMRr",
     port: 3306,
 })
 
@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 })
 
 app.post("/form", (req, res) => {
-
+    console.log(req.body);
     let date = new Date().getDate() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds();
     date = moment().format('YYYY-MM-DD HH:mm:ss');
     console.log(date);
