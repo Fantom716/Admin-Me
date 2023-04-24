@@ -9,7 +9,7 @@ function InformationCard(props) {
             <p className={styles.infoCardTitle}>Менеджеры</p>
             <div className={styles.infoCardContent}>
                 {props.data.map((item, key) => (
-                    key < 7 ?
+                    key <= 9 ?
                     <div key={key} className={styles.aboutPeople}>
                         <p className={styles.infoCardName}>{item.login}</p>
                         <a className={styles.infoCardEmail} href={`mailto: + ${item.mail}`}>{item.email}</a>

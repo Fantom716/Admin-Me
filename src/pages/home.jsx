@@ -23,6 +23,7 @@ function Home(props) {
       currentValue: 0,
       lastValue: 0,
       percentageState: "",
+      error: "Данные не получены",
     },
   ])
 
@@ -35,14 +36,16 @@ function Home(props) {
       .catch((error) => {
         console.error(error);
       });
-    axios.get("http://localhost:5001/dashboard/statistic").then((response) => {
-      setStatistic(response.data);
-    })
+    axios.
+      get("http://localhost:5001/dashboard/statistic")
+      .then((response) => {
+        setStatistic(response.data);
+      })
+      .catch((error) => {
+        setStatistic([error]);
+        console.log(statistic);
+      })
   }, []);
-
-  statistic.map((item) => {
-    console.log(item.percentageState);
-  })
 
   return (
     <div style={{ display: "flex", height: "100vh", width: "100vw" }}>

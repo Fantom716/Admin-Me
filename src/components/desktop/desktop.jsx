@@ -10,20 +10,12 @@ function Desktop(props) {
         <div className={styles.wrapperDesktop}>
             <div className={styles.statsticArea}>
                 {props.statistic.map((item) => {
+                    console.log(item.error)
                     return ( <BigCard data={item} /> )
                 })}
             </div>
             <div className={styles.workDesktop}>
                 <div className={styles.cards}>
-                    <SmallCard />
-                    <SmallCard />
-                    <SmallCard />
-                    <SmallCard />
-                    <SmallCard />
-                    <SmallCard />
-                    <SmallCard />
-                    <SmallCard />
-                    <SmallCard />
                     <SmallCard />
                     <SmallCard />
                     <SmallCard />

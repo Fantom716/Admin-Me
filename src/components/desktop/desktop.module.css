@@ -21,6 +21,7 @@
     width: 100%;
     gap: 28px;
     flex-shrink: 1;
+    height: 20%;
 }
 
 .info {
