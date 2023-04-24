@@ -3,8 +3,6 @@ import styles from "./big-card.module.css"
 
 function BigCard(props) {
 
-    console.log(props.data.val);
-
     return (
         <div className={styles.wrapperCard}>
             <div className={styles.headerCard}>
@@ -20,17 +18,18 @@ function BigCard(props) {
                 </div>
                 <div className="header__statistic">
                     <div className={styles.headerPersentageWrapper}>
-                        <svg className={styles.headerArrow} width="16" height="22" viewBox="0 0 16 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        {/* <svg className={styles.headerArrow} width="16" height="22" viewBox="0 0 16 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.70711 0.292892C8.31658 -0.0976315 7.68342 -0.0976314 7.29289 0.292892L0.928932 6.65685C0.538407 7.04738 0.538407 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292892ZM9 22L9 1L7 1L7 22L9 22Z" fill="#00FF38" />
-                        </svg>
-                        <p className={styles.headerPersentageTitle}>23%</p>
+                        </svg> */}
+                        {+props.data.percentageState <= 0 ? <img className={styles.headerArrow} src="/card/icons/Arrow bottom.svg" alt="" /> : <img className={styles.headerArrow} src="/card/icons/Arrow up.svg" alt="" />  }
+                        <p style={+props.data.percentageState <= 0 ? {color: "#FF0000"} : {color: "#8bf705"}} className={styles.headerPersentageTitle}>{props.data.percentageState == "Infinity" ? 0 : props.data.percentageState + "%"}</p>
                     </div>
                     <p className={styles.headerTime}>За неделю</p>
                 </div>
             </div>
             <div className="footer__card">
                 <p className={styles.footerSubtitle}>{props.data.name}</p>
-                <p className={styles.footerCount}>{props.data.value}</p>
+                <p className={styles.footerCount}>{props.data.currentValue}</p>
             </div>
         </div>
     )

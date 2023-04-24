@@ -17,20 +17,15 @@ function Home(props) {
 
   const [statistic, setStatistic] = useState([
     {
+      nameTable: "",
+      fieldInDB: "",
       name: "",
-      value: 0,
+      currentValue: 0,
+      lastValue: 0,
+      percentageState: "",
     },
-    {
-      name: "",
-      value: 0,
-    },
-    {
-      name: "",
-      value: 0,
-    }
   ])
 
-  console.log("1" + statistic[0].image);
   useEffect(() => {
     axios
       .get("http://localhost:5001/dashboard/managers")
@@ -40,16 +35,14 @@ function Home(props) {
       .catch((error) => {
         console.error(error);
       });
-      console.log("2" + statistic[0].image);
     axios.get("http://localhost:5001/dashboard/statistic").then((response) => {
       setStatistic(response.data);
     })
   }, []);
 
-  data.map((item) => {
-    console.log(item)
+  statistic.map((item) => {
+    console.log(item.percentageState);
   })
-
 
   return (
     <div style={{ display: "flex", height: "100vh", width: "100vw" }}>

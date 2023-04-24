@@ -12,7 +12,7 @@ import Registration from './pages/start/reg/registration-form';
 function App() {
   return (
     <Routes>
-      <Route path='/authorization' element={<Authorization />} />
+      <Route path='/' element={<Authorization />} />
       <Route path='/registration' element={<Registration />} />
       <Route path='/dashboard' element={<Home />} />
       <Route path='/clients' element={<Clients />} />

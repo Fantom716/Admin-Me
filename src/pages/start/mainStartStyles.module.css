@@ -11,6 +11,10 @@
     height: 50vh;
 }
 
+.authorizationWrapper {
+    height: 80vh;
+}
+
 .formInput {
     background-color: #ececec;
     border: 1px #C7C7C7;

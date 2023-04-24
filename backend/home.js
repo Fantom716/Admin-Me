@@ -3,6 +3,8 @@ const mysql = require("mysql");
 const axios = require("axios");
 const bp = require("body-parser");
 const bodyParser = bp.json();
+const moments = require("moment");
+
 const app = express();
 const PORT = 5001;
 
@@ -26,36 +28,86 @@ app.get("/dashboard/managers", (req, res) => {
     })
 })
 
-app.get("/dashboard/statistic", (req, res) => {
-    const statistic = [
-        {
-            name: "Продажи",
-            value: "",
-        },
-        {
-            name: "Партнеры",
-            value: "",
-        },
-        {
-            name: "Клиенты",
-            value: "",
-        }
-    ]
-    conn.query("SELECT COUNT (*) FROM sells", (err, results) => {
-        if (err) console.log(err);
-        statistic[0]["value"] = results[0]['COUNT (*)'];
+const statistic = [
+    {
+        nameTable: "orders",
+        fieldInDB: "dateDeadline",
+        name: "Заказы",
+        currentValue: 0,
+        lastValue: 0,
+        percentageState: "",
+    },
+    {
+        nameTable: "sells",
+        fieldInDB: "dateSell",
+        name: "Продажи",
+        currentValue: 0,
+        lastValue: 0,
+        percentageState: "",
+    },
+    {
+        nameTable: "users",
+        fieldInDB: "regDate",
+        name: "Пользователи",
+        currentValue: 0,
+        lastValue: 0,
+        percentageState: 0,
+    }
+]
+
+const selectCount = (res) => {
+    let nowDate = new Date();
+    nowDate = moments(nowDate).format("YYYY-MM-DD HH:mm:ss");
+    console.log(nowDate);
+    let startCurrentWeek = moments(nowDate).subtract(7, "days").format("YYYY-MM-DD HH:mm:ss");
+    console.log(startCurrentWeek);
+    let startLastWeek = moments(nowDate).subtract(14, "days").format("YYYY-MM-DD HH:mm:ss");
+    console.log(startLastWeek)
+
+    const promises = statistic.map((item) => {
+      return new Promise((resolve, reject) => {
+        conn.query(`SELECT COUNT(*) as count FROM ${item.nameTable} WHERE ${item.fieldInDB} >= '${startCurrentWeek}' AND ${item.fieldInDB} <= '${nowDate}'`, (err, results) => {
+          if (err) {
+            reject(err);
+          } else {
+            item.currentValue = results[0].count;
+            resolve();
+          }
+        });
+      });
+    });
+
+    const promis = statistic.map((item) => {
+      return new Promise((resolve, reject) => {
+        conn.query(`SELECT COUNT(*) as count FROM ${item.nameTable} WHERE ${item.fieldInDB} >= '${startLastWeek}' AND ${item.fieldInDB} <= '${startCurrentWeek}'`, (err, results) => {
+          console.log("startLastWeek: " + startLastWeek)
+          console.log("startCurrentWeek: " + startCurrentWeek)
+          if (err) {
+            reject(err);
+          } else {
+            item.lastValue = results[0].count;
+            console.log(item.percentageSate);
+            item.percentageState = (((item.currentValue - item.lastValue) / item.lastValue) * 100).toFixed(2);
+            resolve();
+          }
+        });
+      });
+    });
+
+    Promise.all([...promis, ...promises])
+      .then(() => {
         console.log(statistic);
-    })
-    conn.query("SELECT COUNT (*) FROM partners", (err, results) => {
-        if (err) console.log(err);
-        statistic[1]["value"] = results[0]['COUNT (*)'];
-    })
-    conn.query("SELECT COUNT (*) FROM clients", (err, results) => {
-        if (err) console.log(err);
-        statistic[2]["value"] = results[0]['COUNT (*)'];
         res.send(statistic);
-    })
-})
+      })
+      .catch((err) => {
+        console.log(err);
+        res.send({ error: `Ошибка парсинга данных. Ошибка: ${err.message}` });
+      });
+  };
+
+  app.get("/dashboard/statistic", (req, res) => {
+    selectCount(res);
+  });
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);

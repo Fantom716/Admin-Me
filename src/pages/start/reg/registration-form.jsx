@@ -116,7 +116,7 @@ function Registration() {
                 <button className={styles.mainButton} type="submit" onClick={handleSubmit}>Зарегистрироваться</button>
                 <div className={styles.footerForm}>
                     <p className={styles.footerArticle}>или</p>
-                    <a className={styles.registerLink} href="/authorization">Хочу войти в аккаунт</a>
+                    <a className={styles.registerLink} href="/">Хочу войти в аккаунт</a>
                 </div>
             </form>
         </div>
