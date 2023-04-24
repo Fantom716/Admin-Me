@@ -35,7 +35,9 @@ const statistic = [
         name: "Заказы",
         currentValue: 0,
         lastValue: 0,
-        percentageState: "",
+        percentageState: 0,
+        image: "card/icons/small card add/hourglass.svg",
+        alt: "hourglass"
     },
     {
         nameTable: "sells",
@@ -43,7 +45,9 @@ const statistic = [
         name: "Продажи",
         currentValue: 0,
         lastValue: 0,
-        percentageState: "",
+        percentageState: 0,
+        image: "card/icons/small card add/basket.svg",
+        alt: "basket"
     },
     {
         nameTable: "users",
@@ -52,6 +56,8 @@ const statistic = [
         currentValue: 0,
         lastValue: 0,
         percentageState: 0,
+        image: "card/icons/small card add/user.svg",
+        alt: "users"
     }
 ]
 

@@ -8,7 +8,7 @@ import { useState } from "react";
 
 function Home(props) {
 
-  const [data, setData] = useState([
+  const [dataManagers, setDataManagers] = useState([
     {
       login: "",
       email: "",
@@ -23,7 +23,7 @@ function Home(props) {
       currentValue: 0,
       lastValue: 0,
       percentageState: "",
-      error: "Данные не получены",
+      image: "",
     },
   ])
 
@@ -31,10 +31,10 @@ function Home(props) {
     axios
       .get("http://localhost:5001/dashboard/managers")
       .then((response) => {
-        setData(response.data);
+        setDataManagers(response.data);
       })
       .catch((error) => {
-        console.error(error);
+        setDataManagers(dataManagers["error"] = [error]);
       });
     axios.
       get("http://localhost:5001/dashboard/statistic")
@@ -42,8 +42,8 @@ function Home(props) {
         setStatistic(response.data);
       })
       .catch((error) => {
-        setStatistic([error]);
-        console.log(statistic);
+        setStatistic(statistic["error"] = [error]);
+        console.log(statistic["error"]);
       })
   }, []);
 
@@ -53,7 +53,7 @@ function Home(props) {
       <div className='mainContent' style={{ padding: "32px", width: "100vw", background: "#F0F3FF", overflow: "auto" }}>
         <p>{props.text}</p>
         <Header name="Alexander" />
-        <Desktop statistic={statistic} data={data} />
+        <Desktop statistic={statistic} dataManagers={dataManagers} />
       </div>
     </div>
   )

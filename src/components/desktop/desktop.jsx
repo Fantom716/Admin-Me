@@ -6,11 +6,11 @@ import InformationCard from "../cards/card for information/informationCard";
 import SmallCardType from "../cards/small card/small-card-add";
 
 function Desktop(props) {
+
     return (
         <div className={styles.wrapperDesktop}>
             <div className={styles.statsticArea}>
                 {props.statistic.map((item) => {
-                    console.log(item.error)
                     return ( <BigCard data={item} /> )
                 })}
             </div>
@@ -21,7 +21,7 @@ function Desktop(props) {
                     <SmallCard />
                     <SmallCardType />
                 </div>
-                <InformationCard data={props.data} />
+                <InformationCard data={props.dataManagers} />
             </div>
         </div>
     )

@@ -41,6 +41,10 @@
     color: #D6D6D6;
 }
 
+.headerImage {
+    width: 100%;
+}
+
 .footerSubtitle {
     color: #D6D6D6;
     margin-bottom: 9px;

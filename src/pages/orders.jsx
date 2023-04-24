@@ -10,9 +10,10 @@ function Orders(props) {
 
     const nameColumn = {
         idSeller: "ID продажи",
+        client: "Покупатель",
         composition: "Состав",
         dateDeadline: "Дата сдачи",
-        customer: "Покупатель",
+        customer: "Продавец",
         quantity: "Количество",
         status: "Статус",
     }
