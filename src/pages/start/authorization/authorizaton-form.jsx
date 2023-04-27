@@ -1,68 +1,66 @@
-import React from "react";
-import styles from "../mainStartStyles.module.css"
-import { useState } from "react";
+import React, { useState } from "react";
+import styles from "../mainStartStyles.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const authorizationPlaceholder = [
-    {
-        name: "login",
-        type: "text",
-        title: "Логин"
-    },
-    {
-        name: "password",
-        type: "password",
-        title: "Пароль"
-    }
-]
+  {
+    name: "login",
+    type: "text",
+    title: "Логин",
+  },
+  {
+    name: "password",
+    type: "password",
+    title: "Пароль",
+  },
+];
 
 function Authorization() {
+  const navigate = useNavigate();
+  const [formValue, setFormValue] = useState({
+    login: "",
+    password: "",
+  });
 
-    const [formValue, setFormValue] = useState({
-        login: "",
-        password: "",
-    })
+  const [autho, setAutho] = useState({
+    authoBool: false,
+    login: false,
+    password: false,
+  });
 
-    const [autho, setAutho] = useState({
-        authoBool: false,
-        login: false,
-        password: false
+  function checkAutho(value) {
+    setAutho({
+      ...autho,
+      authoBool: value,
     });
+  }
 
-    function checkAutho(value) {
-        setAutho({
-          ...autho,
-          authoBool: value
-        });
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setFormValue({
+      ...formValue,
+      [name]: value,
+    });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    axios.get("http://localhost:5006/users").then((response) => {
+      const user = response.data.find(
+        (user) => user.login === formValue.login && user.password === formValue.password
+      );
+      if (user) {
+        navigate("/dashboard");
+        localStorage.setItem("user", user.login);
+      } else {
+        setFormValue({ login: "", password: "" });
+        setAutho({ authoBool: false, login: true, password: true });
       }
+    });
+  }
 
-    function handleChange(event) {
-        const {name, value} = event.target;
-        setFormValue({
-            ...formValue,
-            [name]: value
-        })
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        axios.get("http://localhost:5001/users").then(response => {
-          response.data.forEach(user => {
-            if (user.login === formValue.login && user.password === formValue.password) {
-              checkAutho(true);
-            } else {
-              checkAutho(false);
-            }
-          });
-        });
-      }
-
-
-    return(
+    return (
         <div className={styles.authorizationWrapper}>
             <div className={styles.headerForm}>
                 <p className={styles.headerGreetingForm}>Авторизация в информационной системе</p>
@@ -70,7 +68,7 @@ function Authorization() {
             </div>
             <form onSubmit={handleSubmit} className={styles.AuthorizationForm}>
                 {authorizationPlaceholder.map(authorizationPlaceholder =>
-                <input name={authorizationPlaceholder.name} onChange={handleChange} type={authorizationPlaceholder.type} className={styles.formInput} placeholder={authorizationPlaceholder.title} />)}
+                    <input name={authorizationPlaceholder.name} onChange={handleChange} type={authorizationPlaceholder.type} className={styles.formInput} placeholder={authorizationPlaceholder.title} />)}
                 <p className={styles.errorNotify}>{checkAutho}</p>
                 <button onClick={checkAutho} className={styles.mainButton} type="submit">Авторизоваться</button>
                 <div className={styles.footerForm}>

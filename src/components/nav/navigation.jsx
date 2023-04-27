@@ -105,9 +105,9 @@ function Navigation() {
                 </ul>
             </div>
             <button className={styles.nav__footer} onClick={openMenu}>
-                <p className={isActive ? styles.navUsernameActive : styles.navUsernameDisable}>Alexander</p>
+                <p className={isActive ? styles.navUsernameActive : styles.navUsernameDisable}>{localStorage.getItem("user")}</p>
                 <NotificationAccount openMenu={menuActive} name={isActive}/>
-                <img src="/navigation/image/Avatar.png" alt="User avatar" />
+                <img src="/navigation/image/Avatar.svg" alt="User avatar" />
             </button>
         </nav>
     )

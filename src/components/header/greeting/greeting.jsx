@@ -12,7 +12,7 @@ function Greeting(props) {
     if (window.location.pathname === "/dashboard") {
         return (
             Wrapper(
-                <p className={styles.greetingText}>Привет {props.name}, <br />
+                <p className={styles.greetingText}>Привет {localStorage.getItem("user")}, <br />
                     <span className={styles.greetingBig}>Добро пожаловать</span>
                 </p>
             )
@@ -37,7 +37,6 @@ function Greeting(props) {
         return (
             Wrapper(<p className={styles.greetingText}>Партнеры</p>)
         )
-
     } else {
         return (Wrapper
             (<p className={styles.greetingText}>Ошибка</p>)
