@@ -16,7 +16,8 @@ function TableFromDB(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.data.map((item) => {
+                    {props.data["name"] === "AxiosError" ? <></> :
+                    props.data.map((item) => {
                         return <tr>
                             {Object.values(item).map((item) => {
                                 return <td>{item}</td>
@@ -25,6 +26,7 @@ function TableFromDB(props) {
                     })}
                 </tbody>
             </table>
+            {props.data["name"] === "AxiosError" ? <p style={{color: "red", textAlign: "center"}}>Ошибка получения данных</p> : <></>}
         </div>
     )
 }

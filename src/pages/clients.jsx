@@ -26,9 +26,11 @@ function Clients(props) {
                 setData(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                setData(error);
             })
     }, []);
+
+    console.log(data)
 
     return (
         <div style={{ display: "flex", height: "100vh"}}>

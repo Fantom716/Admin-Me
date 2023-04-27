@@ -28,7 +28,7 @@ function Orders(props) {
                 setData(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                setData(error);
             })
     }, [])
 

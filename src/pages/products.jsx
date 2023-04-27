@@ -17,22 +17,22 @@ function Products() {
         count: "Количество",
         nameCompany: "Разработчик",
         countSell: "Количество продаж",
-        dateOfSell: "Дата поступления в продажу",
+        dateOfSell: "Дата поступления",
     }
 
-    const [partners, setPartners] = useState([]);
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         axios.get("http://localhost:5000/products")
             .then(res => {
-                setPartners(res.data);
+                setProducts(res.data);
             })
             .catch(err => {
-                console.log(err);
+                setProducts(err);
             })
     }, [])
 
-    console.log(partners)
+    console.log(products)
 
     return (
         <div style={{ display: "flex", height: "100vh"}}>
@@ -40,7 +40,7 @@ function Products() {
             <div className='mainContent' style={{ padding: "32px", width: "100vw", background: "#F0F3FF", overflow: "auto" }}>
                 <Header />
                 <PanelControlTable />
-                <TableFromDB data={partners} nameColumns={nameColumns} />
+                <TableFromDB data={products} nameColumns={nameColumns} />
             </div>
         </div>
     )

@@ -25,7 +25,7 @@ function Sells() {
                 setSells(res.data);
             })
             .catch(err => {
-                console.log(err);
+                setSells(err);
             })
     }, [])
 

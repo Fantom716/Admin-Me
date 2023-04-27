@@ -7,7 +7,7 @@ tr, td, table, thead, th {
 }
 
 .tableWrapper {
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 thead {

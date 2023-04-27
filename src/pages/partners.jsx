@@ -29,7 +29,7 @@ function Partners() {
                 setPartners(res.data);
             })
             .catch(err => {
-                console.log(err);
+                setPartners(err);
             })
     }, [])
 
