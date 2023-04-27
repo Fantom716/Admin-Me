@@ -2,9 +2,6 @@ import React from "react";
 import style from "./table.module.css"
 
 function TableFromDB(props) {
-
-    console.log(props.nameColumns)
-
     return (
         <div className={style.tableWrapper}>
             <table className={style.mainTable}>

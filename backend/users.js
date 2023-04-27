@@ -46,7 +46,7 @@ app.post("/form", (req, res) => {
 })
 
 app.get("/users", (req, res) => {
-    conn.query("SELECT login, password, email FROM users", (err, results) => {
+    conn.query("SELECT idUser, login, password, email FROM users", (err, results) => {
         if (err) console.log(err);
         res.send(results);
     })
