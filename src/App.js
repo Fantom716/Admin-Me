@@ -8,6 +8,7 @@ import Sells from './pages/sells';
 import Partners from './pages/partners';
 import Authorization from './pages/start/authorization/authorizaton-form';
 import Registration from './pages/start/reg/registration-form';
+import Products from './pages/products';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path='/orders' element={<Orders />} />
       <Route path='/sells' element={<Sells />} />
       <Route path='/partners' element={<Partners />} />
+      <Route path='/products' element={<Products />} />
     </Routes>
   );
 }

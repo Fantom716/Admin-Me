@@ -9,12 +9,12 @@ import TableFromDB from "../components/table && control table/table/table";
 function Sells() {
 
     const nameColumns = {
-        idSeller: "Продавец",
-        idClient: "Клиент",
+        idSell: "ID продажи",
+        idOrder: "ID заказа",
+        seller: "Продавец",
+        price: "Цена (руб.)",
+        countSell: "Количество (шт.)",
         dateSell: "Дата продажи",
-        customer: "Клиент",
-        price: "Цена",
-        count: "Количество",
     }
 
     const [sells, setSells] = useState([]);

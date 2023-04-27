@@ -55,11 +55,13 @@ const statistic = [
         name: "Пользователи",
         currentValue: 0,
         lastValue: 0,
-        percentageState: 0,
+        percentageState: +0,
         image: "card/icons/small card add/user.svg",
         alt: "users"
     }
 ]
+
+console.log(statistic);
 
 const selectCount = (res) => {
     let nowDate = new Date();
@@ -86,14 +88,12 @@ const selectCount = (res) => {
     const promis = statistic.map((item) => {
       return new Promise((resolve, reject) => {
         conn.query(`SELECT COUNT(*) as count FROM ${item.nameTable} WHERE ${item.fieldInDB} >= '${startLastWeek}' AND ${item.fieldInDB} <= '${startCurrentWeek}'`, (err, results) => {
-          console.log("startLastWeek: " + startLastWeek)
-          console.log("startCurrentWeek: " + startCurrentWeek)
           if (err) {
             reject(err);
           } else {
             item.lastValue = results[0].count;
-            console.log(item.percentageSate);
             item.percentageState = (((item.currentValue - item.lastValue) / item.lastValue) * 100).toFixed(2);
+            console.log(item.percentageSate);
             resolve();
           }
         });

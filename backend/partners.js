@@ -1,5 +1,6 @@
 const express = require("express");
 const mysql = require("mysql");
+const formattingData = require("../backend/utils/date.js");
 
 const app = express();
 const PORT = 5003;
@@ -13,9 +14,8 @@ const conn = mysql.createConnection({
 })
 
 app.get("/partners", (req, res) => {
-    conn.query("SELECT * FROM partners", (err, result) => {
-        if (err) console.log(err);
-        res.send(result);
+    formattingData.getData("SELECT * FROM partners", "dateConclusionContract").then((data) => {
+        res.send(data);
     })
 })
 

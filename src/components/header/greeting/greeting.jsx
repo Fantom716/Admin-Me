@@ -29,10 +29,15 @@ function Greeting(props) {
         return (
             Wrapper(<p className={styles.greetingText}>Продажи</p>)
         )
+    } else if (window.location.pathname === "/products") {
+        return (
+            Wrapper(<p className={styles.greetingText}>Продукты</p>)
+        )
     } else if (window.location.pathname === "/partners") {
         return (
             Wrapper(<p className={styles.greetingText}>Партнеры</p>)
         )
+
     } else {
         return (Wrapper
             (<p className={styles.greetingText}>Ошибка</p>)

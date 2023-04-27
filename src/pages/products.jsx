@@ -6,25 +6,24 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import TableFromDB from "../components/table && control table/table/table";
 
-function Partners() {
+function Products() {
 
     const nameColumns = {
-        idPartner: "ID партнера",
-        nameCompany: "Название компании",
-        type: "Тип партнера",
-        phoneNumber: "Номер телефона",
-        address: "Адрес",
-        dateConclusionContract: "Дата заключения договора",
-        email: "Электронная почта",
-        nameDelegate: "Имя",
-        surnameDelegate: "Фамилия",
-        patronimycDelegate: "Отчество",
+        idProduct: "ID продукта",
+        nameProduct: "Название продукта",
+        descriprionProduct: "Описание продукта",
+        categoryProduct: "Категория продукта",
+        price: "Цена (руб.)",
+        count: "Количество",
+        nameCompany: "Разработчик",
+        countSell: "Количество продаж",
+        dateOfSell: "Дата поступления в продажу",
     }
 
     const [partners, setPartners] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/partners")
+        axios.get("http://localhost:5000/products")
             .then(res => {
                 setPartners(res.data);
             })
@@ -47,4 +46,4 @@ function Partners() {
     )
 }
 
-export default Partners;
+export default Products;

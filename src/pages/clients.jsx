@@ -10,8 +10,8 @@ function Clients(props) {
 
     const nameColumn = {
         id: "ID пользователя",
-        name: "Имя",
         surname: "Фамилия",
+        name: "Имя",
         patronimyc: "Отчество",
         dateBirthday: "Дата рождения",
         phoneNumber: "Номер телефона",

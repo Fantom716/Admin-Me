@@ -22,7 +22,7 @@ function Home(props) {
       name: "",
       currentValue: 0,
       lastValue: 0,
-      percentageState: "",
+      percentageState: 0,
       image: "",
     },
   ])
@@ -36,9 +36,10 @@ function Home(props) {
       .catch((error) => {
         setDataManagers(dataManagers["error"] = [error]);
       });
-    axios.
+      axios.
       get("http://localhost:5001/dashboard/statistic")
       .then((response) => {
+        console.log(response);
         setStatistic(response.data);
       })
       .catch((error) => {
@@ -46,6 +47,7 @@ function Home(props) {
         console.log(statistic["error"]);
       })
   }, []);
+
 
   return (
     <div style={{ display: "flex", height: "100vh", width: "100vw" }}>

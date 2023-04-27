@@ -9,13 +9,15 @@ import { useState } from "react";
 function Orders(props) {
 
     const nameColumn = {
-        idSeller: "ID продажи",
-        client: "Покупатель",
-        composition: "Состав",
-        dateDeadline: "Дата сдачи",
-        customer: "Продавец",
-        quantity: "Количество",
-        status: "Статус",
+        idOrder: "ID заказа",
+        nameClient: "Имя клиента",
+        surnameClient: "Фамилия клиента",
+        patronimycClient: "Отчество клиента",
+        composition: "Состав заказа",
+        dateDeadline: "Дата сдачи заказа",
+        manager: "Менеджер",
+        quantity: "Количество (шт.)",
+        status: "Статус"
     }
 
     const [data, setData] = useState([]);
