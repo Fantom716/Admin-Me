@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "../../../src/components/nav/navigation.module.css";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import NotificationAccount from "../notifications/account/account";
+import NotificationAccount from "../notifications/account";
+import "../../styles/navigation.scss";
 
 /* Info about links */
 
@@ -86,26 +86,26 @@ function Navigation() {
     }
 
     return (
-        <nav className={isActive ? styles.navActive : styles.navDisable}>
-            <div className={styles.navHeader}>
-                <p className={isActive ? styles.navTitleActive : styles.navTitleDisable}>Admin</p>
-                <button className={styles.buttonNav} onClick={Change}>
+        <nav className={isActive ? "navActive" : "navDisable"}>
+            <div className={"navHeader"}>
+                <p className={isActive ? "navTitleActive" : "navTitleDisable"}>Admin</p>
+                <button className="buttonNav" onClick={Change}>
                     {isActive ? hideMenu : showMenu}
                 </button>
             </div>
             <div className="nav__main">
                 <ul className="nav__list">
                     {linksNav.map((item, idx) =>
-                        <li key={idx} className={styles.navItem}>
-                            <NavLink className={isActive ? styles.navLinkActive : styles.navLinkDisable} to={item.href}>
-                                <div className={isActive ? styles.iconSectionActive : styles.iconSectionDisable}>{item.icon}</div>
-                                <p className={isActive ? styles.linkTitleActive : styles.linkTitleDisable}>{item.title}</p>
+                        <li key={idx} className="navItem">
+                            <NavLink className={isActive ? "navLinkActive" : "navLinkDisable"} to={item.href}>
+                                <div className={isActive ? "iconSectionActive" : "iconSectionDisable"}>{item.icon}</div>
+                                <p className={isActive ? "linkTitleActive" : "linkTitleDisable"}>{item.title}</p>
                             </NavLink>
                         </li>)}
                 </ul>
             </div>
-            <button className={styles.nav__footer} onClick={openMenu}>
-                <p className={isActive ? styles.navUsernameActive : styles.navUsernameDisable}>{localStorage.getItem("user")}</p>
+            <button className="nav__footer" onClick={openMenu}>
+                <p className={isActive ? "navUsernameActive" : "navUsernameDisable"}>{localStorage.getItem("user")}</p>
                 <NotificationAccount openMenu={menuActive} name={isActive}/>
                 <img src="/navigation/image/Avatar.svg" alt="User avatar" />
             </button>

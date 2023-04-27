@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./action.module.css"
+import "../../styles/notifications.scss"
 
 const typesAction = [
     {
@@ -26,8 +26,8 @@ const typesAction = [
 
 function NotificationAction(props) {
     return (
-        <div className={styles.notificationActionWrapper} style={props.showNotification ? {visibility: "hidden"} : {visibility: "visible"}}>
-            {typesAction.map(item => <div className={styles.notificationActionItem}> <img className={styles.notificationActionIcon} alt={item.alt} src={item.icon}></img> <p>{item.title}</p></div>)}
+        <div className="notificationActionWrapper" style={props.showNotification ? {visibility: "hidden"} : {visibility: "visible"}}>
+            {typesAction.map(item => <div className="notificationActionItem"> <img className="notificationActionIcon" alt={item.alt} src={item.icon}></img> <p>{item.title}</p></div>)}
         </div>
     )
 }

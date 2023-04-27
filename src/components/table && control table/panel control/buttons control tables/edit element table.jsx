@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "../buttons.module.css"
+import "../../../../styles/contol table.scss";
 
 function EditElementTable() {
     return(
-        <button className={styles.editElementTable}>
+        <button className="editElementTable">
             <p>Редактировать</p>
         </button>
     )

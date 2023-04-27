@@ -1,10 +1,12 @@
 import React from "react";
-import Header from "../components/header/assemblyHeader/ready header";
+import Header from "../components/header/ready header";
 import Navigation from "../components/nav/navigation";
-import PanelControlTable from "../components/table && control table/panel control/panelControlTable";
+import PanelControlTable from "../components/table && control table/panelControlTable";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import TableFromDB from "../components/table && control table/table/table";
+import TableFromDB from "../components/table && control table/table";
+
+
 
 function Partners() {
 

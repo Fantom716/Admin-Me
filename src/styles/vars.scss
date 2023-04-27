@@ -1,0 +1,21 @@
+$color-link: #0066FF;
+$main-button-active-color: #dab7ff;
+$main-button-hover-color: #CFA2FF;
+$error-color: #FF0000;
+$main-font: 'Montserrat', sans-serif;
+
+@mixin name-page {
+    font-size: 1.5rem;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+@mixin overflow-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+}

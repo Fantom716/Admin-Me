@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "../buttons.module.css"
+import "../../../../styles/contol table.scss";
 
 function DeleteElementTable() {
     return(
-        <button className={styles.deleteElementTable}>
+        <button className="deleteElementTable">
             <p>Удалить</p>
         </button>
     )

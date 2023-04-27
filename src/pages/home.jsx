@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Header from "../components/header/assemblyHeader/ready header";
+import Header from "../components/header/ready header";
 import Navigation from "../components/nav/navigation";
 import Desktop from "../components/desktop/desktop";
 import axios from "axios";

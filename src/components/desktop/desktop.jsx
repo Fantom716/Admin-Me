@@ -1,21 +1,21 @@
 import React from "react";
-import styles from './desktop.module.css';
 import BigCard from "../cards/big card/big-card";
 import SmallCard from "../cards/small card/small-card-type";
 import InformationCard from "../cards/card for information/informationCard";
 import SmallCardType from "../cards/small card/small-card-add";
+import "../../styles/desktop.scss";
 
 function Desktop(props) {
 
     return (
-        <div className={styles.wrapperDesktop}>
-            <div className={styles.statsticArea}>
+        <div className="wrapperDesktop">
+            <div className="statsticArea">
                 {props.statistic.map((item) => {
                     return ( <BigCard data={item} /> )
                 })}
             </div>
-            <div className={styles.workDesktop}>
-                <div className={styles.cards}>
+            <div className="workDesktop">
+                <div className="cards">
                     <SmallCard />
                     <SmallCard />
                     <SmallCard />

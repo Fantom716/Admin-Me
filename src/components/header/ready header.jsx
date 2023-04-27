@@ -1,8 +1,8 @@
 import React from "react";
-import Greeting from "../greeting/greeting";
-import Notification from "../notification/notification";
-import FormSearch from "../search form/form";
-import styles from './ready header.module.css'
+import Greeting from "./greeting";
+import Notification from "./notification";
+import FormSearch from "./form";
+import "../../styles/header.scss";
 
 function Header(props) {
     return (

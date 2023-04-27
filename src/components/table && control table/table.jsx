@@ -1,10 +1,10 @@
 import React from "react";
-import style from "./table.module.css"
+import "../../styles/table.scss";
 
 function TableFromDB(props) {
     return (
-        <div className={style.tableWrapper}>
-            <table className={style.mainTable}>
+        <div className="tableWrapper">
+            <table className="mainTable">
                 <thead>
                     <tr>
                         {Object.values(props.nameColumns).map((item) => {

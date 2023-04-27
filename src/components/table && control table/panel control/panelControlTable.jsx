@@ -1,12 +1,12 @@
 import React from "react";
-import style from "./panelControlTable.module.css"
-import DeleteElementTable from "../buttons control tables/delete/delete element table";
-import AddElementTable from "../buttons control tables/add/add element table";
-import EditElementTable from "../buttons control tables/edit/edit element table";
+import DeleteElementTable from "../buttons control tables/delete element table";
+import AddElementTable from "../buttons control tables/add element table";
+import EditElementTable from "../buttons control tables/edit element table";
+import "../../../styles/contol table.scss";
 
 function PanelControlTable() {
     return(
-        <div className={style.panelContolTable}>
+        <div className="panelContolTable">
             <AddElementTable />
             <EditElementTable />
             <DeleteElementTable />
