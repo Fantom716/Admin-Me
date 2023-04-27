@@ -13,11 +13,9 @@ function InformationCard(props) {
                 ) : (
                     key <= 8 ?
                     <div key={key} className="infoCardContent">
-                        <div className="aboutPeople">
                             <p className="infoCardName">{item.login}</p>
                             <a className="infoCardEmail" href={`mailto: ${item.email}`}> {item.email} </a>
-                        </div>
-                    </div> : <></>
+                        </div> : <></>
                 );
             })}
         </div>

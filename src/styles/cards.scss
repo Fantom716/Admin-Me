@@ -107,25 +107,25 @@
 .infoCardTitle {
     font-size: 1.5rem;
     font-weight: 700;
-    margin: 0px;
+    margin-bottom: 30px;
     @include overflow-text;
 }
 
-.aboutPeople {
-    margin-bottom: 10px;
-    @include overflow-text;
+.infoCardContent:not(:last-child) {
+    margin-bottom: 30px;
 }
 
 .infoCardName {
     font-size: 1.1rem;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     @include overflow-text;
 }
 
 .infoCardEmail {
-   font-size: .8rem;
+   font-size: .9rem;
    text-decoration: none;
    color: $color-link;
+   @include overflow-text;
 }
 
 .infoCardSub {

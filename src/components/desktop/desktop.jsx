@@ -19,7 +19,6 @@ function Desktop(props) {
                     <SmallCard />
                     <SmallCard />
                     <SmallCard />
-                    <SmallCardType />
                 </div>
                 <InformationCard data={props.dataManagers} />
             </div>

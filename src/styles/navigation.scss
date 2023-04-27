@@ -1,3 +1,5 @@
+@import './vars.scss';
+
 .navActive {
     max-width: 20%;
     height: 93vh;
@@ -25,11 +27,8 @@
 .navItem,
 .navUsernameActive {
     display: auto;
-    font-family: 'Montserrat', sans-serif;
     font-size: 1.25rem;
-    max-width: 100%;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    @include overflow-text;
     margin: 0;
     margin-right: 0;
 }
@@ -40,7 +39,7 @@ ul {
 }
 
 .navItem {
-    margin-bottom: 6%;
+    margin-bottom: 10%;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -123,10 +122,19 @@ img {
     justify-content: space-around;
     align-items: center;
     gap: 10%;
+    width: 85%;
+    img {
+        width: 20%;
+        max-width: 100%;
+    }
 }
 
 .navLinkDisable {
     display: block;
+    img {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 .navTitleActive {

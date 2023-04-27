@@ -1,4 +1,5 @@
 @import './reset.scss';
+@import './vars.scss';
 
 /* READY HEADER */
 
@@ -12,7 +13,7 @@ header {
 /* GREETING */
 
 .greetingWrapper {
-    font-family: 'Montserrat', sans-serif;
+    font-family: $main-font;
     font-weight: 700;
     line-height: 3rem;
     max-width: 50%;
@@ -50,7 +51,7 @@ header {
 }
 
 .buttonNotification:hover {
-    background-color: #E7D1FF;
+    background-color: $main-button-hover-color;
 }
 
 /* SEARCH FORM */
@@ -60,7 +61,6 @@ form {
     height: 47px;
     border-radius: 14px;
     position: relative;
-    margin-right: 10%;
 }
 
 input {
