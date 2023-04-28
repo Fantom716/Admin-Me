@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Navigation from "../components/nav/navigation";
-import Header from "../components/header/ready header";
-import PanelControlTable from "../components/table && control table/panelControlTable";
-import TableFromDB from "../components/table && control table/table";
+import Navigation from "../../components/nav/navigation";
+import Header from "../../components/header/ready header";
+import PanelControlTable from "../../components/table && control table/panelControlTable";
+import TableFromDB from "../../components/table && control table/table";
 import axios from "axios";
 import { useState } from "react";
 

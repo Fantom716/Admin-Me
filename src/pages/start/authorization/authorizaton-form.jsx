@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../mainStartStyles.module.css";
+import "../../../styles/authorization.scss"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -61,19 +61,19 @@ function Authorization() {
   }
 
     return (
-        <div className={styles.authorizationWrapper}>
-            <div className={styles.headerForm}>
-                <p className={styles.headerGreetingForm}>Авторизация в информационной системе</p>
-                <p className={styles.headerNameSystem}>Admin</p>
+        <div className="authorizationWrapper">
+            <div className="headerForm">
+                <p className="headerGreetingForm">Авторизация в информационной системе</p>
+                <p className="headerNameSystem">Admin</p>
             </div>
-            <form onSubmit={handleSubmit} className={styles.AuthorizationForm}>
+            <form onSubmit={handleSubmit} className="AuthorizationForm">
                 {authorizationPlaceholder.map(authorizationPlaceholder =>
-                    <input name={authorizationPlaceholder.name} onChange={handleChange} type={authorizationPlaceholder.type} className={styles.formInput} placeholder={authorizationPlaceholder.title} />)}
-                <p className={styles.errorNotify}>{checkAutho}</p>
-                <button onClick={checkAutho} className={styles.mainButton} type="submit">Авторизоваться</button>
-                <div className={styles.footerForm}>
-                    <p className={styles.footerArticle}>или</p>
-                    <a className={styles.registerLink} href="/registration">Зарегистрировать аккаунт</a>
+                    <input name={authorizationPlaceholder.name} onChange={handleChange} type={authorizationPlaceholder.type} className="formInput" placeholder={authorizationPlaceholder.title} />)}
+                <p className="errorNotify">{checkAutho}</p>
+                <button onClick={checkAutho} className="mainButton" type="submit">Авторизоваться</button>
+                <div className="footerForm">
+                    <p className="footerArticle">или</p>
+                    <a className="registerLink" href="/registration">Зарегистрировать аккаунт</a>
                 </div>
             </form>
         </div>

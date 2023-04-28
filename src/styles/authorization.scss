@@ -1,3 +1,9 @@
+@import "./vars.scss";
+
+* {
+    font: $main-font;
+}
+
 .formWrapper,
 .authorizationWrapper {
     display: flex;
@@ -25,7 +31,7 @@
 }
 
 .select {
-    width: 102%;
+    width: 90%;
     height: 100%;
     background: #ececec;
     border: 0px;
@@ -34,7 +40,6 @@
     padding-right: 10%;
     margin-bottom: 2%;
     font-size: 1.25rem;
-    font-family: 'Montserrat';
     font-weight: 200;
 }
 
@@ -60,6 +65,15 @@
 .headerForm {
     text-align: center;
     text-decoration: none;
+}
+
+.headerGreetingForm,
+.footerArticle {
+    margin-bottom: 5%;
+}
+
+.headerForm {
+    margin-bottom: 3%;
 }
 
 .errorNotify {

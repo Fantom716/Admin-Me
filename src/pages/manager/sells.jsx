@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import Header from "../components/header/ready header";
-import Navigation from "../components/nav/navigation";
-import PanelControlTable from "../components/table && control table/panelControlTable";
+import Header from "../../components/header/ready header";
+import Navigation from "../../components/nav/navigation";
+import PanelControlTable from "../../components/table && control table/panelControlTable";
 import { useState } from "react";
 import axios from "axios";
-import TableFromDB from "../components/table && control table/table";
+import TableFromDB from "../../components/table && control table/table";
 
 function Sells() {
 

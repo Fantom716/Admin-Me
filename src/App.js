@@ -1,13 +1,13 @@
 import React from 'react';
-import Home from './pages/home';
+import Home from './pages/manager/home';
 import { Routes, Route } from 'react-router-dom';
-import Clients from './pages/clients';
-import Orders from './pages/orders';
-import Sells from './pages/sells';
-import Partners from './pages/partners';
+import Clients from './pages/manager/clients';
+import Orders from './pages/manager/orders';
+import Sells from './pages/manager/sells';
+import Partners from './pages/manager/partners';
 import Authorization from './pages/start/authorization/authorizaton-form';
 import Registration from './pages/start/reg/registration-form';
-import Products from './pages/products';
+import Products from './pages/manager/products';
 
 function App() {
   return (
