@@ -9,32 +9,32 @@ import "../../styles/navigation.scss";
 const linksNav = [
     {
         href: "/dashboard",
-        icon: "navigation/icons/home.svg",
+        icon: "/navigation/icons/home.svg",
         title: "Главная"
     },
     {
         href: "/clients",
-        icon: "navigation/icons/clients.svg",
+        icon: "/navigation/icons/clients.svg",
         title: "Клиенты",
     },
     {
         href: "/orders",
-        icon: "navigation/icons/orders.svg",
+        icon: "/navigation/icons/orders.svg",
         title: "Заказы"
     },
     {
         href: "/sells",
-        icon: "navigation/icons/sells.svg",
+        icon: "/navigation/icons/sells.svg",
         title: "Продажи",
     },
     {
         href: "/partners",
-        icon: "navigation/icons/partners.svg",
+        icon: "/navigation/icons/partners.svg",
         title: "Партнеры",
     },
     {
         href: "/products",
-        icon: "navigation/icons/products.svg",
+        icon: "/navigation/icons/products.svg",
         title: "Продукты",
     }
 ]

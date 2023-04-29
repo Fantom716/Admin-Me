@@ -135,3 +135,23 @@
     display: inherit;
     @include overflow-text;
 }
+
+.wrapperProductCard {
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    p {
+        line-height: 2rem;
+    }
+    .productCardTitle {
+        font-size: 1.4rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
+
+.wrapperProductCard:hover {
+    cursor: pointer;
+    background-color: $main-button-hover-color;
+}

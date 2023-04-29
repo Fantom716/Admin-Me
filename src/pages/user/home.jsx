@@ -4,10 +4,9 @@ import Navigation from "../../components/nav/navigation";
 import Desktop from "../../components/desktop/desktop";
 import axios from "axios";
 import { useState } from "react";
-import ProductCard from "../../components/cards/big card/productCard";
 
 
-function HomeManager(props) {
+function HomeUser(props) {
 
   const [dataForInfoCard, setDataForInfoCard] = useState([
     {
@@ -16,7 +15,7 @@ function HomeManager(props) {
     },
   ]);
 
-  const [orders, setOrders] = useState([
+  const [products, setProducts] = useState([
     {
       titleProduct: "",
       descriptionProduct: "",
@@ -45,15 +44,15 @@ function HomeManager(props) {
         setDataForInfoCard(dataForInfoCard["error"] = [error]);
       });
       axios
-        .get("http://localhost:5001/dashboard/manager/orders")
+        .get("http://localhost:5001/dashboard/clients/products")
         .then((response) => {
-          setOrders(response.data);
+          setProducts(response.data);
         })
         .catch((error) => {
-          setOrders(orders["error"] = [error]);
+          setProducts(products["error"] = [error]);
         })
       axios.
-      get("http://localhost:5001/dashboard/managers/statisticCard")
+      get("http://localhost:5001/dashboard/users/statisticCard")
       .then((response) => {
         console.log(response);
         setStatistic(response.data);
@@ -64,7 +63,7 @@ function HomeManager(props) {
       })
   }, []);
 
-  console.log(orders);
+  console.log(products)
 
   return (
     <div style={{ display: "flex", height: "100vh", width: "100vw" }}>
@@ -72,10 +71,10 @@ function HomeManager(props) {
       <div className='mainContent' style={{ padding: "32px", width: "100vw", background: "#F0F3FF", overflow: "auto" }}>
         <p>{props.text}</p>
         <Header name="Alexander" />
-        <Desktop statistic={statistic} dataForInfoCard={dataForInfoCard} infoForMain={orders} />
+        <Desktop statistic={statistic} dataForInfoCard={dataForInfoCard} infoForMain={products} />
       </div>
     </div>
   )
 }
 
-export default HomeManager;
+export default HomeUser;

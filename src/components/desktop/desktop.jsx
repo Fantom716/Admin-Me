@@ -4,6 +4,7 @@ import SmallCard from "../cards/small card/small-card-type";
 import InformationCard from "../cards/card for information/informationCard";
 import SmallCardType from "../cards/small card/small-card-add";
 import "../../styles/desktop.scss";
+import CardProduct from "../cards/big card/productCard";
 
 function Desktop(props) {
 
@@ -16,11 +17,13 @@ function Desktop(props) {
             </div>
             <div className="workDesktop">
                 <div className="cards">
-                    <SmallCard />
-                    <SmallCard />
-                    <SmallCard />
+                    {props.infoForMain.map((item) => {
+                        return (
+                            <CardProduct infoForMain={item} />
+                        )
+                    })}
                 </div>
-                <InformationCard data={props.dataManagers} />
+                <InformationCard data={props.dataForInfoCard} />
             </div>
         </div>
     )

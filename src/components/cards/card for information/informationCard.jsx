@@ -2,9 +2,11 @@ import React from "react";
 import "../../../styles/cards.scss";
 
 function InformationCard(props) {
+
     return (
         <div className="infoCardWrapper">
-            <p className="infoCardTitle">Менеджеры</p>
+            {console.log(props.data)}
+            <p className="infoCardTitle">{props.data[props.data.length - 1]["NameCard"]}</p>
             {props.data.map((item, key) => {
                 return item.name === "AxiosError" ? (
                     <div key={key} className="infoCardContent">
@@ -13,8 +15,8 @@ function InformationCard(props) {
                 ) : (
                     key <= 8 ?
                     <div key={key} className="infoCardContent">
-                            <p className="infoCardName">{item.login}</p>
-                            <a className="infoCardEmail" href={`mailto: ${item.email}`}> {item.email} </a>
+                            <p className="infoCardName">{item.info}</p>
+                            <a className="infoCardEmail" href={`mailto: ${item.link}`}> {item.link} </a>
                         </div> : <></>
                 );
             })}
