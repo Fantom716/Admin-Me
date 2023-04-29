@@ -1,0 +1,63 @@
+@import './vars.scss';
+
+.textOurOrders {
+    font-family: $main-font;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+.wrapperOrderCard {
+    background: #fff;
+    border-radius: 14px;
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-height: 220px;
+    p {
+        @include overflow-text;
+    }
+}
+
+.title {
+    font-family: $main-font;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.status {
+    font-family: $main-font;
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 30px;
+    color: #9A9A9A;
+}
+
+.date {
+    font-family: $main-font;
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+.wrapperFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonDetail {
+    font-family: $main-font;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #DAB7FF;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 40px;
+}
+
+.buttonDetail:hover {
+    background-color: $main-button-hover-color;
+}

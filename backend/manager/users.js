@@ -46,11 +46,19 @@ app.post("/form", (req, res) => {
 })
 
 app.get("/users", (req, res) => {
-    conn.query("SELECT idUser, login, password, email FROM users", (err, results) => {
+    conn.query("SELECT idUser, login, password, email, role FROM users", (err, results) => {
         if (err) console.log(err);
         res.send(results);
     })
 })
+
+app.post('/user', (req, res) => {
+    const userData = req.body;
+    console.log(userData);
+    // здесь вы можете выполнить дополнительную обработку данных и отправить ответ клиенту
+    res.send('Данные успешно получены на сервере');
+  });
+
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);

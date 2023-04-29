@@ -4,29 +4,31 @@ import SmallCard from "../cards/small card/small-card-type";
 import InformationCard from "../cards/card for information/informationCard";
 import SmallCardType from "../cards/small card/small-card-add";
 import "../../styles/desktop.scss";
-import CardProduct from "../cards/big card/productCard";
+import MainDesktopCard from "../cards/big card/mainDesktopCard";
 
 function Desktop(props) {
+    const { statistic, infoForMain, dataForInfoCard } = props;
+    const lastTitleRubric = infoForMain[infoForMain.length - 1]["titleRubric"];
+    const isFirstInfoAxiosError = infoForMain[0]["name"] === "AxiosError";
+    const cards = isFirstInfoAxiosError ? <p className="errorGetMainDesktopCard">Ошибка подключения к серверу</p> : infoForMain.map((item) => <MainDesktopCard infoForMain={item} />);
 
     return (
         <div className="wrapperDesktop">
             <div className="statsticArea">
-                {props.statistic.map((item) => {
-                    return ( <BigCard data={item} /> )
-                })}
+                {statistic.map((item) => (
+                    <BigCard data={item} />
+                ))}
             </div>
+            <p className="titleRubric">{lastTitleRubric}</p>
             <div className="workDesktop">
                 <div className="cards">
-                    {props.infoForMain.map((item) => {
-                        return (
-                            <CardProduct infoForMain={item} />
-                        )
-                    })}
+                    {cards}
                 </div>
-                <InformationCard data={props.dataForInfoCard} />
+                <InformationCard data={dataForInfoCard} />
             </div>
         </div>
-    )
+    );
 }
+
 
 export default Desktop;

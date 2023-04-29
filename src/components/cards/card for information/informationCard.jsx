@@ -6,7 +6,7 @@ function InformationCard(props) {
     return (
         <div className="infoCardWrapper">
             {console.log(props.data)}
-            <p className="infoCardTitle">{props.data[props.data.length - 1]["NameCard"]}</p>
+            <p className="infoCardTitle">{props.data[0]["title"]}</p>
             {props.data.map((item, key) => {
                 return item.name === "AxiosError" ? (
                     <div key={key} className="infoCardContent">

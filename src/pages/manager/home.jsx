@@ -4,8 +4,6 @@ import Navigation from "../../components/nav/navigation";
 import Desktop from "../../components/desktop/desktop";
 import axios from "axios";
 import { useState } from "react";
-import ProductCard from "../../components/cards/big card/productCard";
-
 
 function HomeManager(props) {
 

@@ -21,6 +21,9 @@ function Authorization() {
   const [formValue, setFormValue] = useState({
     login: "",
     password: "",
+    id: "",
+    role: "",
+    error: ""
   });
 
   const [autho, setAutho] = useState({
@@ -44,6 +47,7 @@ function Authorization() {
     });
   }
 
+
   function handleSubmit(event) {
     event.preventDefault();
     axios.get("http://localhost:5006/users").then((response) => {
@@ -51,33 +55,48 @@ function Authorization() {
         (user) => user.login === formValue.login && user.password === formValue.password
       );
       if (user) {
-        navigate("/dashboard");
-        localStorage.setItem("user", user.login);
+        formValue.id = user["idUser"]
+        formValue.role = user["role"]
+        localStorage.setItem("idUser", formValue.id);
+        localStorage.setItem("login", formValue.login);
+        setFormValue({ error: "" });
+        axios.post("http://localhost:5006/user", formValue)
+          .then((response) => {
+            console.log(response.data);
+            if (formValue.role === "Пользователь") {
+              navigate(`user/${formValue.id}/dashboard/`);
+            } else if (formValue.role === "Менеджер") {
+              navigate(`manager/${formValue.id}/dashboard/`);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
-        setFormValue({ login: "", password: "" });
-        setAutho({ authoBool: false, login: true, password: true });
+        setFormValue({ error: "Неверный логин или пароль" });
+        setAutho({ authoBool: false, login: false, password: false });
       }
     });
   }
 
-    return (
-        <div className="authorizationWrapper">
-            <div className="headerForm">
-                <p className="headerGreetingForm">Авторизация в информационной системе</p>
-                <p className="headerNameSystem">Admin</p>
-            </div>
-            <form onSubmit={handleSubmit} className="AuthorizationForm">
-                {authorizationPlaceholder.map(authorizationPlaceholder =>
-                    <input name={authorizationPlaceholder.name} onChange={handleChange} type={authorizationPlaceholder.type} className="formInput" placeholder={authorizationPlaceholder.title} />)}
-                <p className="errorNotify">{checkAutho}</p>
-                <button onClick={checkAutho} className="mainButton" type="submit">Авторизоваться</button>
-                <div className="footerForm">
-                    <p className="footerArticle">или</p>
-                    <a className="registerLink" href="/registration">Зарегистрировать аккаунт</a>
-                </div>
-            </form>
+  return (
+    <div className="authorizationWrapper">
+      <div className="headerForm">
+        <p className="headerGreetingForm">Авторизация в информационной системе</p>
+        <p className="headerNameSystem">Admin</p>
+      </div>
+      <form onSubmit={handleSubmit} className="AuthorizationForm">
+        {authorizationPlaceholder.map(authorizationPlaceholder =>
+          <input name={authorizationPlaceholder.name} onChange={handleChange} type={authorizationPlaceholder.type} className="formInput" placeholder={authorizationPlaceholder.title} />)}
+        {formValue ? <p className="errorNotify">{formValue.error}</p> : {}}
+        <button onClick={checkAutho} className="mainButton" type="submit">Авторизоваться</button>
+        <div className="footerForm">
+          <p className="footerArticle">или</p>
+          <a className="registerLink" href="/registration">Зарегистрировать аккаунт</a>
         </div>
-    )
+      </form>
+    </div>
+  )
 }
 
 export default Authorization;

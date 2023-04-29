@@ -26,15 +26,15 @@ app.get("/dashboard/managers/infoCard", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      results.forEach((result) => {
-        result.info = result.login;
-        delete result.login;
-        result.link = result.email;
-        delete result.email;
-      });
-      [...results] = [...results, {"NameCard": "Менеджеры"} ];
-      res.send(results);
-    }
+        const newResults = results.map(({login, email}) => {
+          return {
+            title: "Менеджеры",
+            info: login,
+            link: email,
+          };
+        });
+        res.send(newResults);
+      }
   });
 });
 
@@ -43,29 +43,32 @@ app.get("/dashboard/clients/products", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      results.forEach((result) => {
-        result.title = result.nameProduct;
-        delete result.nameProduct;
-        result.description = result.descriptionProduct;
-        delete result.descriptionProduct;
-      })
-      res.send(results);
+      const newResults = results.map(({nameProduct, descriptionProduct, ...rest}) => {
+        return {
+          ...rest,
+          title: nameProduct,
+          description: descriptionProduct,
+          titleRubric: "Наши продукты"
+        };
+      });
+      res.send(newResults);
     }
   });
-})
+});
 
 app.get("/dashboard/manager/orders", (req, res) => {
   conn.query("SELECT composition, status FROM orders WHERE status = 'В процессе' OR status = 'В ожидании'", (err, results) => {
     if (err) {
       console.log(err);
     } else {
-      results.forEach((result) => {
-        result.title = result.composition;
-        delete result.composition;
-        result.description = result.status;
-        delete result.status;
+      const newResults = results.map(({composition, status}) => {
+        return {
+          title: composition,
+          description: status,
+          titleRubric: "Необработанные заказы"
+        };
       })
-      res.send(results);
+      res.send(newResults);
     }
   })
 })

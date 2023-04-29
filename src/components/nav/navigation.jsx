@@ -6,36 +6,54 @@ import "../../styles/navigation.scss";
 
 /* Info about links */
 
-const linksNav = [
+const linksNavManager = [
     {
-        href: "/dashboard",
+        href: `/manager/${localStorage.getItem("idUser")}/dashboard`,
         icon: "/navigation/icons/home.svg",
         title: "Главная"
     },
     {
-        href: "/clients",
+        href: `/manager/${localStorage.getItem("idUser")}/clients`,
         icon: "/navigation/icons/clients.svg",
         title: "Клиенты",
     },
     {
-        href: "/orders",
+        href: `/manager/${localStorage.getItem("idUser")}/orders`,
         icon: "/navigation/icons/orders.svg",
         title: "Заказы"
     },
     {
-        href: "/sells",
+        href: `/manager/${localStorage.getItem("idUser")}/sells`,
         icon: "/navigation/icons/sells.svg",
         title: "Продажи",
     },
     {
-        href: "/partners",
+        href: `/manager/${localStorage.getItem("idUser")}/partners`,
         icon: "/navigation/icons/partners.svg",
         title: "Партнеры",
     },
     {
-        href: "/products",
+        href: `/manager/${localStorage.getItem("idUser")}/products`,
         icon: "/navigation/icons/products.svg",
         title: "Продукты",
+    }
+]
+
+const linksNavClient = [
+    {
+        href: `/user/${localStorage.getItem("idUser")}/dashboard`,
+        icon: "/navigation/icons/home.svg",
+        title: "Главная"
+    },
+    {
+        href: `/user/${localStorage.getItem("idUser")}/orders`,
+        icon: "/navigation/icons/orders.svg",
+        title: "Мои заказы"
+    },
+    {
+        href: `/user/${localStorage.getItem("idUser")}/paymentdetails`,
+        icon: "/navigation/icons/sells.svg",
+        title: "Платежные данные"
     }
 ]
 
@@ -60,6 +78,37 @@ function Navigation() {
         setMenu(!menuActive);
     }
 
+    console.log(window.location.pathname)
+
+    function test() {
+        if (window.location.pathname.match("/manager/.*")) {
+            return (
+                <ul className="nav__list">
+                    {linksNavManager.map((item, idx) =>
+                        <li key={idx} className="navItem">
+                            <NavLink className={isActive ? "navLinkActive" : "navLinkDisable"} to={item.href}>
+                                <img src={item.icon} className={isActive ? "iconSectionActive" : "iconSectionDisable"}></img>
+                                <p className={isActive ? "linkTitleActive" : "linkTitleDisable"}>{item.title}</p>
+                            </NavLink>
+                        </li>)}
+                </ul>
+            )
+        }
+        else if (window.location.pathname.match("/user/.*")) {
+            return (
+                <ul className="nav__list">
+                    {linksNavClient.map((item, idx) =>
+                        <li key={idx} className="navItem">
+                            <NavLink className={isActive ? "navLinkActive" : "navLinkDisable"} to={item.href}>
+                                <img src={item.icon} className={isActive ? "iconSectionActive" : "iconSectionDisable"}></img>
+                                <p className={isActive ? "linkTitleActive" : "linkTitleDisable"}>{item.title}</p>
+                            </NavLink>
+                        </li>)}
+                </ul>
+            )
+        }
+    }
+
     return (
         <nav className={isActive ? "navActive" : "navDisable"}>
             <div className={"navHeader"}>
@@ -68,18 +117,10 @@ function Navigation() {
                     {isActive ? hideMenu : showMenu}
                 </button>
             </div>
-                <ul className="nav__list">
-                    {linksNav.map((item, idx) =>
-                        <li key={idx} className="navItem">
-                            <NavLink className={isActive ? "navLinkActive" : "navLinkDisable"} to={item.href}>
-                                <img src={item.icon} className={isActive ? "iconSectionActive" : "iconSectionDisable"}></img>
-                                <p className={isActive ? "linkTitleActive" : "linkTitleDisable"}>{item.title}</p>
-                            </NavLink>
-                        </li>)}
-                </ul>
+            {test()}
             <button className="nav__footer" onClick={openMenu}>
-                <p className={isActive ? "navUsernameActive" : "navUsernameDisable"}>{localStorage.getItem("user")}</p>
-                <NotificationAccount openMenu={menuActive} name={isActive}/>
+                <p className={isActive ? "navUsernameActive" : "navUsernameDisable"}>{localStorage.getItem("login")}</p>
+                <NotificationAccount openMenu={menuActive} name={isActive} />
                 <img src="/navigation/image/Avatar.svg" alt="User avatar" />
             </button>
         </nav>
