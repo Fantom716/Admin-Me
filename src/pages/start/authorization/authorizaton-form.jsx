@@ -50,7 +50,7 @@ function Authorization() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    axios.get("http://localhost:5006/users").then((response) => {
+    axios.get("http://localhost:5007/users").then((response) => {
       const user = response.data.find(
         (user) => user.login === formValue.login && user.password === formValue.password
       );
@@ -60,8 +60,8 @@ function Authorization() {
         localStorage.setItem("idUser", formValue.id);
         localStorage.setItem("login", formValue.login);
         setFormValue({ error: "" });
-        axios.post("http://localhost:5006/user", formValue)
-          .then((response) => {
+        axios.post("http://localhost:5007/user", formValue)
+        .then((response) => {
             console.log(response.data);
             if (formValue.role === "Пользователь") {
               navigate(`user/${formValue.id}/dashboard/`);

@@ -10,16 +10,17 @@ import { useState } from "react";
 function OrdersUser(props) {
     const [orders, setOrders] = useState([]);
 
-    useEffect(() => {
-      axios.get("http://localhost:5010/user/orders")
-        .then((response) => {
-          setOrders(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-    }, []);
+    console.log(localStorage.getItem("idUser"))
+
+    // useEffect(() => {
+    //   axios.post(`http://localhost:5002/user?idUser=${localStorage.getItem("idUser")}`)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     setOrders(response.data);
+    //   }).catch((error) => {
+    //     console.log(error);
+    //   })
+    // }, []);
 
     return (
         <div style={{ display: "flex", height: "100vh"}}>

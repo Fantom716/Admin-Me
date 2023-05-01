@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import NotificationAccount from "../notifications/account";
+import NotificationAccount from "../pop-up's/account";
 import "../../styles/navigation.scss";
 
 /* Info about links */

@@ -1,0 +1,65 @@
+@import "../vars.scss";
+
+.wrapperFormElement {
+    width: 100%;
+    height: 100%;
+}
+
+.headerFormElement {
+    margin-bottom: 3%;
+}
+
+.titleFormElement {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.formElement {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    background: white;
+    width: 50vw;
+    height: 80%;
+    padding: 2%;
+    border-radius: 30px;
+}
+
+.formProps {
+    height: 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.mainForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    height: 90%;
+}
+
+input {
+    width: 70%;
+    border: 3px solid #F0F3FF;
+}
+
+.buttonCreate {
+    background: $main-button-active-color;
+    color: white;
+    width: 30%;
+    margin: 0 auto;
+    padding: 2% 6%;
+    border-radius: 5px;
+}
+
+.buttonCreate:hover {
+    background: $main-button-hover-color;
+}

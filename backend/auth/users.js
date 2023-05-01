@@ -5,7 +5,7 @@ const moment = require("moment");
 const bp = require("body-parser");
 
 const app = express();
-const PORT = 5006;
+const PORT = 5007;
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
@@ -54,11 +54,15 @@ app.get("/users", (req, res) => {
 
 app.post('/user', (req, res) => {
     const userData = req.body;
-    console.log(userData);
-    // здесь вы можете выполнить дополнительную обработку данных и отправить ответ клиенту
+    idUser = userData.id;
+    conn.query(`INSERT INTO sessions(idSession, userId, dateStartSession) VALUES(${RandomValue()}, ${userData.id}, '${moment().format('YYYY-MM-DD HH:mm:ss')}')`, (err, results) => {
+        if (err) console.log(err);
+        else {
+            module.exports.idUser = idUser;
+        }
+    })
     res.send('Данные успешно получены на сервере');
-  });
-
+});
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);

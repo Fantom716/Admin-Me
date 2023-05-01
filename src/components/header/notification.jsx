@@ -1,5 +1,5 @@
 import React from "react";
-import NotificationAction from "../notifications/action";
+import NotificationAction from "../pop-up's/action";
 import { useState } from "react";
 import "../../styles/notifications.scss";
 

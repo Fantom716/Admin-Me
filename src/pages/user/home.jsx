@@ -51,8 +51,8 @@ function HomeUser(props) {
         .catch((error) => {
           setProducts(products["error"] = [error]);
         })
-      axios.
-      get("http://localhost:5001/dashboard/users/statisticCard")
+      axios
+      .get("http://localhost:5002/dashboard/users/statisticCard")
       .then((response) => {
         console.log(response);
         setStatistic(response.data);
@@ -61,6 +61,7 @@ function HomeUser(props) {
         setStatistic(statistic["error"] = [error]);
         console.log(statistic["error"]);
       })
+      
   }, []);
 
   console.log(products)
