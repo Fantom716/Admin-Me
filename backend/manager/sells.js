@@ -1,9 +1,9 @@
 const express = require("express");
 const mysql = require("mysql");
-const moment = require("moment");
+const moments = require("moment");
 
 const app = express();
-const PORT = 5003;
+const PORT = 5010;
 
 const conn = mysql.createConnection({
     host: "DESKTOP-ASKKTC8",
@@ -13,14 +13,22 @@ const conn = mysql.createConnection({
     port: 3306,
 })
 
-async function getPartners() {
+conn.connect((err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Connected!");
+    }
+})
+
+async function getSells() {
     return new Promise((resolve, reject) => {
-        conn.query("SELECT * FROM partners", (err, results) => {
+        conn.query("SELECT * FROM sells", (err, results) => {
             if (err) {
                 reject(err);
             } else {
-                results.map((partner) => {
-                    partner["dateConclusionContract"] = moment(partner["dateConclusionContract"]).format("DD.MM.YYYY HH:mm:ss");
+                results.map((sell) => {
+                    sell["dateSell"] = moments(sell["dateSell"]).format("DD.MM.YYYY HH:mm:ss");
                 })
                 console.log(results);
                 resolve(results);
@@ -29,17 +37,17 @@ async function getPartners() {
     })
 }
 
-async function startPartner() {
-    app.get("/partners", (req, res) => {
-        getPartners().then((results) => {
+async function startGetSells() {
+    app.get("/sells", (req, res) => {
+        getSells().then((results) => {
             res.send(results);
         })
     })
 }
 
-startPartner();
+startGetSells();
 
-module.exports = startPartner
+module.exports = startGetSells
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);

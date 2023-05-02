@@ -16,12 +16,13 @@ function Clients(props) {
         dateBirthday: "Дата рождения",
         phoneNumber: "Номер телефона",
         passportInfo: "Паспортные данные",
+        rating: "Рейтинг",
     }
 
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/clients")
+        axios.get("http://localhost:5015/clients")
             .then((response) => {
                 setData(response.data);
             })

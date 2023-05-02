@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import "../../../styles/authorization.scss"
+import "../../../styles/auth/authorization.scss"
 import axios from "axios";
 var validator = require('validator');
 
@@ -63,7 +63,7 @@ function Registration() {
     function handleSubmit() {
 
         axios
-            .get("http://localhost:5006/users")
+            .get("http://localhost:5007/users")
             .then(res => {
                 const logins = res.data;
                 let loginsBool = false;
@@ -94,19 +94,19 @@ function Registration() {
                 }
             })
             .catch(err => {
-                console.log(err);
+                changeError(`Произошла ошибка: ${err}` );
             });
     }
 
     return (
         <div className="formWrapper">
-            <form onSubmit={handleFormSubmit} action="" method="post" className="RegistrationForm">
+            <form onSubmit={handleFormSubmit} action="" method="post" className="mainForm">
                 <div className="headerForm">
                     <p className="headerGreetingForm">Регистрация в информационной системе</p>
                     <p className="headerNameSystem">Admin</p>
                 </div>
                 {registrationPlaceholder.map(item => item.title !== "Роль" ?
-                    <input type={item.type} name={item.name} onChange={handleChange} placeholder={item.title} className="formInput" /> :
+                    <input type={item.type} name={item.name} onChange={handleChange} placeholder={item.title} className="formInput formInputRegister" /> :
                     <select name={item.name} onChange={handleChange} className="select">
                         <option defaultValue={"Пользователь"} value="Пользователь">Пользователь</option>
                         <option value="Менеджер">Менеджер</option>

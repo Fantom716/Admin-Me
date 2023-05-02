@@ -20,7 +20,7 @@ function Sells() {
     const [sells, setSells] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/sells")
+        axios.get("http://localhost:5010/sells")
             .then(res => {
                 setSells(res.data);
             })

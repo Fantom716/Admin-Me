@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../../styles/authorization.scss"
+import "../../../styles/auth/authorization.scss"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -60,7 +60,7 @@ function Authorization() {
         localStorage.setItem("idUser", formValue.id);
         localStorage.setItem("login", formValue.login);
         setFormValue({ error: "" });
-        axios.post("http://localhost:5007/user", formValue)
+        axios.post(`http://localhost:5007/form`, formValue)
         .then((response) => {
             console.log(response.data);
             if (formValue.role === "Пользователь") {
@@ -76,16 +76,19 @@ function Authorization() {
         setFormValue({ error: "Неверный логин или пароль" });
         setAutho({ authoBool: false, login: false, password: false });
       }
+    }).catch((error) => {
+      console.log(error);
     });
   }
 
+
   return (
-    <div className="authorizationWrapper">
+    <div className="formWrapper">
+      <form onSubmit={handleSubmit} className="mainForm">
       <div className="headerForm">
         <p className="headerGreetingForm">Авторизация в информационной системе</p>
         <p className="headerNameSystem">Admin</p>
       </div>
-      <form onSubmit={handleSubmit} className="AuthorizationForm">
         {authorizationPlaceholder.map(authorizationPlaceholder =>
           <input name={authorizationPlaceholder.name} onChange={handleChange} type={authorizationPlaceholder.type} className="formInput" placeholder={authorizationPlaceholder.title} />)}
         {formValue ? <p className="errorNotify">{formValue.error}</p> : {}}

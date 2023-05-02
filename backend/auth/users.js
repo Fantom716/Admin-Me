@@ -3,6 +3,12 @@ const mysql = require("mysql");
 const axios = require("axios");
 const moment = require("moment");
 const bp = require("body-parser");
+const getPartners = require("../manager/partners");
+const startGetSells = require("../manager/sells");
+const startGetProducts = require("../manager/products");
+const startGetClients = require("../manager/clients");
+const startGetOrders = require("../manager/oders");
+const { startStat } = require("../manager/homeManager");
 
 const app = express();
 const PORT = 5007;
@@ -27,23 +33,40 @@ conn.connect((err) => {
     console.log("Connected!");
 })
 
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-})
 
-app.post("/form", (req, res) => {
-    console.log(req.body);
+app.post('/form', async (req, res) => {
+    const userData = req.body;
+    console.log(userData);
+    idUser = userData.id;
+
+    try {
+      await writingSession(idUser);
+      await startStat
+      await getPartners
+      await startGetSells
+      await startGetProducts
+      await startGetClients
+      await startGetOrders
+      await startStat
+      res.send(userData);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+
+async function writingSession(idUser) {
     let date = new Date().getDate() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds();
     date = moment().format('YYYY-MM-DD HH:mm:ss');
     console.log(date);
-    conn.query(`INSERT INTO users(idUsers, login, email, role, regDate, password) VALUES(${(RandomValue())}, '${req.body.login}', '${req.body.email}', '${req.body.role}', '${date}', '${req.body.password}')`, (err, results) => {
+    conn.query(`INSERT INTO sessions(idSession, userId) VALUES(4, ${idUser})`, (err, results) => {
         if (err) console.log(err);
         else {
             console.log("OK");
         }
     })
-    res.send("OK");
-})
+}
 
 app.get("/users", (req, res) => {
     conn.query("SELECT idUser, login, password, email, role FROM users", (err, results) => {
@@ -51,18 +74,6 @@ app.get("/users", (req, res) => {
         res.send(results);
     })
 })
-
-app.post('/user', (req, res) => {
-    const userData = req.body;
-    idUser = userData.id;
-    conn.query(`INSERT INTO sessions(idSession, userId, dateStartSession) VALUES(${RandomValue()}, ${userData.id}, '${moment().format('YYYY-MM-DD HH:mm:ss')}')`, (err, results) => {
-        if (err) console.log(err);
-        else {
-            module.exports.idUser = idUser;
-        }
-    })
-    res.send('Данные успешно получены на сервере');
-});
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);

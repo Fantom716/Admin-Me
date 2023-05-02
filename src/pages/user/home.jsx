@@ -34,6 +34,17 @@ function HomeUser(props) {
     },
   ])
 
+  const [test, setTest] = useState({});
+
+  const id ={ data: localStorage.getItem("idUser") }
+
+  axios.post(`http://localhost:5002/dashboard/user?id=${id.data}`, id)
+    .then((response) => {
+
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   useEffect(() => {
     axios
       .get("http://localhost:5001/dashboard/managers/infoCard")
@@ -44,7 +55,7 @@ function HomeUser(props) {
         setDataForInfoCard(dataForInfoCard["error"] = [error]);
       });
       axios
-        .get("http://localhost:5001/dashboard/clients/products")
+        .get("http://localhost:5002/dashboard/clients/products")
         .then((response) => {
           setProducts(response.data);
         })
@@ -61,10 +72,7 @@ function HomeUser(props) {
         setStatistic(statistic["error"] = [error]);
         console.log(statistic["error"]);
       })
-      
   }, []);
-
-  console.log(products)
 
   return (
     <div style={{ display: "flex", height: "100vh", width: "100vw" }}>

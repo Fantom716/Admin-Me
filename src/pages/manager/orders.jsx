@@ -24,7 +24,7 @@ function Orders(props) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/orders")
+        axios.get("http://localhost:5012/orders")
             .then((response) => {
                 setData(response.data);
             })
@@ -32,6 +32,8 @@ function Orders(props) {
                 setData(error);
             })
     }, [])
+
+    console.log(data)
 
     return (
         <div style={{ display: "flex", height: "100vh"}}>

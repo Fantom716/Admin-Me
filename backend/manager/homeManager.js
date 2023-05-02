@@ -123,6 +123,10 @@ function getStatisticManager(arrayList) {
   return Promise.all(promises).then(() => arrayList);
 }
 
+async function startStat() {
+  await getStatisticManager(statisticManager);
+}
+
 app.get("/dashboard/managers/statisticCard", (req, res) => {
   getStatisticManager(statisticManager)
     .then((arrayList) => res.send(arrayList))
@@ -137,4 +141,5 @@ module.exports = {
   nowDate,
   startCurrentWeek,
   startLastWeek,
+  startStat
 }
