@@ -22,7 +22,6 @@ async function getClients() {
         results.map((client) => {
           client["dateBirthday"] = moments(client["dateBirthday"]).format("DD.MM.YYYY HH:mm:ss");
         })
-        console.log(results);
         resolve(results);
       }
     })

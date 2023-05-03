@@ -111,7 +111,6 @@ function getStatisticManager(arrayList) {
             } else {
               item.lastValue = result1[0].count;
               item.percentageState = Math.round(((item.currentValue - item.lastValue) / item.lastValue) * 100);
-              console.log(item);
               resolve();
             }
           });

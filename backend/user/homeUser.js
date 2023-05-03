@@ -1,7 +1,6 @@
 const express = require("express");
 const mysql = require("mysql");
 const moment = require("moment");
-const { nowDate, startCurrentWeek, startLastWeek } = require('../manager/homeManager');
 
 const app = express();
 const PORT = 5002;
@@ -21,6 +20,10 @@ conn.connect((err) => {
     console.log("Connected!");
   }
 });
+
+const nowDate = moment().format("YYYY-MM-DD HH:mm:ss");
+const startCurrentWeek = moment().subtract(7, "days").format("YYYY-MM-DD HH:mm:ss");
+const startLastWeek = moment().subtract(14, "days").format("YYYY-MM-DD HH:mm:ss");
 
 app.get("/dashboard/clients/products", (req, res) => {
   conn.query("SELECT nameProduct, descriptionProduct FROM products", (err, results) => {
@@ -73,91 +76,102 @@ const statisticUser = [
   }
 ];
 
-const EventEmitter = require('events');
-const myEmitter = new EventEmitter();
-
-const queryAndUpdate = (idUser) => {
-  if (idUser !== undefined) {
+const getClientId = (idUser) => {
+  return new Promise((resolve, reject) => {
     conn.query(`SELECT idClientInUser FROM users WHERE idUser = ${idUser}`, (err, results) => {
       if (err) {
-        console.error(err);
+        reject(err);
       } else {
-        try {
-          const idClient = results[0].idClientInUser;
-          const query = `SELECT COUNT(*) FROM orders WHERE client = ${idClient} AND dateDeadline BETWEEN '${startCurrentWeek}' AND '${nowDate}'`;
-          conn.query(query, (err, results) => {
-            if (err) {
-              console.error(err);
-            } else {
-              console.log(results);
-              console.log(query);
-              statisticUser[0].currentValue = results[0]["COUNT(*)"];
-              conn.query(`SELECT COUNT(*) FROM orders WHERE client = ${idClient} AND dateDeadline BETWEEN '${startLastWeek}' AND '${startCurrentWeek}'`, (err, results) => {
-                if (err) {
-                  console.error(err);
-                } else {
-                  statisticUser[0].lastValue = results[0]["COUNT(*)"];
-                  statisticUser[0].percentageState = (statisticUser[0].currentValue / statisticUser[0].lastValue) * 100;
-                  console.log(statisticUser);
-                }
-              });
-              conn.query(`SELECT rating FROM clients WHERE idClient = ${idClient}`, (err, results) => {
-                if (err) {
-                  console.error(err);
-                } else {
-                  statisticUser[1].currentValue = results[0]["rating"];
-                  conn.query(`SELECT rating FROM clients WHERE idClient = ${idClient}`, (err, results) => {
-                    if (err) {
-                      console.error(err);
-                    } else {
-                      statisticUser[1].lastValue = results[0]["rating"];
-                      statisticUser[1].percentageState = (statisticUser[1].currentValue / statisticUser[1].lastValue) * 100;
-                      console.log(statisticUser);
-                    }
-                  });
-                }
-              });
-              conn.query(`SELECT manager FROM orders WHERE client = ${idClient}`, (err, results) => {
-                if (err) {
-                  console.error(err);
-                } else {
-                  statisticUser[2].currentValue = results[0]["manager"];
-                  conn.query(`SELECT manager FROM orders WHERE client = ${idClient}`, (err, results) => {
-                    if (err) {
-                      console.error(err);
-                    } else {
-                      statisticUser[2].lastValue = results[0]["manager"];
-                      statisticUser[2].percentageState = (statisticUser[2].currentValue / statisticUser[2].lastValue) * 100;
-                      console.log(statisticUser);
-                      conn.end()
-                    }
-                  });
-                }
-              });
-              myEmitter.emit('dataChanged', statisticUser);
-            }
-          });
-        } catch (error) {
-          console.error(error);
-        }
+        console.log(results);
+        resolve(results[0].idClientInUser);
       }
     });
-  }
+  });
 };
 
-
-app.post("/dashboard/user", (req, res) => {
-  const idUser = req.query.id;
-  console.log(idUser)
-  queryAndUpdate(idUser);
-});
-
-myEmitter.on('dataChanged', (data) => {
-  app.get("/dashboard/users/statisticCard", (req, res) => {
-    res.send(data);
+const getCurrentWeekOrdersCount = (idClient) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT COUNT(*) FROM orders WHERE client = ${idClient} AND dateDeadline BETWEEN '${startCurrentWeek}' AND '${nowDate}'`;
+    conn.query(query, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        // console.log(results[0])
+        resolve(results[0]["COUNT(*)"]);
+      }
+    });
   });
-});
+};
+
+const getLastWeekOrdersCount = (idClient) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT COUNT(*) FROM orders WHERE client = ${idClient} AND dateDeadline BETWEEN '${startLastWeek}' AND '${startCurrentWeek}'`;
+    conn.query(query, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results[0]["COUNT(*)"]);
+      }
+    });
+  });
+};
+
+const getClientRating = (idClient) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT rating FROM clients WHERE idClient = ${idClient}`, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results[0]["rating"]);
+      }
+    });
+  });
+};
+
+const getClientManager = (idClient) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT MAX(manager) FROM orders WHERE client = ${idClient}`, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        console.log(results[0]['MAX(manager)']);
+        resolve(results[0]['MAX(manager)']);
+      }
+    });
+  });
+};
+
+const updateStatistics = async () => {
+  try {
+    const idClient = await getClientId(idUser);
+    const currentWeekOrders = await getCurrentWeekOrdersCount(idClient);
+    const lastWeekOrders = await getLastWeekOrdersCount(idClient);
+    const rating = await getClientRating(idClient);
+    const manager = await getClientManager(idClient);
+
+    statisticUser[0].currentValue = currentWeekOrders;
+    statisticUser[0].lastValue = lastWeekOrders;
+    statisticUser[0].percentageState = (currentWeekOrders / lastWeekOrders) * 100;
+    statisticUser[1].currentValue = rating;
+    statisticUser[1].lastValue = rating;
+    statisticUser[1].percentageState = 100;
+    statisticUser[2].currentValue = manager;
+    statisticUser[2].lastValue = manager;
+    statisticUser[2].percentageState = 100;
+    console.log(statisticUser)
+
+    app.get("/dashboard/clients/statistics", (req, res) => {
+      res.send(statisticUser);
+    });
+
+    console.log('Statistics updated successfully');
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = {getClientId, updateStatistics};

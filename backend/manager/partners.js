@@ -22,7 +22,6 @@ async function getPartners() {
                 results.map((partner) => {
                     partner["dateConclusionContract"] = moment(partner["dateConclusionContract"]).format("DD.MM.YYYY HH:mm:ss");
                 })
-                console.log(results);
                 resolve(results);
             }
         })

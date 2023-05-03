@@ -30,7 +30,6 @@ async function getSells() {
                 results.map((sell) => {
                     sell["dateSell"] = moments(sell["dateSell"]).format("DD.MM.YYYY HH:mm:ss");
                 })
-                console.log(results);
                 resolve(results);
             }
         })

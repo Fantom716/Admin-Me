@@ -23,7 +23,6 @@ async function getOrders() {
         results.map((order) => {
           order["dateDeadline"] = moments(order["dateDeadline"]).format("DD.MM.YYYY HH:mm:ss");
         })
-        console.log(results);
         resolve(results);
       }
     })

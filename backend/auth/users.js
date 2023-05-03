@@ -9,6 +9,8 @@ const startGetProducts = require("../manager/products");
 const startGetClients = require("../manager/clients");
 const startGetOrders = require("../manager/oders");
 const { startStat } = require("../manager/homeManager");
+const queryAndUpdate = require("../user/homeUser");
+const selectOrder = require("../user/order");
 
 const app = express();
 const PORT = 5007;
@@ -35,12 +37,12 @@ conn.connect((err) => {
 
 
 app.post('/form', async (req, res) => {
-    const userData = req.body;
+    const userData = await req.body;
     console.log(userData);
-    idUser = userData.id;
+    idUser = await userData.id;
 
     try {
-      await writingSession(idUser);
+    //   await writingSession(idUser);
       await startStat
       await getPartners
       await startGetSells
@@ -48,6 +50,12 @@ app.post('/form', async (req, res) => {
       await startGetClients
       await startGetOrders
       await startStat
+
+      setInterval(() => {
+          queryAndUpdate.updateStatistics(idUser);
+          selectOrder(idUser);
+        }, 2000)
+
       res.send(userData);
     } catch (error) {
       console.error(error);
@@ -56,17 +64,17 @@ app.post('/form', async (req, res) => {
   });
 
 
-async function writingSession(idUser) {
-    let date = new Date().getDate() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds();
-    date = moment().format('YYYY-MM-DD HH:mm:ss');
-    console.log(date);
-    conn.query(`INSERT INTO sessions(idSession, userId) VALUES(4, ${idUser})`, (err, results) => {
-        if (err) console.log(err);
-        else {
-            console.log("OK");
-        }
-    })
-}
+// async function writingSession(idUser) {
+//     let date = new Date().getDate() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds();
+//     date = moment().format('YYYY-MM-DD HH:mm:ss');
+//     console.log(date);
+//     conn.query(`INSERT INTO sessions(idSession, userId) VALUES(4, ${idUser})`, (err, results) => {
+//         if (err) console.log(err);
+//         else {
+//             console.log("OK");
+//         }
+//     })
+// }
 
 app.get("/users", (req, res) => {
     conn.query("SELECT idUser, login, password, email, role FROM users", (err, results) => {
