@@ -10,7 +10,6 @@ function Partners() {
 
     const nameColumns = {
         idPartner: "ID партнера",
-        nameCompany: "Название компании",
         type: "Тип партнера",
         phoneNumber: "Номер телефона",
         address: "Адрес",
@@ -19,6 +18,7 @@ function Partners() {
         nameDelegate: "Имя",
         surnameDelegate: "Фамилия",
         patronimycDelegate: "Отчество",
+        nameCompany: "Название компании",
     }
 
     const [partners, setPartners] = useState([]);

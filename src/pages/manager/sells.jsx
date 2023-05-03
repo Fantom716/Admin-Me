@@ -11,10 +11,10 @@ function Sells() {
     const nameColumns = {
         idSell: "ID продажи",
         idOrder: "ID заказа",
+        dateSell: "Дата продажи",
         seller: "Продавец",
         price: "Цена (руб.)",
         countSell: "Количество (шт.)",
-        dateSell: "Дата продажи",
     }
 
     const [sells, setSells] = useState([]);

@@ -82,7 +82,6 @@ const getClientId = (idUser) => {
       if (err) {
         reject(err);
       } else {
-        console.log(results);
         resolve(results[0].idClientInUser);
       }
     });
@@ -96,7 +95,6 @@ const getCurrentWeekOrdersCount = (idClient) => {
       if (err) {
         reject(err);
       } else {
-        // console.log(results[0])
         resolve(results[0]["COUNT(*)"]);
       }
     });
@@ -134,7 +132,6 @@ const getClientManager = (idClient) => {
       if (err) {
         reject(err);
       } else {
-        console.log(results[0]['MAX(manager)']);
         resolve(results[0]['MAX(manager)']);
       }
     });
@@ -158,11 +155,6 @@ const updateStatistics = async () => {
     statisticUser[2].currentValue = manager;
     statisticUser[2].lastValue = manager;
     statisticUser[2].percentageState = 100;
-    console.log(statisticUser)
-
-    app.get("/dashboard/clients/statistics", (req, res) => {
-      res.send(statisticUser);
-    });
 
     console.log('Statistics updated successfully');
   } catch (error) {
@@ -170,8 +162,16 @@ const updateStatistics = async () => {
   }
 }
 
+async function getStat(idUser) {
+  updateStatistics(idUser).then(() => {
+    app.get("/dashboard/clients/statistics", (req, res) => {
+      res.send(statisticUser);
+    });
+  });
+}
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-module.exports = {getClientId, updateStatistics};
+module.exports = {getClientId, getStat};
