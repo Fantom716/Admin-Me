@@ -51,9 +51,9 @@ const linksNavClient = [
         title: "Мои заказы"
     },
     {
-        href: `/user/${localStorage.getItem("idUser")}/paymentdetails`,
+        href: `/user/${localStorage.getItem("idUser")}/profile`,
         icon: "/navigation/icons/sells.svg",
-        title: "Платежные данные"
+        title: "Мой профиль"
     }
 ]
 

@@ -1,0 +1,158 @@
+@import "./vars.scss";
+
+.wrapperCards {
+    width: 100%;
+}
+
+.aboutCard {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.valueCard {
+    line-height: 1.9rem;
+}
+
+.cardRubric {
+    margin: 20px 0px;
+    font-weight: 600;
+}
+
+.valueCard:first-child {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.wrapperButtons {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 130px;
+    flex-shrink: 0;
+}
+
+.contactButton {
+    border: none;
+    border-radius: $standart-border-radius;
+    background-color: $main-button-active-color;
+    padding: 10px 25px;
+    color: white;
+}
+
+.contactButton:hover {
+    background-color: $main-button-hover-color;
+}
+
+.inputValueCard {
+    height: auto;
+    padding: 1%;
+    margin-bottom: 30px;
+    width: 90%;
+    border: $input-border;
+}
+
+.inputValuesCard {
+    width: 100%;
+}
+
+.valuesCard {
+    height: 100%;
+}
+
+.addingAboutCard {
+    width: 100%;
+}
+
+.cancelButton {
+    background-color: #ba0101;
+    margin-bottom: 30px;
+    background-image: url("../../public/card/icons/small%20card/Cancel_light.svg");
+}
+
+.cancelButton:hover {
+    background-color: #e10404;
+}
+
+.addButton {
+    background-color: #00b743;
+    background-image: url("../../public/card/icons/small%20card/Check_ring_light.svg");
+}
+
+.addButton:hover {
+    background-color: #00c64a;
+}
+
+.headerButtonMain {
+    height: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 20px 20px;
+    border-radius: $standart-border-radius;
+}
+
+.deleteButton {
+    background-image: url("../../public/card/icons/small%20card/del_alt_light.svg");
+    background-color: #e10404;
+    margin: 0px 20% 0px 2%;
+}
+
+.deleteButton:hover {
+    background-color: #ff0000;
+}
+
+.editButton {
+    background-image: url("../../public/card/icons/small%20card/Edit_light.svg");
+    background-color: #dae100;
+}
+
+.editButton:hover {
+    background-color: #f6ff00;
+}
+
+.mainButtonAddDel {
+    height: 60px;
+    width: 60px;
+    border-radius: 20px;
+    border: 2px solid rgb(166, 166, 166);
+    margin: 50px auto;
+    display: block;
+    font-size: 3rem;
+    color: rgb(166, 166, 166);
+    font-weight: 400;
+}
+
+.buttonAdd::after {
+    content: '+';
+    position: relative;
+    top: 0;
+}
+
+.buttonDel::after {
+    content: '-';
+    position: relative;
+    bottom: 4px;
+}
+
+.mainButtonAddDel:hover {
+    background-color: #ffebeb;
+}
+
+.error {
+    color: $error-color;
+    margin-bottom: 10px;
+}
+
+.selectInput {
+    height: auto;
+    font-weight: 300;
+    min-height: 45px;
+}
+
+.headerButtonsClients {
+    align-self: end;
+}

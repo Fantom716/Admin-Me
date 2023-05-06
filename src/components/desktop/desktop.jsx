@@ -1,8 +1,6 @@
 import React from "react";
 import BigCard from "../cards/big card/big-card";
-import SmallCard from "../cards/small card/small-card-type";
 import InformationCard from "../cards/card for information/informationCard";
-import SmallCardType from "../cards/small card/small-card-add";
 import "../../styles/desktop.scss";
 import MainDesktopCard from "../cards/big card/mainDesktopCard";
 

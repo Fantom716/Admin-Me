@@ -1,0 +1,31 @@
+@import "./vars.scss";
+
+.wrapperProfile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 83vh;
+}
+
+.wrapperData {
+    display: flex;
+    flex-direction: column;
+    align-items: self-start;
+}
+
+.valueRating {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.profileRubric {
+    @include name-rubric;
+}
+
+.valueRubric:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.mainDataClient {
+    margin-bottom: 100px;
+}

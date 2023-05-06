@@ -10,7 +10,7 @@ import Registration from './pages/start/reg/registration-form';
 import Products from './pages/manager/products';
 import HomeUser from './pages/user/home';
 import OrdersUser from './pages/user/orderUser';
-import PaymentDetails from './pages/user/paymentUser';
+import Profile from './pages/user/profile';
 
 function App() {
   return (
@@ -28,7 +28,10 @@ function App() {
       <Routes>
         <Route path='/user/:id/dashboard' element={<HomeUser />} />
         <Route path='/user/:id/orders' element={<OrdersUser />} />
-        <Route path='/user/:id/paymentdetails' element={<PaymentDetails />} />
+        <Route path='/user/:id/profile' element={<Profile />} />
+      </Routes>
+      <Routes>
+        <Route path='/test' />
       </Routes>
     </>
   );

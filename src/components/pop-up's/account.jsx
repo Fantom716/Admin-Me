@@ -7,9 +7,9 @@ function NotificationAccount(props) {
     const navigate = useNavigate();
 
     function handleLogout() {
-        // здесь можно добавить логику выхода из системы, если она нужна
         navigate("/");
-        localStorage.removeItem("user");
+        localStorage.removeItem("idUser");
+        localStorage.removeItem("login");
     }
 
     return (

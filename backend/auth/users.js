@@ -10,6 +10,7 @@ const { startStat } = require("../manager/homeManager");
 const queryAndUpdate = require("../user/homeUser");
 const insertOrder = require("../user/order");
 const ordersPromise = require("../user/order");
+const sendDataProfile = require("../user/profile");
 
 const app = express();
 const PORT = 5007;
@@ -55,6 +56,7 @@ app.post('/form', async (req, res) => {
 
     await queryAndUpdate.getStat(idUser);
     await insertOrder(idUser);
+    await sendDataProfile(idUser);
 
     res.send(userData);
   } catch (error) {

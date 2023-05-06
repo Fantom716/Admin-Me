@@ -62,34 +62,6 @@
     font-weight: 700;
 }
 
-/* SMALL CARD */
-/* card-add */
-
-.cardWrapper {
-    padding: 36px 20% 35px 26px;
-    border-radius: 14px;
-    display: flex;
-    gap: 17px;
-    max-height: 121px;
-    font-size: .9rem;
-    background-color: #fff;
-    align-items: center;
-    word-wrap: anywhere;
-    border: 0px;
-    .cardWrapper:hover {
-        cursor: pointer;
-        background-color: $main-button-hover-color;
-    }
-}
-
-.cardTitle {
-    font-family: $main-font;
-    margin: 0;
-    max-height: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 /* INFOCARD */
 
 .infoCardWrapper {

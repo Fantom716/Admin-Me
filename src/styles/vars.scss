@@ -5,7 +5,14 @@ $error-color: #FF0000;
 $main-font: 'Montserrat', sans-serif;
 $standart-border-radius: 14px;
 $input-height: 15%;
-$input-border: 1px #C7C7C7;
+$input-border: 3px solid #F0F3FF;
+
+@mixin name-rubric {
+    font-weight: 700;
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    margin-bottom: 50px;
+}
 
 @mixin name-page {
     font-size: 1.5rem;

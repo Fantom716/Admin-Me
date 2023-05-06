@@ -1,8 +1,10 @@
 const express = require("express");
 const mysql = require("mysql");
 const moments = require("moment");
-
 const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = 5012;
 
 const conn = mysql.createConnection({
@@ -24,6 +26,7 @@ async function getOrders() {
           order["dateDeadline"] = moments(order["dateDeadline"]).format("DD.MM.YYYY HH:mm:ss");
         })
         resolve(results);
+        console.log(results);
       }
     })
   })
@@ -36,6 +39,38 @@ async function startGetOrders() {
       })
     })
 }
+
+app.post("/orders/add", (req, res) => {
+  console.log(req.body);
+  conn.query(`INSERT INTO orders(idOrder, client, composition, dateDeadline, manager, quantity, status, clients_idClients) VALUES(1, ${req.body.client}, '${req.body.composition}', '${req.body.dateDeadline}', '${req.body.manager}', '${req.body.quantity}', '${req.body.status}', ${req.body.client})
+  `, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log("OK");
+      res.send(results);
+    }
+  })
+})
+
+app.post("/orders/update", (req, res) => {
+  console.log(req.body);
+  res.send(req.body);
+})
+
+app.post("/orders/delete", (req, res) => {
+  console.log(req.body);
+  conn.query(`DELETE FROM orders WHERE idOrder = ${req.body.idOrder}`, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log("OK");
+      res.send(results);
+    }
+  })
+})
 
 startGetOrders();
 
