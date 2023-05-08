@@ -57,10 +57,8 @@ const sendDataProfile = (data) => {
     })
 }
 
-// sendDataProfile(6886)
-
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-module.exports = sendDataProfile;
+module.exports = sendDataProfile, collectData;

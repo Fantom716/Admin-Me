@@ -117,6 +117,7 @@ async function getStatisticAdmin() {
   statisticAdmin[1]["lastValue"] = releases[1]["version"];
 
   getStatistic()
+  console.log(statisticAdmin)
 
   app.get("/dashboard/admin/statisticCard", (req, res) => {
     res.send(statisticAdmin);

@@ -60,7 +60,6 @@ const statisticUser = [
     name: "Рейтинг",
     currentValue: 0,
     lastValue: 0,
-    percentageState: 0,
     image: "/card/icons/small card add/user.svg",
     alt: "users"
   },
@@ -70,13 +69,13 @@ const statisticUser = [
     name: "Любимый менеджер",
     currentValue: 0,
     lastValue: 0,
-    percentageState: 0,
     image: "/card/icons/small card add/user.svg",
     alt: "details"
   }
 ];
 
 const getClientId = (idUser) => {
+  console.log("id: " + idUser)
   return new Promise((resolve, reject) => {
     conn.query(`SELECT idClientInUser FROM users WHERE idUser = ${idUser}`, (err, results) => {
       if (err) {
@@ -95,11 +94,18 @@ const getCurrentWeekOrdersCount = (idClient) => {
       if (err) {
         reject(err);
       } else {
+        console.log(query)
+        console.log(results[0]["COUNT(*)"])
         resolve(results[0]["COUNT(*)"]);
       }
     });
   });
 };
+
+getCurrentWeekOrdersCount(1).then(res => {
+  console.log("res:" + res)
+  console.log(statisticUser)
+})
 
 const getLastWeekOrdersCount = (idClient) => {
   return new Promise((resolve, reject) => {
@@ -142,6 +148,7 @@ const updateStatistics = async () => {
   try {
     const idClient = await getClientId(idUser);
     const currentWeekOrders = await getCurrentWeekOrdersCount(idClient);
+    console.log("c:" + currentWeekOrders)
     const lastWeekOrders = await getLastWeekOrdersCount(idClient);
     const rating = await getClientRating(idClient);
     const manager = await getClientManager(idClient);
@@ -162,13 +169,22 @@ const updateStatistics = async () => {
   }
 }
 
+
 async function getStat(idUser) {
-  updateStatistics(idUser).then(() => {
-    app.get("/dashboard/clients/statistics", (req, res) => {
-      res.send(statisticUser);
-    });
+  await updateStatistics(idUser);
+  console.log(statisticUser)
+  app.get("/dashboard/clients/statistics", (req, res) => {
+    res.send(statisticUser);
   });
 }
+
+app.get("/dashboard/clients/statistics", async (req, res) => {
+  await updateStatistics();
+  console.log(statisticUser)
+  res.send(statisticUser);
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

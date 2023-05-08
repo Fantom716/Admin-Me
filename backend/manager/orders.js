@@ -3,6 +3,8 @@ const mysql = require("mysql");
 const moments = require("moment");
 const app = express();
 const bodyParser = require('body-parser');
+const id = require("../utils/getRandomUniqueNumber");
+const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = 5012;
@@ -40,37 +42,52 @@ async function startGetOrders() {
     })
 }
 
-app.post("/orders/add", (req, res) => {
-  console.log(req.body);
-  conn.query(`INSERT INTO orders(idOrder, client, composition, dateDeadline, manager, quantity, status, clients_idClients) VALUES(1, ${req.body.client}, '${req.body.composition}', '${req.body.dateDeadline}', '${req.body.manager}', '${req.body.quantity}', '${req.body.status}', ${req.body.client})
-  `, (err, results) => {
-    if (err) {
-      console.log(err);
-      res.send(err);
-    } else {
-      console.log("OK");
-      res.send(results);
-    }
-  })
-})
+app.post("/orders/add", async (req, res) => {
+  try {
+    const idOrder = await getRandomUniqueNumber("idOrder", "orders");
+    const { client, composition, dateDeadline, manager, quantity, status } = req.body;
+    const query = `INSERT INTO orders(idOrder, client, composition, dateDeadline, manager, quantity, status, clients_idClients) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [idOrder, client, composition, dateDeadline, manager, quantity, status, client];
+    conn.query(query, values, (err, results) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        console.log("OK");
+        res.send(results);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
 
 app.post("/orders/update", (req, res) => {
   console.log(req.body);
   res.send(req.body);
 })
 
-app.post("/orders/delete", (req, res) => {
-  console.log(req.body);
-  conn.query(`DELETE FROM orders WHERE idOrder = ${req.body.idOrder}`, (err, results) => {
-    if (err) {
-      console.log(err);
-      res.send(err);
-    } else {
-      console.log("OK");
-      res.send(results);
-    }
-  })
-})
+app.post("/orders/delete", async (req, res) => {
+  try {
+    const { idOrder } = req.body;
+    const query = `DELETE FROM orders WHERE idOrder = ?`;
+    const values = [idOrder];
+    conn.query(query, values, (err, results) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        console.log("OK");
+        res.send(results);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
+
 
 startGetOrders();
 

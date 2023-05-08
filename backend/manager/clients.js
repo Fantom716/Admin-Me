@@ -2,7 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 const moments = require("moment");
 const bodyParser = require('body-parser');
-const getRandomUniqueNumber = require("../auth/users");
+const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
 const app = express();
 
 // Разбор тела запроса в формате json
@@ -44,10 +44,19 @@ async function startGetClients() {
   })
 }
 
-app.post("/clients/add", (req, res) => {
-  console.log(req.body);
-  getRandomUniqueNumber("idClient", "clients").then((idClient) => {
-    conn.query(`INSERT INTO clients(idClient, name, surname, patronimyc, dateBirthday, phoneNumber, passportInfo, rating) VALUES (${idClient}, '${req.body.surname}', '${req.body.name}', '${req.body.patronimyc}', '${req.body.dateBirthday}', '${req.body.phoneNumber}', '${req.body.passportInfo}', '${req.body.rating}')`, (err, results) => {
+getRandomUniqueNumber("idClient", "clients").then(
+  (id) => {
+    console.log(id)
+  }
+)
+
+app.post("/clients/add", async (req, res) => {
+  try {
+    const idClient = await getRandomUniqueNumber("idClient", "clients");
+    const { surname, name, patronimyc, dateBirthday, phoneNumber, passportInfo, rating } = req.body;
+    const query = `INSERT INTO clients(idClient, name, surname, patronimyc, dateBirthday, phoneNumber, passportInfo, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [idClient, surname, name, patronimyc, dateBirthday, phoneNumber, passportInfo, rating];
+    conn.query(query, values, (err, results) => {
       if (err) {
         console.log(err);
         res.send(err);
@@ -55,53 +64,31 @@ app.post("/clients/add", (req, res) => {
         console.log("OK");
         res.send(results);
       }
-    })
-  })
-})
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
 
-app.post("/clients/update", (req, res) => {
-  console.log(req.body);
-  conn.query(`UPDATE clients SET name='${req.body.name}', surname='${req.body.surname}', patronimyc='${req.body.patronimyc}', phoneNumber='${req.body.phoneNumber}', passportInfo='${req.body.passportInfo}', rating=${req.body.rating} WHERE idClient=${req.body.idClient}`, (err, results) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("OK");
-      res.send(results);
-    }
-  })
-})
-
-app.post("/clients/delete", (req, res) => {
-  conn.beginTransaction((err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send("Failed to start transaction");
-    }
-
-    conn.query(`DELETE FROM orders WHERE client = ${req.body.idClient}`, (err, results) => {
+app.post("/clients/update", async (req, res) => {
+  try {
+    const { name, surname, patronimyc, phoneNumber, passportInfo, rating, idClient } = req.body;
+    const query = `UPDATE clients SET name=?, surname=?, patronimyc=?, phoneNumber=?, passportInfo=?, rating=? WHERE idClient=?`;
+    const values = [name, surname, patronimyc, phoneNumber, passportInfo, rating, idClient];
+    conn.query(query, values, (err, results) => {
       if (err) {
         console.log(err);
-        return conn.rollback(() => res.status(500).send("Failed to delete orders"));
+        res.send(err);
+      } else {
+        console.log("OK");
+        res.send(results);
       }
-
-      conn.query(`DELETE FROM clients WHERE idClient = ${req.body.idClient}`, (err, results) => {
-        if (err) {
-          console.log(err);
-          return conn.rollback(() => res.status(500).send("Failed to delete client"));
-        }
-
-        conn.commit((err) => {
-          if (err) {
-            console.log(err);
-            return conn.rollback(() => res.status(500).send("Failed to commit transaction"));
-          }
-
-          console.log("OK");
-          res.send(req.body);
-        });
-      });
     });
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
 });
 
 startGetClients();
