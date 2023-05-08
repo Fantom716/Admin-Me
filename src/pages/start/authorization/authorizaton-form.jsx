@@ -67,6 +67,8 @@ function Authorization() {
               navigate(`user/${formValue.id}/dashboard/`);
             } else if (formValue.role === "Менеджер") {
               navigate(`manager/${formValue.id}/dashboard/`);
+            } else if (formValue.role === "Администратор") {
+              navigate(`admin/${formValue.id}/dashboard/`);
             }
           })
           .catch((error) => {

@@ -119,11 +119,11 @@ img {
 .navLinkActive {
     text-decoration: none;
     display: flex;
-    justify-content: space-around;
     align-items: center;
     gap: 10%;
     width: 85%;
     img {
+        min-width: 40px;
         width: 20%;
         max-width: 100%;
     }

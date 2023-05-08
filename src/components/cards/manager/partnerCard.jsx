@@ -85,8 +85,8 @@ function PartnerCard(props) {
       })
   }
 
-  const cleanedPhoneNumber = (number) => {
-    return number.replace(/[^+0-9]/g, "");
+  const cleanedPhoneNumber = (phoneNumber) => {
+    return phoneNumber.replace(/[^+0-9]/g, "");
   }
 
   const toggleEdit = (index) => {
@@ -174,7 +174,6 @@ function PartnerCard(props) {
                 <p>Все поля являются обязательными</p>
               </div>
               <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                <button className="cancelButton headerButtonMain"></button>
                 <button onClick={addingPartner} className="addButton headerButtonMain"></button>
               </div>
             </div>
@@ -219,19 +218,18 @@ function PartnerCard(props) {
               <div className="headerButtons">
                 {editIndex === index ? (
                   <>
+                    <button onClick={handleSave} className="addButton headerButtonMain acceptButton"></button>
                     <button onClick={() => handleCancel(index)} className="contactButton headerButtonMain cancelButton"></button>
-                    <button onClick={() => handleSave(index)} className="contactButton headerButtonMain editButton"></button>
                   </>
                 ) : (
                   <>
-                    <button className="contactButton headerButtonMain deleteButton" onClick={() => handleDelete(partner.idPartner)}></button>
                     <button onClick={() => toggleEdit(index)} className="contactButton headerButtonMain editButton"></button>
+                    <button className="contactButton headerButtonMain deleteButton" onClick={() => handleDelete(partner.idPartner)}></button>
                   </>
                 )}
               </div>
-              <a href={`tel:${cleanedPhoneNumber(partner.phoneNumber)}`} tabIndex={0} className="contactButton">
-                Связаться
-              </a>
+              {console.log(partner.phoneNumber)}
+              <button className="contactButton">Связаться</button>
             </div>
           </div>
         )

@@ -11,6 +11,7 @@ function OrderCardManager(props) {
   const [responseOrder, setResponseOrder] = useState([]);
   const [orders, setOrders] = useState([]);
   const [originalOrder, setOriginalOrder] = useState([]);
+  const [deleteClick, setDeleteClick] = useState(false);
   const [addOrder, setAddOrder] = useState({
     client: 0,
     composition: "",
@@ -57,10 +58,10 @@ function OrderCardManager(props) {
 
   const addingOrder = (e) => {
     e.preventDefault();
-    // if (!client || !composition || !dateDeadline || !manager || !quantity || !status) {
-    //   setAddOrder({ ...addOrder, error: "Заполнены не все поля" });
-    //   return;
-    // }
+    if (!addOrder.client || !addOrder.composition || !addOrder.dateDeadline || !addOrder.manager || !addOrder.quantity || !addOrder.status) {
+      setAddOrder({ ...addOrder, error: "Заполнены не все поля" });
+      return;
+    }
     axios.post("http://localhost:5012/orders/add", addOrder)
       .then((response) => {
         setResponseOrder(response.data);
@@ -73,15 +74,15 @@ function OrderCardManager(props) {
           quantity: "",
           status: "",
         });
+        setAddElement(false);
       })
       .catch((error) => {
         setAddOrder({ ...addOrder, error: error });
-      }
-      )
-    console.log(addOrder);
-  }
+      });
+  };
 
   const deletingOrder = (id) => {
+    setDeleteClick(true);
     axios.post(`http://localhost:5012/orders/delete`, { idOrder: id })
       .then((response) => {
         setResponseOrder(response.data);
@@ -131,7 +132,7 @@ function OrderCardManager(props) {
           <>
           <button onClick={addNewElement} className="mainButtonAddDel buttonDel"></button>
           <div className="addingAboutCard aboutCard">
-            <div className="inputValuesCard valuesCard">
+            <form className="inputValuesCard valuesCard">
               <p className="valueCard">Заполните следующие данные:</p>
               <select className="inputValueCard selectInput" name="client" id="" placeholder="Заказ" value={addOrder.client} onChange={handleInputChange}>
                 <option disabled selected value="selectDisabled">Клиент</option>
@@ -148,9 +149,8 @@ function OrderCardManager(props) {
               <input type="text" required className="inputValueCard" name="status" placeholder="Статус" onChange={handleInputChange} />
               <p onChange={setText} className="error">{error}</p>
               <p>Все поля являются обязательными</p>
-            </div>
+            </form>
             <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
-              <button className="cancelButton headerButtonMain"></button>
               <button onClick={addingOrder} className="addButton headerButtonMain"></button>
             </div>
           </div>
@@ -164,7 +164,7 @@ function OrderCardManager(props) {
           <div className="aboutCard">
             <div className="valuesCard">
               {editIndex === index ? (
-                <>
+                <form>
                   <input className="inputValueCard" placeholder="ID заказа" value={order.idOrder} onChange={(event) => handleChange(event, index, "idOrder")} type="text" />
                   <input className="inputValueCard" placeholder="Имя" value={order.name} onChange={(event) => handleChange(event, index, "name")} type="text" />
                   <input className="inputValueCard" placeholder="Фамилия" value={order.surname} onChange={(event) => handleChange(event, index, "surname")} type="text" />
@@ -174,7 +174,7 @@ function OrderCardManager(props) {
                   <input className="inputValueCard" placeholder="Менеджер" value={order.manager} onChange={(event) => handleChange(event, index, "dateDeadline")} type="text" />
                   <input className="inputValueCard" placeholder="Количество" value={order.quantity} onChange={(event) => handleChange(event, index, "quantity")} type="number" />
                   <input className="inputValueCard" placeholder="Статус" value={order.status} onChange={(event) => handleChange(event, index, "status")} type="text" />
-                </>
+                </form>
               ) : (
                 <>
                   <p className="valueCard">{order.idOrder}</p>
@@ -193,7 +193,7 @@ function OrderCardManager(props) {
               <div className="headerButtons">
                 {editIndex === index ? (
                   <>
-                    <button onClick={() => handleSave(index)} className="contactButton headerButtonMain editButton"></button>
+                    <button onClick={handleSave} className="addButton headerButtonMain acceptButton"></button>
                     <button onClick={() => handleCancel(index)} className="contactButton headerButtonMain cancelButton"></button>
                   </>
                 ) : (

@@ -44,8 +44,8 @@
     color: white;
 }
 
-.contactButton:hover {
-    background-color: $main-button-hover-color;
+.headerButtons {
+    width: 100%;
 }
 
 .inputValueCard {
@@ -69,22 +69,28 @@
 }
 
 .cancelButton {
-    background-color: #ba0101;
-    margin-bottom: 30px;
+    background-color: #fff;
     background-image: url("../../public/card/icons/small%20card/Cancel_light.svg");
-}
-
-.cancelButton:hover {
-    background-color: #e10404;
+    filter: $shadow;
 }
 
 .addButton {
-    background-color: #00b743;
+    background-color: #fff;
     background-image: url("../../public/card/icons/small%20card/Check_ring_light.svg");
+    filter: $shadow;
 }
 
-.addButton:hover {
-    background-color: #00c64a;
+.contactButton:hover,
+.deleteButton:hover,
+.cancelButton:hover,
+.addButton:hover,
+.editButton:hover {
+    background-color: $main-button-hover-color;
+    filter: none;
+}
+
+.mainButtonAddDel:hover {
+    background-color: #dadada;
 }
 
 .headerButtonMain {
@@ -97,21 +103,20 @@
 
 .deleteButton {
     background-image: url("../../public/card/icons/small%20card/del_alt_light.svg");
-    background-color: #e10404;
-    margin: 0px 20% 0px 2%;
-}
-
-.deleteButton:hover {
-    background-color: #ff0000;
+    background-color: #fff;
+    margin-right: 30px;
+    filter: $shadow;
 }
 
 .editButton {
     background-image: url("../../public/card/icons/small%20card/Edit_light.svg");
-    background-color: #dae100;
+    background-color: #fff;
+    filter: $shadow;
+    margin-right: 20px;
 }
 
-.editButton:hover {
-    background-color: #f6ff00;
+.acceptButton {
+    margin-right: 20px;
 }
 
 .mainButtonAddDel {
@@ -138,10 +143,6 @@
     bottom: 4px;
 }
 
-.mainButtonAddDel:hover {
-    background-color: #ffebeb;
-}
-
 .error {
     color: $error-color;
     margin-bottom: 10px;
@@ -155,4 +156,5 @@
 
 .headerButtonsClients {
     align-self: end;
+    width: auto;
 }

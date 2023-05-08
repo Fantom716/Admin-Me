@@ -9,8 +9,9 @@ const startGetOrders = require("../manager/oders");
 const { startStat } = require("../manager/homeManager");
 const queryAndUpdate = require("../user/homeUser");
 const insertOrder = require("../user/order");
-const ordersPromise = require("../user/order");
 const sendDataProfile = require("../user/profile");
+const getStatisticAdmin = require("../admin/homeAdmin");
+const getUsers = require("../admin/users");
 
 const app = express();
 const PORT = 5007;
@@ -31,13 +32,27 @@ conn.connect((err) => {
   console.log("Connected!");
 })
 
-const getRandomUniqueNumber = () => {
-  let uniqueNumber = new Date().valueOf().toString();
-  while (uniqueNumber <= 1) {
-    uniqueNumber = new Date().valueOf().toString();
-  }
-  return uniqueNumber;
-}
+const checkMatch = (number, array) => {
+  return array.some((item) => item.idSession === number);
+};
+
+const getRandomUniqueNumber = async (idField, table) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT ${idField} FROM ${table}`, (err, results) => {
+      if (err) console.log(err);
+      else {
+        let newResult = results;
+        let randomNumber = Math.floor(Math.random() * 10000);
+        while (checkMatch(randomNumber, newResult)) {
+          randomNumber = Math.floor(Math.random() * 10000);
+        }
+        resolve(randomNumber);
+      }
+    });
+  })
+};
+
+getRandomUniqueNumber("idSession", "sessions");
 
 const nowDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
@@ -45,8 +60,11 @@ app.post('/form', async (req, res) => {
   const userData = await req.body;
   idUser = await userData.id;
   try {
+
+    // Create session
     await writingSession(idUser);
 
+    // Get data for manager
     await startStat
     await getPartners
     await startGetSells
@@ -54,10 +72,16 @@ app.post('/form', async (req, res) => {
     await startGetClients
     await startGetOrders
 
+    // Get data for users
     await queryAndUpdate.getStat(idUser);
     await insertOrder(idUser);
     await sendDataProfile(idUser);
 
+    // Get data for admin
+    // await getStatisticAdmin
+    // await getUsers
+
+    // Send data
     res.send(userData);
   } catch (error) {
     console.error(error);
@@ -66,12 +90,12 @@ app.post('/form', async (req, res) => {
 });
 
 async function writingSession(idUser) {
-    conn.query(`INSERT INTO sessions(idSession, idUser, dateStartSession) VALUES(${getRandomUniqueNumber()}, ${idUser}, '${nowDate}')`, (err, results) => {
-        if (err) console.log(err);
-        else {
-            console.log("OK");
-        }
-    })
+  conn.query(`INSERT INTO sessions(idSession, idUser, dateStartSession) VALUES(${getRandomUniqueNumber()}, ${idUser}, '${nowDate}')`, (err, results) => {
+    if (err) console.log(err);
+    else {
+      console.log("OK");
+    }
+  })
 }
 
 app.get("/users", (req, res) => {
@@ -84,3 +108,5 @@ app.get("/users", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 })
+
+module.exports = getRandomUniqueNumber;

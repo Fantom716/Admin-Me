@@ -68,7 +68,7 @@ function ClientCard(props) {
         });
       })
       .catch((error) => {
-        setAddClient({ ...addClient, error: error });
+        setAddClient({ ...addClient, error: error.message });
       })
   }
 
@@ -141,7 +141,6 @@ function ClientCard(props) {
                 <p>Все поля являются обязательными</p>
               </div>
               <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                <button className="cancelButton headerButtonMain"></button>
                 <button onClick={addingClient} className="addButton headerButtonMain"></button>
               </div>
             </div>
@@ -176,16 +175,16 @@ function ClientCard(props) {
               <div className="headerButtons headerButtonsClients">
                 {editIndex === index ? (
                   <>
-                    <button onClick={() => handleSave(index)} className="contactButton headerButtonMain editButton"></button>
+                    <button onClick={handleSave} className="addButton headerButtonMain acceptButton"></button>
                     <button onClick={() => handleCancel(index)} className="contactButton headerButtonMain cancelButton"></button>
                   </>
                 ) : (
                   <button onClick={() => toggleEdit(index)} className="contactButton headerButtonMain editButton"></button>
                 )}
               </div>
-              {/* <a href={`tel:${cleanedPhoneNumber(client.phoneNumber)}`} tabIndex={0} className="contactButton">
+              <a href={`tel:${cleanedPhoneNumber(client.phoneNumber)}`} tabIndex={0} className="contactButton">
                 Связаться
-              </a> */}
+              </a>
             </div>
           </div>
         );

@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 const moments = require("moment");
 const bodyParser = require('body-parser');
+const getRandomUniqueNumber = require("../auth/users");
 const app = express();
 
 // Разбор тела запроса в формате json
@@ -45,14 +46,16 @@ async function startGetClients() {
 
 app.post("/clients/add", (req, res) => {
   console.log(req.body);
-  conn.query(`INSERT INTO clients(idClient, name, surname, patronimyc, dateBirthday, phoneNumber, passportInfo, rating) VALUES (1, '${req.body.surname}', '${req.body.name}', '${req.body.patronimyc}', '${req.body.dateBirthday}', '${req.body.phoneNumber}', '${req.body.passportInfo}', '${req.body.rating}')`, (err, results) => {
-    if (err) {
-      console.log(err);
-      res.send(err);
-    } else {
-      console.log("OK");
-      res.send(results);
-    }
+  getRandomUniqueNumber("idClient", "clients").then((idClient) => {
+    conn.query(`INSERT INTO clients(idClient, name, surname, patronimyc, dateBirthday, phoneNumber, passportInfo, rating) VALUES (${idClient}, '${req.body.surname}', '${req.body.name}', '${req.body.patronimyc}', '${req.body.dateBirthday}', '${req.body.phoneNumber}', '${req.body.passportInfo}', '${req.body.rating}')`, (err, results) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        console.log("OK");
+        res.send(results);
+      }
+    })
   })
 })
 

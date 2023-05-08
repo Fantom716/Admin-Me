@@ -24,7 +24,7 @@ async function getProducts() {
                 reject(err);
             } else {
                 results.map((product) => {
-                    product["dateOfSell"] = moment(product["dateOfSell"]).format("DD.MM.YYYY HH:mm:ss")
+                    product["dateOfSell"] = moment(product["dateOfSell"]).format("DD.MM.YYYY")
                 })
                 console.log(results)
                 resolve(results);

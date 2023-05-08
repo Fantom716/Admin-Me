@@ -5,6 +5,7 @@ $error-color: #FF0000;
 $main-font: 'Montserrat', sans-serif;
 $standart-border-radius: 14px;
 $input-height: 15%;
+$shadow: drop-shadow(1px 1px 15px rgba(0, 0, 0, 0.20));
 $input-border: 3px solid #F0F3FF;
 
 @mixin name-rubric {

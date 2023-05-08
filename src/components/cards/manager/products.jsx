@@ -167,7 +167,6 @@ function ProductCard(props) {
               <p>Все поля являются обязательными</p>
             </div>
             <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
-              <button className="cancelButton headerButtonMain"></button>
               <button onClick={addingProduct} className="addButton headerButtonMain"></button>
             </div>
           </div>
@@ -206,7 +205,7 @@ function ProductCard(props) {
               <div className="headerButtons">
                 {editIndex === index ? (
                   <>
-                    <button onClick={() => handleSave(index)} className="contactButton headerButtonMain editButton"></button>
+                    <button onClick={handleSave} className="addButton headerButtonMain acceptButton"></button>
                     <button onClick={() => handleCancel(index)} className="contactButton headerButtonMain cancelButton"></button>
                   </>
                 ) : (

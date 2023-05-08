@@ -39,29 +39,9 @@ function SellsCard(props) {
     setData(newData);
   };
 
-  const addNewElement = (event) => {
-    event.preventDefault()
-    const newElement =
-      <div className="aboutCard">
-        <div className="valuesCard">
-          <input type="text" placeholder="ID продажи" className="inputValueCard"></input>
-          <input type="text" placeholder="Дата продажи" className="inputValueCard"></input>
-          <input type="text" placeholder="ID заказа" className="inputValueCard"></input>
-          <input type="text" placeholder="Цена продукта" className="inputValueCard"></input>
-          <input type="text" placeholder="Продавец" className="inputValueCard"></input>
-          <p>Все поля являются обязательными</p>
-        </div>
-        <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
-          <button className="cancelButton headerButtonMain"></button>
-          <button className="addButton headerButtonMain"></button>
-        </div>
-      </div>
-    setAddElement(currentElements => [...currentElements, newElement]);
-  }
-
   return (
     <div className="wrapperCards" style={{ background: "#F0F3FF" }}>
-      <button onClick={addNewElement} className="cardWrapper"></button>
+      <button className="cardWrapper"></button>
       {addElement}
       {data.map((sell, index) => {
         return (
