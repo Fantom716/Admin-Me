@@ -9,7 +9,7 @@ function Orders(props) {
         <div style={{ display: "flex", height: "100vh"}}>
             <Navigation />
             <div className='mainContent' style={{ padding: "32px", width: "100vw", background: "#F0F3FF", overflow: "auto", position: "relative" }}>
-                <Header />
+                <Header title="Заказы" isDashboard="no" />
                 <OrderCardManager />
             </div>
         </div>

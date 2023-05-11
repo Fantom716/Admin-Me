@@ -5,6 +5,7 @@ import ClientCard from "../../components/cards/manager/clientCard";
 import Desktop from "../../components/desktop/desktop";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { greetingElement } from "../../components/header/greeting";
 
 function HomeAdmin() {
 
@@ -70,7 +71,7 @@ function HomeAdmin() {
         <div style={{ display: "flex", height: "100vh"}}>
             <Navigation />
             <div className='mainContent' style={{ padding: "32px", width: "100vw", background: "#F0F3FF", overflow: "auto" }}>
-                <Header />
+                <Header title={greetingElement()} isDashboard="yes" />
                 <Desktop statistic={statistic} dataForInfoCard={dataForInfoCard} infoForMain={orders} />
             </div>
         </div>

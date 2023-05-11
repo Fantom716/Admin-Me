@@ -76,36 +76,44 @@ const statisticUser = [
 
 const getClientId = (idUser) => {
   console.log("id: " + idUser)
+  query = `SELECT idClientInUser FROM users WHERE idUser = ${idUser}`
+  conn.query("SELECT * FROM users"), (err, res) => {
+    console.log(res)
+  }
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT idClientInUser FROM users WHERE idUser = ${idUser}`, (err, results) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(results[0].idClientInUser);
-      }
-    });
-  });
+    try {
+      conn.query(query, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log(query)
+          console.log(results)
+          resolve(results[0]?.idClientInUser);
+        }
+        console.log(err)
+      })
+    }
+    catch (error) {
+      reject(error)
+    }
+  })
 };
-
 const getCurrentWeekOrdersCount = (idClient) => {
-  return new Promise((resolve, reject) => {
-    const query = `SELECT COUNT(*) FROM orders WHERE client = ${idClient} AND dateDeadline BETWEEN '${startCurrentWeek}' AND '${nowDate}'`;
-    conn.query(query, (err, results) => {
-      if (err) {
-        reject(err);
-      } else {
-        console.log(query)
-        console.log(results[0]["COUNT(*)"])
-        resolve(results[0]["COUNT(*)"]);
-      }
+  setTimeout(() => {
+    return new Promise((resolve, reject) => {
+      const query = `SELECT COUNT(*) FROM orders WHERE client = ${idClient} AND dateDeadline BETWEEN '${startCurrentWeek}' AND '${nowDate}'`;
+      conn.query(query, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log(query)
+          console.log(results[0]["COUNT(*)"])
+          resolve(results[0]["COUNT(*)"]);
+        }
+      });
     });
-  });
+  }, 1000);
 };
-
-getCurrentWeekOrdersCount(1).then(res => {
-  console.log("res:" + res)
-  console.log(statisticUser)
-})
 
 const getLastWeekOrdersCount = (idClient) => {
   return new Promise((resolve, reject) => {

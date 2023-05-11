@@ -12,13 +12,18 @@
     display: flex;
 }
 
+
 .mainForm {
     display: flex;
     flex-direction: column;
-    height: 50%;
+    height: 90%;
     align-items: center;
     width: 50%;
     justify-content: space-between;
+}
+
+.formAuthorization {
+    height: 50%;
 }
 
 .formWrapper {
@@ -29,6 +34,7 @@
     height: auto;
     display: block;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .headerGreetingForm {
@@ -37,15 +43,12 @@
 
 .headerNameSystem {
     font-size: 2rem;
-    margin-bottom: 50px;
 }
 
 .formInput {
     margin-bottom: 20px;
-    height: 60px;
     width: 100%;
     display: block;
-    min-height: 60px;
     border: 3px solid #F0F3FF;
     color: #000;
 }
@@ -53,8 +56,6 @@
 select {
     margin-bottom: 20px;
     width: 100%;
-    height: 60px;
-    min-height: 60px;
     border-radius: $standart-border-radius;
     padding-right: 10%;
     padding-left: 20px;
@@ -62,6 +63,14 @@ select {
     color: #c5c5c5;
     font-size: 1.25rem;
     border: 3px solid #F0F3FF;
+}
+
+.formInput,
+select,
+.formInputAuthorization,
+.formInputEmployee {
+    height: 5vh;
+    min-height: 40px;
 }
 
 input::placeholder,
@@ -98,4 +107,21 @@ form {
 
 .footerArticle {
     margin-bottom: 40px;
+}
+
+.selectType {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3%;
+}
+
+.userRegistration {
+    margin-right: 3%;
+}
+
+.typeRegistration {
+    padding: 20px;
+    border-radius: $standart-border-radius;
+    border: 3px solid #e1e1e1;
 }

@@ -8,7 +8,7 @@ function AdminUsers() {
         <div style={{ display: "flex", height: "100vh"}}>
             <Navigation />
             <div className='mainContent' style={{ padding: "32px", width: "100vw", background: "#F0F3FF", overflow: "auto" }}>
-                <Header />
+                <Header title="Пользователи" isDashboard="no" />
                 <AdminUsersCard />
             </div>
         </div>

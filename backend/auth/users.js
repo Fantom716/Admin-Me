@@ -36,8 +36,17 @@ conn.connect((err) => {
 const nowDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
 app.post('/form', async (req, res) => {
-  const userData = await req.body;
-  idUser = await userData.id;
+
+  console.log(req.body)
+  const idUser = await getRandomUniqueNumber("idUser", "users")
+  console.log(idUser + ": id")
+  const idClient  = await getRandomUniqueNumber("idClient", "clients")
+  const valuesUser = [idUser, req.body.login, req.body.email, req.body.role, moment().format("YYYY-DD-MM HH:mm:ss"), req.body.password, idClient ]
+  const valuesClient = [ idClient, req.body.surname, req.body.name, req.body.patronimyc, 5 ]
+  console.log(valuesClient)
+  console.log(valuesUser)
+  await addClient(valuesClient)
+  await addUser(valuesUser)
   try {
 
     // Create session
@@ -56,13 +65,12 @@ app.post('/form', async (req, res) => {
     await insertOrder(idUser)
     await sendDataProfile(idUser)
 
-
     // Get data for admin
     await getStatisticAdmin
     await getUsers
 
     // Send data
-    res.send(userData);
+    res.send("OK");
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
@@ -83,7 +91,28 @@ async function writingSession(idUser) {
     }
   });
 }
+async function addUser(valuesUser) {
+  const queryUser = `INSERT INTO users(idUser, login, email, role, regDate, password, idClientInUser) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+  console.log(queryUser)
+  conn.query(queryUser, valuesUser), (err, res) => {
+    if (err) console.log(err);
+    else {
+      console.log("OK")
+    }
+  }
+}
 
+
+async function addClient(valuesClient) {
+  const queryClient = `INSERT INTO clients(idClient, surname, name, patronimyc, rating) VALUES (?,?,?,?,?)`
+  console.log(queryClient)
+  conn.query(queryClient, valuesClient, (err, res) => {
+    if (err) console.log(err);
+    else {
+      console.log("OK")
+    }
+  })
+}
 
 app.get("/users", (req, res) => {
   conn.query("SELECT idUser, login, password, email, role FROM users", (err, results) => {

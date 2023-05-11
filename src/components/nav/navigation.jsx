@@ -6,7 +6,7 @@ import "../../styles/navigation.scss";
 
 /* Info about links */
 
-const linksNavManager = [
+export const linksNavManager = [
   {
     href: `/manager/${localStorage.getItem("idUser")}/dashboard`,
     icon: "/navigation/icons/home.svg",
@@ -39,7 +39,7 @@ const linksNavManager = [
   }
 ]
 
-const linksNavClient = [
+export const linksNavClient = [
   {
     href: `/user/${localStorage.getItem("idUser")}/dashboard`,
     icon: "/navigation/icons/home.svg",
@@ -57,7 +57,7 @@ const linksNavClient = [
   }
 ]
 
-const linksNavAdmin = [
+export const linksNavAdmin = [
   {
     href: `/admin/${localStorage.getItem("idUser")}/dashboard`,
     icon: "/navigation/icons/home.svg",
@@ -78,10 +78,7 @@ const linksNavAdmin = [
 const hideMenu = <svg width="49" height="49" viewBox="0 0 49 49" fill="none"><path d="M10.2084 14.2917H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 24.5H30.625" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 34.7083H22.4584" stroke="#222222" stroke-linecap="round" /></svg>
 const showMenu = <svg width="49" height="49" viewBox="0 0 49 49" fill="none"><path d="M10.2084 14.2917H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 24.5H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 34.7083H38.7917" stroke="#222222" stroke-linecap="round" /></svg>
 
-
-
 /* Output links */
-
 
 function Navigation() {
 

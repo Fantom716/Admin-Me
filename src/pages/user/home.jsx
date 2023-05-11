@@ -4,6 +4,7 @@ import Navigation from "../../components/nav/navigation";
 import Desktop from "../../components/desktop/desktop";
 import axios from "axios";
 import { useState } from "react";
+import { greetingElement } from "../../components/header/greeting";
 
 
 function HomeUser(props) {
@@ -72,7 +73,7 @@ function HomeUser(props) {
       <Navigation name="Alexander" />
       <div className='mainContent' style={{ padding: "32px", width: "100vw", background: "#F0F3FF", overflow: "auto" }}>
         <p>{props.text}</p>
-        <Header name="Alexander" />
+        <Header title={greetingElement()} isDashboard="yes" />
         <Desktop statistic={statistic} dataForInfoCard={dataForInfoCard} infoForMain={products} />
       </div>
     </div>
