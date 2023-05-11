@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../../styles/cardManager.scss";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addClientSuccess, addClientFailure, updateClientRequest, incrementAddClient, incrementUpdateClient } from "../../redux/manager/clients/actions";
+import { addNotify, editNotify } from "../../redux/notifications/actions";
+
+export const actions = {
+  add: "добавлен",
+  edit: "изменен",
+  delete: "удален"
+}
 
 function ClientCard(props) {
 
   const [data, setData] = useState([]);
   const [addElement, setAddElement] = useState([]);
   const [editIndex, setEditIndex] = useState(-1);
-  const [otherData, setOtherData] = useState([]);
   const [originalClient, setOriginalClient] = useState([]);
   const [addClient, setAddClient] = useState({
     surname: "",
@@ -21,7 +28,11 @@ function ClientCard(props) {
     error: ""
   });
 
+  const dispatch = useDispatch()
+
   const [responseAddClient, setResponseAddClient] = useState([]);
+
+  const order = null
 
   useEffect(() => {
     axios.get("http://localhost:5015/clients")
@@ -41,44 +52,35 @@ function ClientCard(props) {
     });
   }
 
-  const { surname, name, patronimyc, dateBirthday, phoneNumber, passportInfo, rating, error } = addClient;
+  const error = useSelector((state) => state.clients.error);
+  const topic = "Клиенты";
 
-  const setText = (event) => {
-    setAddClient({ ...addClient, error: event.target.value });
-  }
+  function addingClient(e) {
 
-  const addingClient = (e) => {
-    e.preventDefault();
-    if (!surname || !name || !patronimyc || !dateBirthday || !phoneNumber || !passportInfo || !rating) {
-      setAddClient({ ...addClient, error: "Заполнены не все поля" });
+    if (!addClient.surname || !addClient.name || !addClient.patronimyc || !addClient.dateBirthday || !addClient.phoneNumber || !addClient.passportInfo || !addClient.rating) {
+      const errors = "Заполнены не все поля"
+      dispatch(addClientFailure(errors));
       return;
     }
     axios.post("http://localhost:5015/clients/add", addClient)
       .then((response) => {
-        setResponseAddClient(response.data);
-        setAddClient({
-          surname: "",
-          name: "",
-          patronimyc: "",
-          dateBirthday: "",
-          phoneNumber: "",
-          passportInfo: "",
-          rating: "",
-          error: "",
-        });
+        const fioAdd = `${addClient.name} ${addClient.surname} ${addClient.patronimyc}`
+        dispatch(addClientSuccess(addClient));
+        dispatch(addNotify(fioAdd, topic, actions.add))
       })
       .catch((error) => {
-        setAddClient({ ...addClient, error: error.message });
-      })
+        dispatch(addClientFailure(error.message));
+      });
   }
 
   const cleanedPhoneNumber = (phoneNumber) => {
-    return phoneNumber.replace(/\D/g, "");
+    if (phoneNumber) {
+      return phoneNumber.replace(/\D/g, "");
+    }
   }
 
   const toggleEdit = (index) => {
     setOriginalClient(data[index]);
-    console.log(originalClient)
     if (index === editIndex) {
       setEditIndex(-1);
     } else {
@@ -98,29 +100,33 @@ function ClientCard(props) {
     setData(newData);
   };
 
-  const handleSave = (index) => {
-    const updatedClient = data[index];
+  const updateClient = useSelector((state) => state.clients.updateClient)
 
+  const handleSave = (index, event) => {
+    event.preventDefault();
+
+    const updatedClient = data[index];
+    const fio = `${updatedClient.name} ${updatedClient.surname} ${updatedClient.patronimyc}`
+
+    dispatch(updateClientRequest(updatedClient));
     axios.post(`http://localhost:5015/clients/update`, updatedClient)
       .then((response) => {
         setResponseAddClient(response.data);
         toggleEdit();
+        dispatch(editNotify(fio, topic, actions.edit))
       })
       .catch((error) => {
         setResponseAddClient(error);
       });
-    console.log(updatedClient)
   };
 
   const addNewElement = (event) => {
     event.preventDefault()
-
     setAddElement(!addElement);
   }
 
   return (
     <div className="wrapperCards" style={{ background: "#F0F3FF" }}>
-
       {addElement ?
         (
           <button onClick={addNewElement} className="mainButtonAddDel buttonAdd"></button>
@@ -137,7 +143,7 @@ function ClientCard(props) {
                 <input type="text" required placeholder="Номер телефона" className="inputValueCard" name="phoneNumber" onChange={handleInputChange}></input>
                 <input type="text" required placeholder="Паспортные данные" className="inputValueCard" name="passportInfo" onChange={handleInputChange}></input>
                 <input type="number" required placeholder="Начальный рейтинг" className="inputValueCard" name="rating" onChange={handleInputChange}></input>
-                <p onChange={setText} className="error">{error}</p>
+                {error ? <p className="error">{error}</p> : null}
                 <p>Все поля являются обязательными</p>
               </div>
               <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
@@ -175,7 +181,7 @@ function ClientCard(props) {
               <div className="headerButtons headerButtonsClients">
                 {editIndex === index ? (
                   <>
-                    <button onClick={handleSave} className="addButton headerButtonMain acceptButton"></button>
+                    <button onClick={ (event) => handleSave(index, event)} className="addButton headerButtonMain acceptButton"></button>
                     <button onClick={() => handleCancel(index)} className="contactButton headerButtonMain cancelButton"></button>
                   </>
                 ) : (

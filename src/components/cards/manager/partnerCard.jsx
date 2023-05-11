@@ -2,6 +2,13 @@ import React from "react";
 import "../../../styles/cardManager.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { deletePartnerRequest, deletePartnerSuccess, deletePartnerFailure } from "../../redux/partners/actions";
+import { updatePartnerRequest, updatePartnerSuccess, updatePartnerFailure } from "../../redux/partners/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { addPartnerFailure } from "../../redux/partners/actions";
+import { addNotify, deleteNotify, editNotify } from "../../redux/notifications/actions";
+import { actions } from "./clientCard";
+
 
 function PartnerCard(props) {
 
@@ -33,7 +40,8 @@ function PartnerCard(props) {
       })
   }, []);
 
-  console.log(data)
+  const dispatch = useDispatch()
+  const selector = useSelector((state) => state)
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -43,20 +51,19 @@ function PartnerCard(props) {
     });
   }
 
-  const { nameCompany, type, address, surnameDelegate, nameDelegate, patronymicDelegate, email, phoneNumber, dateConclusionContract, error } = addPartner;
+  const { nameCompany, type, address, surnameDelegate, nameDelegate, patronymicDelegate, email, phoneNumber, dateConclusionContract } = addPartner;
+  const error = useSelector((state) => state.partners.error)
+  const topic = "Партнеры"
 
-  const setTextAdd = (e) => {
-    e.preventDefault()
-    setAddPartner({ ...addPartner, error: e.target.value });
-  }
-
-  const addingPartner = (e) => {
-    e.preventDefault();
+  const addingPartner = () => {
     if (!nameCompany || !type || !address || !surnameDelegate || !nameDelegate || !patronymicDelegate || !email || !phoneNumber || !dateConclusionContract) {
-      setAddPartner({ ...addPartner, error: "Заполнены не все поля" });
+      const error = "Заполнены не все поля"
+      console.log(error)
+      dispatch(addPartnerFailure(error))
       return;
     }
     console.log(addPartner)
+    dispatch(addNotify(addPartner.nameCompany, topic, actions.add))
     axios.post("http://localhost:5003/partners/add", {
       nameCompany,
       type,
@@ -86,7 +93,9 @@ function PartnerCard(props) {
   }
 
   const cleanedPhoneNumber = (phoneNumber) => {
-    return phoneNumber.replace(/[^+0-9]/g, "");
+    if(phoneNumber) {
+      return phoneNumber.replace(/[^+0-9]/g, "");
+    }
   }
 
   const toggleEdit = (index) => {
@@ -110,17 +119,22 @@ function PartnerCard(props) {
 
   const handleSave = (index) => {
     const updatedPartner = data[index];
+    dispatch(updatePartnerRequest());
 
+    dispatch(editNotify(updatedPartner.nameCompany, topic, actions.edit));
     axios.post("http://localhost:5003/partners/update", updatedPartner)
     .then((response) => {
+      dispatch(updatePartnerSuccess(response.data));
       setResponsePartner(response.data);
       toggleEdit(index);
     })
     .catch((error) => {
+      dispatch(updatePartnerFailure(error.message));
       setResponsePartner(error);
     })
+
     console.log(updatedPartner)
-  }
+  };
 
   const handleCancel = () => {
     setEditIndex(-1);
@@ -128,10 +142,13 @@ function PartnerCard(props) {
   };
 
   const handleDelete = (id) => {
+    dispatch(deletePartnerRequest());
+    dispatch(deleteNotify(id, topic, actions.delete))
     axios.post("http://localhost:5003/partners/delete", {
       idPartner: id
     })
       .then((response) => {
+        dispatch(deletePartnerSuccess(response.data));
         setResponsePartner(response.data);
         setAddPartner({
           nameCompany: "",
@@ -146,7 +163,10 @@ function PartnerCard(props) {
           error: "",
         });
       })
-  }
+      .catch((error) => {
+        dispatch(deletePartnerFailure(error.message));
+      });
+  };
 
   return (
     <div className="wrapperCards" style={{ background: "#F0F3FF" }}>
@@ -170,11 +190,11 @@ function PartnerCard(props) {
                 <input type="email" required name="email" placeholder="Рабочая почта" className="inputValueCard" onChange={handleInputChange} />
                 <input type="text" required name="phoneNumber" placeholder="Номер телефона" className="inputValueCard" onChange={handleInputChange} />
                 <input type="datetime-local" required name="dateConclusionContract" placeholder="Дата заключения контракта" className="inputValueCard" onChange={handleInputChange} />
-                <p onChange={setTextAdd} className="error">{error}</p>
+                <p className="error">{error}</p>
                 <p>Все поля являются обязательными</p>
               </div>
               <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                <button onClick={addingPartner} className="addButton headerButtonMain"></button>
+                <button onClick={() => addingPartner()} className="addButton headerButtonMain"></button>
               </div>
             </div>
           </>
@@ -196,7 +216,7 @@ function PartnerCard(props) {
                   <input type="email" value={partner.email} onChange={(event) => handleChange(event, index, "email")} placeholder="Рабочая почта" className="inputValueCard"></input>
                   <input type="text" value={partner.phoneNumber} onChange={(event) => handleChange(event, index, "phoneNumber")} placeholder="Номер телефона" className="inputValueCard"></input>
                   <input type="datetime-local" value={partner.dateConclusionContract} onChange={(event) => handleChange(event, index, "dateConclusionContract")} placeholder="Дата заключения контракта" className="inputValueCard"></input>
-                  <p onChange={setTextAdd}>{error}</p>
+                  <p>{error}</p>
                   <p>Все поля являются обязательными</p>
                 </>
               ) : (
@@ -218,7 +238,7 @@ function PartnerCard(props) {
               <div className="headerButtons">
                 {editIndex === index ? (
                   <>
-                    <button onClick={handleSave} className="addButton headerButtonMain acceptButton"></button>
+                    <button onClick={() => handleSave(index)} className="addButton headerButtonMain acceptButton"></button>
                     <button onClick={() => handleCancel(index)} className="contactButton headerButtonMain cancelButton"></button>
                   </>
                 ) : (
@@ -228,8 +248,7 @@ function PartnerCard(props) {
                   </>
                 )}
               </div>
-              {console.log(partner.phoneNumber)}
-              <button className="contactButton">Связаться</button>
+              <a href={`tel:${cleanedPhoneNumber(partner.phoneNumber)}`} className="contactButton">Связаться</a>
             </div>
           </div>
         )

@@ -67,7 +67,7 @@ function HomeManager(props) {
   return (
     <div style={{ display: "flex", height: "100vh", width: "100vw" }}>
       <Navigation name="Alexander" />
-      <div className='mainContent' style={{ padding: "32px", width: "100vw", background: "#F0F3FF", overflow: "auto" }}>
+      <div className='mainContent' style={{ padding: "32px", width: "100vw", background: "#F0F3FF", overflow: "auto", position: "relative" }}>
         <p>{props.text}</p>
         <Header name="Alexander" />
         <Desktop statistic={statistic} dataForInfoCard={dataForInfoCard} infoForMain={orders} />

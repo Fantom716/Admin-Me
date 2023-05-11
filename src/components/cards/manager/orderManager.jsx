@@ -2,6 +2,11 @@ import React from "react";
 import "../../../styles/cardManager.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { addOrderSuccess, updateOrderRequest, addOrderFailure } from "../../redux/manager/orders/actions";
+import { deleteOrderRequest, deleteOrderSuccess, deleteOrderFailure } from "../../redux/manager/orders/actions";
+import { addNotify, deleteNotify, editNotify } from "../../redux/notifications/actions";
+import { actions } from "./clientCard";
 
 function OrderCardManager(props) {
 
@@ -39,7 +44,10 @@ function OrderCardManager(props) {
       })
   }, [])
 
-  console.log(orders)
+  const dispatch = useDispatch()
+  const error = useSelector((state) => state.orders.error)
+  const topic = "Заказы"
+  console.log(topic)
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -54,46 +62,37 @@ function OrderCardManager(props) {
     }
   }
 
-  const { client, composition, dateDeadline, manager, quantity, status, error } = addOrder;
+  const order = useSelector((state) => state)
 
   const addingOrder = (e) => {
     e.preventDefault();
     if (!addOrder.client || !addOrder.composition || !addOrder.dateDeadline || !addOrder.manager || !addOrder.quantity || !addOrder.status) {
-      setAddOrder({ ...addOrder, error: "Заполнены не все поля" });
+      const errors = "Заполнены не все поля"
+      dispatch(addOrderFailure(errors))
       return;
     }
     axios.post("http://localhost:5012/orders/add", addOrder)
-      .then((response) => {
-        setResponseOrder(response.data);
-        setAddOrder({
-          idorder: "",
-          client: "",
-          composition: "",
-          dateDeadline: "",
-          manager: "",
-          quantity: "",
-          status: "",
-        });
-        setAddElement(false);
+    .then((response) => {
+        console.log("1:" + topic)
+        dispatch(addNotify(addOrder.client, topic, actions.add))
+        dispatch(addOrderSuccess(addOrder))
       })
       .catch((error) => {
-        setAddOrder({ ...addOrder, error: error });
+        dispatch(addOrderFailure(error.message))
       });
   };
 
   const deletingOrder = (id) => {
-    setDeleteClick(true);
+    const idOrder = id
+    dispatch(deleteOrderRequest());
+    dispatch(deleteNotify(idOrder, topic, actions.delete))
     axios.post(`http://localhost:5012/orders/delete`, { idOrder: id })
       .then((response) => {
-        setResponseOrder(response.data);
+        dispatch(deleteOrderSuccess(response.data));
       })
       .catch((error) => {
-        setResponseOrder(error);
+        dispatch(deleteOrderFailure(error));
       })
-  }
-
-  const setText = (event) => {
-    setAddOrder({ ...addOrder, error: event.target.value });
   }
 
   const handleChange = (event, index, field) => {
@@ -107,12 +106,18 @@ function OrderCardManager(props) {
     setAddElement(!addElement);
   }
 
-  const handleSave = (index) => {
+  const handleSave = (index, event) => {
+    event.preventDefault();
+
     const updatedOrder = data[index];
 
+    dispatch(updateOrderRequest(updatedOrder))
+    dispatch(editNotify(updatedOrder.idOrder, topic, actions.edit))
     axios.post("http://localhost:5012/orders/update", updatedOrder)
-      .then((response) => {
+    .then((response) => {
         setResponseOrder(response.data);
+        toggleEdit()
+        setData(data.map((order, orderIndex) => orderIndex === index ? response.data : order));
       })
       .catch((error) => {
         setResponseOrder(error);
@@ -130,31 +135,31 @@ function OrderCardManager(props) {
       {addElement ?
         (
           <>
-          <button onClick={addNewElement} className="mainButtonAddDel buttonDel"></button>
-          <div className="addingAboutCard aboutCard">
-            <form className="inputValuesCard valuesCard">
-              <p className="valueCard">Заполните следующие данные:</p>
-              <select className="inputValueCard selectInput" name="client" id="" placeholder="Заказ" value={addOrder.client} onChange={handleInputChange}>
-                <option disabled selected value="selectDisabled">Клиент</option>
-                {orders.map((client, index) => {
-                  return (
-                    <option name="client" key={index} value={client.idClient}>{client.name} {client.surname}</option>
-                  )
-                })}
-              </select>
-              <input type="text" required className="inputValueCard" name="composition" placeholder="Состав заказа" onChange={handleInputChange} />
-              <input type="date" required className="inputValueCard" name="dateDeadline" placeholder="Дата сдачи заказа" onChange={handleInputChange} />
-              <input type="text" required className="inputValueCard" name="manager" placeholder="Менеджер" onChange={handleInputChange} />
-              <input type="number" required className="inputValueCard" name="quantity" placeholder="Количество" onChange={handleInputChange} />
-              <input type="text" required className="inputValueCard" name="status" placeholder="Статус" onChange={handleInputChange} />
-              <p onChange={setText} className="error">{error}</p>
-              <p>Все поля являются обязательными</p>
-            </form>
-            <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
-              <button onClick={addingOrder} className="addButton headerButtonMain"></button>
+            <button onClick={addNewElement} className="mainButtonAddDel buttonDel"></button>
+            <div className="addingAboutCard aboutCard">
+              <form className="inputValuesCard valuesCard">
+                <p className="valueCard">Заполните следующие данные:</p>
+                <select className="inputValueCard selectInput" name="client" id="" placeholder="Заказ" value={addOrder.client} onChange={handleInputChange}>
+                  <option disabled selected value="selectDisabled">Клиент</option>
+                  {orders.map((client, index) => {
+                    return (
+                      <option name="client" key={index} value={client.idClient}>{client.name} {client.surname}</option>
+                    )
+                  })}
+                </select>
+                <input type="text" required className="inputValueCard" name="composition" placeholder="Состав заказа" onChange={handleInputChange} />
+                <input type="date" required className="inputValueCard" name="dateDeadline" placeholder="Дата сдачи заказа" onChange={handleInputChange} />
+                <input type="text" required className="inputValueCard" name="manager" placeholder="Менеджер" onChange={handleInputChange} />
+                <input type="number" required className="inputValueCard" name="quantity" placeholder="Количество" onChange={handleInputChange} />
+                <input type="text" required className="inputValueCard" name="status" placeholder="Статус" onChange={handleInputChange} />
+                {error ? <p className="error">{error}</p> : null}
+                <p>Все поля являются обязательными</p>
+              </form>
+              <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                <button onClick={addingOrder} className="addButton headerButtonMain"></button>
+              </div>
             </div>
-          </div>
-        </>
+          </>
         ) : (
           <button onClick={addNewElement} className="mainButtonAddDel buttonAdd"></button>
         )}
@@ -166,12 +171,17 @@ function OrderCardManager(props) {
               {editIndex === index ? (
                 <form>
                   <input className="inputValueCard" placeholder="ID заказа" value={order.idOrder} onChange={(event) => handleChange(event, index, "idOrder")} type="text" />
-                  <input className="inputValueCard" placeholder="Имя" value={order.name} onChange={(event) => handleChange(event, index, "name")} type="text" />
-                  <input className="inputValueCard" placeholder="Фамилия" value={order.surname} onChange={(event) => handleChange(event, index, "surname")} type="text" />
-                  <input className="inputValueCard" placeholder="Отчество" value={order.patronimyc} onChange={(event) => handleChange(event, index, "patronimyc")} type="text" />
+                  <select className="inputValueCard selectInput" name="client" id="" placeholder="Заказ" value={addOrder.client} onChange={handleInputChange}>
+                    <option disabled selected value="selectDisabled">Клиент</option>
+                    {orders.map((client, index) => {
+                      return (
+                        <option name="client" key={index} value={client.idClient}>{client.name} {client.surname}</option>
+                      )
+                    })}
+                  </select>
                   <input className="inputValueCard" placeholder="Состав заказа" value={order.composition} onChange={(event) => handleChange(event, index, "composition")} type="text" />
-                  <input className="inputValueCard" placeholder="Дата сдачи заказа" value={order.dateDeadline} onChange={(event) => handleChange(event, index, "patronimyc")} type="date" />
-                  <input className="inputValueCard" placeholder="Менеджер" value={order.manager} onChange={(event) => handleChange(event, index, "dateDeadline")} type="text" />
+                  <input className="inputValueCard" placeholder="Дата сдачи заказа" value={order.dateDeadline} onChange={(event) => handleChange(event, index, "dateDeadline")} type="date" />
+                  <input className="inputValueCard" placeholder="Менеджер" value={order.manager} onChange={(event) => handleChange(event, index, "manager")} type="text" />
                   <input className="inputValueCard" placeholder="Количество" value={order.quantity} onChange={(event) => handleChange(event, index, "quantity")} type="number" />
                   <input className="inputValueCard" placeholder="Статус" value={order.status} onChange={(event) => handleChange(event, index, "status")} type="text" />
                 </form>
@@ -193,7 +203,7 @@ function OrderCardManager(props) {
               <div className="headerButtons">
                 {editIndex === index ? (
                   <>
-                    <button onClick={handleSave} className="addButton headerButtonMain acceptButton"></button>
+                    <button onClick={(event) => handleSave(index, event)} className="addButton headerButtonMain acceptButton"></button>
                     <button onClick={() => handleCancel(index)} className="contactButton headerButtonMain cancelButton"></button>
                   </>
                 ) : (

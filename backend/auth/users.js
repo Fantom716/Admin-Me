@@ -58,8 +58,8 @@ app.post('/form', async (req, res) => {
 
 
     // Get data for admin
-    // await getStatisticAdmin
-    // await getUsers
+    await getStatisticAdmin
+    await getUsers
 
     // Send data
     res.send(userData);

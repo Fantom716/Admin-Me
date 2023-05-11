@@ -65,7 +65,18 @@ app.post("/orders/add", async (req, res) => {
 
 app.post("/orders/update", (req, res) => {
   console.log(req.body);
-  res.send(req.body);
+  const { idOrder, composition, dateDeadline, manager, quantity, status } = req.body;
+  const values = [ client, composition, dateDeadline, manager, quantity, status ]
+  const query = "UPDATE orders SET ? ? ? ? ? ? ? ? WHERE idOrder = ?";
+  conn.query(query, values, (err, res) => {
+    if (err) {
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log("OK");
+      res.send(res);
+    }
+  })
 })
 
 app.post("/orders/delete", async (req, res) => {

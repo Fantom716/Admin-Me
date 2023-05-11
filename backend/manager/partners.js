@@ -2,7 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 const moment = require("moment");
 const bodyParser = require('body-parser');
-const getRandomUniqueNumber = require("../auth/users");
+const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -74,6 +74,7 @@ app.post("/partners/delete", async (req, res) => {
 });
 
 app.post("/partners/update", async (req, res) => {
+  console.log(req.body);
   try {
     const { type, phoneNumber, address, dateConclusionContract, email, nameDelegate, surnameDelegate, patronymicDelegate, nameCompany, idPartner } = req.body;
     const formattedDate = moment(dateConclusionContract, "DD.MM.YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss");

@@ -72,6 +72,7 @@ app.post("/clients/add", async (req, res) => {
 });
 
 app.post("/clients/update", async (req, res) => {
+  console.log(req.body)
   try {
     const { name, surname, patronimyc, phoneNumber, passportInfo, rating, idClient } = req.body;
     const query = `UPDATE clients SET name=?, surname=?, patronimyc=?, phoneNumber=?, passportInfo=?, rating=? WHERE idClient=?`;
