@@ -1,0 +1,22 @@
+tr, td, table, thead, th {
+    border: 1px solid rgb(188, 188, 188);
+    border-collapse: collapse;
+    padding: 10px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+}
+
+thead {
+    font-weight: 900;
+    text-align: center;
+}
+
+.mainTable {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+}

@@ -1,0 +1,127 @@
+@import "../../styles/vars";
+
+* {
+    font: $main-font;
+}
+
+.formWrapper {
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    display: flex;
+}
+
+
+.mainForm {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    align-items: center;
+    width: 50%;
+    justify-content: space-between;
+}
+
+.formAuthorization {
+    height: 50%;
+}
+
+.formWrapper {
+    height: 100vh;
+}
+
+.headerForm {
+    height: auto;
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.headerGreetingForm {
+    margin-bottom: 20px;
+}
+
+.headerNameSystem {
+    font-size: 2rem;
+}
+
+.formInput {
+    margin-bottom: 20px;
+    width: 100%;
+    display: block;
+    border: 3px solid #F0F3FF;
+    color: #000;
+}
+
+select {
+    margin-bottom: 20px;
+    width: 100%;
+    border-radius: $standart-border-radius;
+    padding-right: 10%;
+    padding-left: 20px;
+    font-family: $main-font;
+    color: #c5c5c5;
+    font-size: 1.25rem;
+    border: 3px solid #F0F3FF;
+}
+
+.formInput,
+select,
+.formInputAuthorization,
+.formInputEmployee {
+    height: 5vh;
+    min-height: 40px;
+}
+
+input::placeholder,
+select::placeholder {
+    color: #000000;
+}
+
+form {
+    height: auto;
+}
+
+.mainButton {
+    padding: 2% 6%;
+    border-radius: $standart-border-radius;
+    background-color: $main-button-active-color;
+    color: white;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 50px;
+}
+
+.mainButton:hover {
+    background-color: $main-button-hover-color;
+}
+
+.errorNotify {
+    color: $error-color;
+    margin-bottom: 20px;
+}
+
+.footerForm {
+    text-align: center;
+}
+
+.footerArticle {
+    margin-bottom: 40px;
+}
+
+.selectType {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3%;
+}
+
+.userRegistration {
+    margin-right: 3%;
+}
+
+.typeRegistration {
+    padding: 20px;
+    border-radius: $standart-border-radius;
+    border: 3px solid #e1e1e1;
+}

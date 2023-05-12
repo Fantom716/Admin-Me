@@ -1,0 +1,135 @@
+@import './vars.scss';
+
+/* BIG CARD */
+
+.wrapperCard {
+    padding: 20px;
+    font-family: $main-font;
+    width: 100%;
+    max-height: 220px;
+    height: 100%;
+    border-radius: 14px;
+    background-color: #fff;
+    .wrapperCard:hover {
+        cursor: pointer;
+        background-color: #f9f9f9;
+    }
+}
+
+.headerCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10%;
+    margin-bottom: 34px;
+}
+
+.headerPersentageWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-bottom: 15px;
+}
+
+.headerArrow {
+    margin-right: 10px;
+    width: 20%;
+}
+
+.headerPersentageTitle {
+    color: #00FF38;
+}
+
+.headerTime {
+    color: #D6D6D6;
+}
+
+.headerImage {
+    width: 100%;
+}
+
+.footerSubtitle {
+    color: #D6D6D6;
+    margin-bottom: 9px;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.footerCount {
+    font-size: 2rem;
+    margin: 0px;
+    font-weight: 700;
+}
+
+/* INFOCARD */
+
+.infoCardWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 23px;
+    width: 30%;
+    height: 100%;
+    max-width: 100%;
+    font-family: $main-font;
+    border-radius: 14px;
+    background-color: #fff;
+}
+
+@media (max-width: 1390px) {
+    .infoCardWrapper {
+        display: none;
+    }
+}
+
+.infoCardTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    @include overflow-text;
+}
+
+.infoCardContent:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+.infoCardName {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    @include overflow-text;
+}
+
+.infoCardEmail {
+   font-size: .9rem;
+   text-decoration: none;
+   color: $color-link;
+   @include overflow-text;
+}
+
+.infoCardSub {
+    font-size: .8rem;
+    color: #9A9A9A;
+    justify-content: left;
+    display: inherit;
+    @include overflow-text;
+}
+
+.wrapperProductCard {
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    p {
+        line-height: 2rem;
+    }
+    .productCardTitle {
+        font-size: 1.4rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
+
+.wrapperProductCard:hover {
+    cursor: pointer;
+    background-color: $main-button-hover-color;
+}

@@ -1,0 +1,183 @@
+@import './vars.scss';
+
+.navActive {
+    max-width: 20%;
+    height: 93vh;
+    margin: 30px;
+    margin-top: 30px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: .5s;
+}
+
+.navDisable {
+    transition: .5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 8%;
+    align-items: center;
+    padding: 10px 0px 10px 0px;
+    height: 93vh;
+}
+
+.navHeader,
+.navItem,
+.navUsernameActive {
+    display: auto;
+    font-size: 1.25rem;
+    @include overflow-text;
+    margin: 0;
+    margin-right: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.navItem {
+    margin-bottom: 10%;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navItemDisable {
+    display: none;
+}
+
+.navTitleActive {
+    display: auto;
+}
+
+.navTitleDisable {
+    display: none;
+}
+
+.navHeader {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 9px;
+    position: relative;
+    width: 100%;
+    border: 0px;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 10px;
+    justify-content: center;
+    gap: 5%;
+}
+
+.nav__footer:hover {
+    background-color: #E7D1FF;
+}
+
+.buttonNav {
+    background-color: transparent;
+    border: 0px;
+    border-radius: 14px;
+}
+
+.buttonNav:hover {
+    background-color: #f9f9f9;
+}
+
+.iconDisable {
+    display: inline;
+}
+
+.iconActive,
+.navUsernameDisable {
+    display: none;
+}
+
+.iconSectionDisable {
+    display: block;
+    margin-bottom: 100%;
+}
+
+.iconSectionActive {
+    display: auto;
+}
+
+img {
+    width: 60px;
+}
+
+.navLinkActive {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10%;
+    width: 85%;
+    img {
+        min-width: 40px;
+        width: 20%;
+        max-width: 100%;
+    }
+}
+
+.navLinkDisable {
+    display: block;
+    img {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.navTitleActive {
+    display: auto;
+}
+
+.navTitleDisable {
+    display: none;
+}
+
+.linkTitleActive {
+    display: inline;
+}
+
+.linkTitleDisable {
+    display: none;
+}
+
+@media (max-width: 1385px) {
+    .navActive {
+        margin: 10px;
+    }
+    .navActive {
+        .navItem img {
+            display: none;
+        }
+    }
+    .nav__footer {
+        flex-direction: column-reverse;
+        height: 200px;
+        gap: 20%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .buttonNav {
+        display: none;
+    }
+    .navHeader {
+        display: block;
+        text-align: center;
+    }
+    .nav__footer {
+        padding: 0px;
+    }
+}
