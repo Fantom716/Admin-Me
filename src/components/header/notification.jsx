@@ -16,7 +16,6 @@ function Notification() {
     dispatch(notifyButton());
     setNotifyButtonState(!notifyButtonState);
   }
-  console.log(notifyButtonState)
 
   return (
     <>

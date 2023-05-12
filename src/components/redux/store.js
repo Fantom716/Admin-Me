@@ -8,6 +8,7 @@ import orderReducer from './manager/orders/orders';
 import partnerReducer from './manager/partners/partners';
 import productsReducer from './manager/products/products';
 import notifyReducer from './notifications/notifications';
+import ticketReducer from './users/support';
 
 const persistConfig = {
   key: 'root',
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   partners: partnerReducer,
   products: productsReducer,
   notifys: notifyReducer,
+  ticketReducer: ticketReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

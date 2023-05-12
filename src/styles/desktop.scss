@@ -40,3 +40,33 @@
     line-height: 1.5rem;
     margin-bottom: 50px;
 }
+
+.displayInfoCard {
+    position: absolute;
+    right: 0;
+    // background: url("/workDisplay/displayInfoCard.svg");
+    bottom: 30%;
+    background-color: #fff;
+    border-radius: 3px;
+    filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 1));
+    width: 15px;
+    height: 30px;
+}
+
+@media (min-width: 1391px) {
+    .displayInfoCard {
+        display: none;
+    }
+}
+
+@media (max-width: 1390px) {
+    .displayInfoCard {
+        display: block;
+    }
+}
+
+@media (max-width: 1025px) {
+    .statsticArea {
+        gap: 20px;
+    }
+}

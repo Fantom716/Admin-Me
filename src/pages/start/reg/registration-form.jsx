@@ -127,7 +127,7 @@ function Registration() {
               patronimyc: formValue.patronimyc
             };
             console.log(postData)
-            axios.post("http://localhost:5007/form", postData);
+            axios.post("http://localhost:5007/registration", postData);
           }
         }
       })

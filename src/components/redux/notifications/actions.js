@@ -64,3 +64,17 @@ export const deleteNotify = (element, topic, action) => {
     }
   };
 }
+
+export const sumbitTicketNotify = () => {
+  const time = moment().format("HH:mm:ss");
+  const id = Math.random().toString(36).substr(2, 9);
+  return {
+    type: "SUBMIT_TICKET_NOTIFY",
+    payload: {
+      id,
+      text: "Тикет успешно отправлен. Ожидайте ответа",
+      icon: "/card/icons/notifys/ticket.svg",
+      time,
+    }
+  }
+}

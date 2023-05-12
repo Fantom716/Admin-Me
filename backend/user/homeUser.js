@@ -63,15 +63,6 @@ const statisticUser = [
     image: "/card/icons/small card add/user.svg",
     alt: "users"
   },
-  {
-    nameTable: "orders",
-    fieldInDB: "manager",
-    name: "Любимый менеджер",
-    currentValue: 0,
-    lastValue: 0,
-    image: "/card/icons/small card add/user.svg",
-    alt: "details"
-  }
 ];
 
 const getClientId = (idUser) => {
@@ -167,9 +158,6 @@ const updateStatistics = async () => {
     statisticUser[1].currentValue = rating;
     statisticUser[1].lastValue = rating;
     statisticUser[1].percentageState = 100;
-    statisticUser[2].currentValue = manager;
-    statisticUser[2].lastValue = manager;
-    statisticUser[2].percentageState = 100;
 
     console.log('Statistics updated successfully');
   } catch (error) {

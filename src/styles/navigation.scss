@@ -152,3 +152,32 @@ img {
 .linkTitleDisable {
     display: none;
 }
+
+@media (max-width: 1385px) {
+    .navActive {
+        margin: 10px;
+    }
+    .navActive {
+        .navItem img {
+            display: none;
+        }
+    }
+    .nav__footer {
+        flex-direction: column-reverse;
+        height: 200px;
+        gap: 20%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .buttonNav {
+        display: none;
+    }
+    .navHeader {
+        display: block;
+        text-align: center;
+    }
+    .nav__footer {
+        padding: 0px;
+    }
+}

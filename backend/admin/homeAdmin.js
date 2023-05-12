@@ -88,7 +88,6 @@ async function getStatistic() {
         reject(err);
         console.log(err);
       } else {
-        console.log(query)
         statisticAdmin[0]["currentValue"] = results['0']["COUNT(*)"]
         conn.query(`SELECT COUNT(*) FROM users WHERE regDate BETWEEN '${startLastWeek}' AND '${startCurrentWeek}'`, (err, results) => {
           if (err) {
@@ -105,24 +104,47 @@ async function getStatistic() {
   })
 }
 
-async function getRateLimit() {
-  const response = await axios.get("https://api.github.com/rate_limit");
-  return response.data;
-}
-
 async function getStatisticAdmin() {
   const releases = await getRelease();
 
-  statisticAdmin[1]["currentValue"] = releases[0]["version"];
-  statisticAdmin[1]["lastValue"] = releases[1]["version"];
+  const statisticAdmin = [
+    {
+      nameTable: "users",
+      fieldInDB: "regDate",
+      name: "Пользователи",
+      currentValue: 0,
+      lastValue: 0,
+      percentageState: 0,
+      image: "/card/icons/small card add/user.svg",
+      alt: "users"
+    },
+    {
+      nameTable: "versions",
+      fieldInDB: "versions",
+      name: "Версия системы",
+      currentValue: releases[0]["version"],
+      lastValue: releases[1]["version"],
+      image: "/card/icons/small card add/user.svg",
+    }
+  ];
 
-  getStatistic()
-  console.log(statisticAdmin)
+  const statistic = await getStatistic();
+  statisticAdmin[0]["currentValue"] = statistic[0]["currentValue"];
+  statisticAdmin[0]["lastValue"] = statistic[0]["lastValue"];
+  statisticAdmin[0]["percentageState"] = statistic[0]["percentageState"];
 
-  app.get("/dashboard/admin/statisticCard", (req, res) => {
-    res.send(statisticAdmin);
-  })
+  return statisticAdmin;
 }
+
+app.get("/dashboard/admin/statisticCard", async (req, res) => {
+  try {
+    const statisticAdmin = await getStatisticAdmin();
+    res.send(statisticAdmin);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Ошибка сервера");
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

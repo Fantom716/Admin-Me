@@ -15,6 +15,7 @@ import HomeAdmin from './pages/admin/home';
 import AdminUsers from './pages/admin/users';
 import Versions from './components/cards/admin/versions';
 import VersionsPage from './pages/admin/versions';
+import Support from './pages/user/support';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path='/user/:id/dashboard' element={<HomeUser />} />
         <Route path='/user/:id/orders' element={<OrdersUser />} />
         <Route path='/user/:id/profile' element={<Profile />} />
+        <Route path='/user/:id/support' element={<Support />} />
       </Routes>
       <Routes>
         <Route path='/admin/:id/dashboard' element={<HomeAdmin />} />

@@ -76,6 +76,12 @@
     background-color: #fff;
 }
 
+@media (max-width: 1390px) {
+    .infoCardWrapper {
+        display: none;
+    }
+}
+
 .infoCardTitle {
     font-size: 1.5rem;
     font-weight: 700;

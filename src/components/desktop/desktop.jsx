@@ -22,6 +22,7 @@ function Desktop(props) {
                 <div className="cards">
                     {cards}
                 </div>
+                <div className="displayInfoCard"></div>
                 <InformationCard data={dataForInfoCard} />
             </div>
         </div>

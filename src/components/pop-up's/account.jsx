@@ -12,6 +12,11 @@ function NotificationAccount(props) {
         localStorage.removeItem("login");
     }
 
+    function goToSupport() {
+        const id = localStorage.getItem("idUser")
+        navigate(`/user/${id}/support`);
+    }
+
     return (
         <div className={props.name ? "notificationAccountWrapperActive" : "notificationAccountWrapperDisable"} style={props.openMenu ? { visibility: "hidden" } : { visibility: "visible" }}>
             <ul className="notificationList">
@@ -19,7 +24,7 @@ function NotificationAccount(props) {
                     <img className="notificationIcon" src="/notification/account/info.svg" alt="i" />
                     О системе
                 </button>
-                <button className="notificationItem">
+                <button onClick={() => goToSupport()} className="notificationItem">
                     <img className="notificationIcon" src="/notification/account/question.svg" alt="question" />
                     Поддержка
                 </button>

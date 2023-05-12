@@ -13,6 +13,7 @@ const getStatisticAdmin = require("../admin/homeAdmin");
 const getUsers = require("../admin/users");
 const startGetClients = require("../manager/clients");
 const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
+const getSupports = require("../user/support");
 
 const app = express();
 const PORT = 5007;
@@ -37,16 +38,9 @@ const nowDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
 app.post('/form', async (req, res) => {
 
-  console.log(req.body)
-  const idUser = await getRandomUniqueNumber("idUser", "users")
-  console.log(idUser + ": id")
-  const idClient  = await getRandomUniqueNumber("idClient", "clients")
-  const valuesUser = [idUser, req.body.login, req.body.email, req.body.role, moment().format("YYYY-DD-MM HH:mm:ss"), req.body.password, idClient ]
-  const valuesClient = [ idClient, req.body.surname, req.body.name, req.body.patronimyc, 5 ]
-  console.log(valuesClient)
-  console.log(valuesUser)
-  await addClient(valuesClient)
-  await addUser(valuesUser)
+  const userData = await req.body;
+  idUser = await userData.id;
+
   try {
 
     // Create session
@@ -64,6 +58,7 @@ app.post('/form', async (req, res) => {
     await queryAndUpdate.getClientId(idUser)
     await insertOrder(idUser)
     await sendDataProfile(idUser)
+    await getSupports(idUser)
 
     // Get data for admin
     await getStatisticAdmin
@@ -76,6 +71,25 @@ app.post('/form', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+app.post("/registration", async (req, res) => {
+  try {
+    console.log(req.body)
+    const idUser = await getRandomUniqueNumber("idUser", "users")
+    console.log(idUser + ": id")
+    const idClient  = await getRandomUniqueNumber("idClient", "clients")
+    const valuesUser = [idUser, req.body.login, req.body.email, req.body.role, moment().format("YYYY-DD-MM HH:mm:ss"), req.body.password, idClient ]
+    const valuesClient = [ idClient, req.body.surname, req.body.name, req.body.patronimyc, 5 ]
+    console.log(valuesClient)
+    console.log(valuesUser)
+    await addClient(valuesClient)
+    await addUser(valuesUser)
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+})
 
 async function writingSession(idUser) {
   const idSession = await getRandomUniqueNumber("idSession", "sessions");
@@ -101,7 +115,6 @@ async function addUser(valuesUser) {
     }
   }
 }
-
 
 async function addClient(valuesClient) {
   const queryClient = `INSERT INTO clients(idClient, surname, name, patronimyc, rating) VALUES (?,?,?,?,?)`

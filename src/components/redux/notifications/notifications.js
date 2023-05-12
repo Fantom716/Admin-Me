@@ -1,17 +1,9 @@
-import { notifyButton } from "./actions"
-
 const initialState = {
   notifications: [],
-  notifyButton: false
 }
 
 const notifyReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "NOTIFY_BUTTON":
-      return {
-        ...state,
-        notifyButton: !notifyButton
-      }
     case "CLEAR_NOTIFYS":
       return {
         ...state,
@@ -38,6 +30,11 @@ const notifyReducer = (state = initialState, action) => {
       return {
         ...state,
         notifications: [...state.notifications, action.payload]
+      }
+    case "SUBMIT_TICKET_NOTIFY":
+      return {
+        ...state,
+        notifications: [...state.notifications, action.payload],
       }
     default:
       return state
