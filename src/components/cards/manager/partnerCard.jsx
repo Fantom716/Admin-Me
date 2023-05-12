@@ -2,10 +2,10 @@ import React from "react";
 import "../../../styles/cardManager.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { deletePartnerRequest, deletePartnerSuccess, deletePartnerFailure } from "../../redux/partners/actions";
-import { updatePartnerRequest, updatePartnerSuccess, updatePartnerFailure } from "../../redux/partners/actions";
+import { deletePartnerRequest, deletePartnerSuccess, deletePartnerFailure } from "../../redux/manager/partners/actions";
+import { updatePartnerRequest, updatePartnerSuccess, updatePartnerFailure } from "../../redux/manager/partners/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { addPartnerFailure } from "../../redux/partners/actions";
+import { addPartnerFailure } from "../../redux/manager/partners/actions";
 import { addNotify, deleteNotify, editNotify } from "../../redux/notifications/actions";
 import { actions } from "./clientCard";
 

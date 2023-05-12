@@ -39,8 +39,8 @@ header {
 .buttonNotification {
     background-color: #fff;
     border: transparent;
-    max-width: 47px;
-    max-height: 47px;
+    max-width: 50px;
+    max-height: 50px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -49,6 +49,18 @@ header {
     border-radius: 14px;
     right: 30px;
     filter: $shadow;
+}
+
+.buttonNotificationCount::after {
+    content: attr(data-count);
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: .7rem;
+    background-color: #ff0000;
+    padding: 1px 4px;
+    border-radius: 30px;
+    color: #fff;
 }
 
 .buttonNotification:hover {

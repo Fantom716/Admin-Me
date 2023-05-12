@@ -1,3 +1,4 @@
+import moment from "moment/moment";
 
 export const notifyButton = () => {
   return {
@@ -17,8 +18,8 @@ export const removeNotify = (id) => ({
 });
 
 export const addNotify = (element, topic, action) => {
-  const time = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
-  const id = Math.random().toString(36).substr(2, 9); // генерируем случайный id
+  const time = moment().format("HH:mm:ss");
+  const id = Math.random().toString(36).substr(2, 9);
   return {
     type: "ADD_NOTIFY",
     payload: {
@@ -33,8 +34,8 @@ export const addNotify = (element, topic, action) => {
 }
 
 export const editNotify = (element, topic, action) => {
-  const time = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
-  const id = Math.random().toString(36).substr(2, 9); // генерируем случайный id
+  const time = moment().format("HH:mm:ss");
+  const id = Math.random().toString(36).substr(2, 9);
   return {
     type: "EDIT_NOTIFY",
     payload: {
@@ -49,8 +50,8 @@ export const editNotify = (element, topic, action) => {
 }
 
 export const deleteNotify = (element, topic, action) => {
-  const time = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
-  const id = Math.random().toString(36).substr(2, 9); // генерируем случайный id
+  const time = moment().format("HH:mm:ss");
+  const id = Math.random().toString(36).substr(2, 9);
   return {
     type: "DELETE_NOTIFY",
     payload: {

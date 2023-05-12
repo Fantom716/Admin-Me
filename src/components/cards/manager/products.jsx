@@ -7,7 +7,7 @@ import {
   addProductFailure,
   addProductRequest,
   addProductSuccess,
-} from '../../redux/products/actions';
+} from '../../redux/manager/products/actions';
 import { addNotify, deleteNotify, editNotify } from "../../redux/notifications/actions";
 import { actions } from "./clientCard";
 

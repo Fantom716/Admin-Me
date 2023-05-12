@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import '../../styles/pop-up\'s/notifys.scss'
 import { clearNotifys, reverseNotyfi, removeNotify } from "../redux/notifications/actions";
