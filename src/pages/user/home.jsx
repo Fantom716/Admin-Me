@@ -57,7 +57,7 @@ function HomeUser(props) {
           setProducts(products["error"] = [error]);
         })
       axios
-      .get("http://localhost:5002/dashboard/clients/statistics")
+      .get("http://localhost:5001/dashboard/clients/statistics")
       .then((response) => {
         console.log(response);
         setStatistic(response.data);

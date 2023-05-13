@@ -34,8 +34,6 @@ app.post("/support", (req, err) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(values)
-        console.log(result);
       }
     });
   });

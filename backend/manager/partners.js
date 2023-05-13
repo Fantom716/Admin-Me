@@ -43,7 +43,6 @@ app.post("/partners/add", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
-        console.log("OK");
         res.send(results);
       }
     });
@@ -63,7 +62,6 @@ app.post("/partners/delete", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
-        console.log("OK");
         res.send(results);
       }
     });
@@ -74,7 +72,6 @@ app.post("/partners/delete", async (req, res) => {
 });
 
 app.post("/partners/update", async (req, res) => {
-  console.log(req.body);
   try {
     const { type, phoneNumber, address, dateConclusionContract, email, nameDelegate, surnameDelegate, patronymicDelegate, nameCompany, idPartner } = req.body;
     const formattedDate = moment(dateConclusionContract, "DD.MM.YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss");
@@ -85,7 +82,6 @@ app.post("/partners/update", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
-        console.log("OK");
         res.send(results);
       }
     });

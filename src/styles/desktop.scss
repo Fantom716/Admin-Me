@@ -24,6 +24,19 @@
     gap: 28px;
     flex-shrink: 1;
     height: 20%;
+    word-wrap: break-word;
+}
+
+@media (max-width: 1250px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1000px) {
+    .cards {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 .errorGetMainDesktopCard {
@@ -44,8 +57,9 @@
 .displayInfoCard {
     position: absolute;
     right: 0;
-    // background: url("/workDisplay/displayInfoCard.svg");
-    bottom: 30%;
+    background: url("../../../dashboard/public/workDisplay/displayInfoCard.svg");
+    background-position: center;
+    bottom: 40%;
     background-color: #fff;
     border-radius: 3px;
     filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 1));

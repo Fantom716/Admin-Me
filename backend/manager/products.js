@@ -27,7 +27,6 @@ async function getProducts() {
         results.map((product) => {
           product["dateOfSell"] = moment(product["dateOfSell"]).format("DD.MM.YYYY")
         })
-        console.log(results)
         resolve(results);
       }
     })
@@ -46,7 +45,6 @@ app.post('/products/add', async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
-        console.log("OK");
         res.send(results);
       }
     });
@@ -74,7 +72,6 @@ app.post("/products/delete", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
-        console.log("OK");
         res.send(results);
       }
     });
@@ -95,7 +92,6 @@ app.post("/products/update", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
-        console.log("OK");
         res.send(results);
       }
     });

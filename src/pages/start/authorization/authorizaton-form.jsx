@@ -17,6 +17,7 @@ const authorizationPlaceholder = [
   },
 ];
 
+
 function Authorization() {
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState({
@@ -26,6 +27,7 @@ function Authorization() {
     role: "",
     error: ""
   });
+
 
   const [autho, setAutho] = useState({
     authoBool: false,
@@ -55,17 +57,18 @@ function Authorization() {
       console.log(response.data[0].login)
       const user = response.data.find(
         (user) => user.login === formValue.login && user.password === formValue.password
-      );
-      console.log("login:" + formValue.login)
-      console.log(user + ": user") // undefined
-      if (user) {
+        );
+        console.log("login:" + formValue.login)
+        console.log(user + ": user") // undefined
+        if (user) {
         console.log(formValue)
         formValue.id = user["idUser"]
         formValue.role = user["role"]
         localStorage.setItem("idUser", formValue.id);
         localStorage.setItem("login", formValue.login);
         setFormValue({ error: "" });
-        axios.post(`http://localhost:5007/form`, formValue)
+        const valuesSubmit = [formValue.login, formValue.password, formValue.role, localStorage.getItem("idUser")]
+        axios.post(`http://localhost:5007/form`, valuesSubmit)
           .then((response) => {
             console.log(response.data);
             if (formValue.role === "Пользователь") {

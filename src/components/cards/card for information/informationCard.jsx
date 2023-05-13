@@ -14,7 +14,7 @@ function InformationCard(props) {
                     </div>
                 ) : (
                     key <= 8 ?
-                    <div key={key} className="infoCardContent">
+                        <div key={key} className="infoCardContent">
                             <p className="infoCardName">{item.info}</p>
                             <a className="infoCardEmail" href={`mailto: ${item.link}`}> {item.link} </a>
                         </div> : <></>

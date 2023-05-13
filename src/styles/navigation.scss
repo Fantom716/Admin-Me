@@ -65,7 +65,7 @@ ul {
     justify-content: space-between;
 }
 
-.nav__footer {
+.nav__footerActive {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -80,7 +80,7 @@ ul {
     gap: 5%;
 }
 
-.nav__footer:hover {
+.nav__footerActive:hover {
     background-color: #E7D1FF;
 }
 
@@ -162,10 +162,13 @@ img {
             display: none;
         }
     }
-    .nav__footer {
+    .nav__footerActive {
         flex-direction: column-reverse;
-        height: 200px;
+        height: 150px;
         gap: 20%;
+    }
+    .nav__footerDisable {
+        height: auto;
     }
 }
 
@@ -177,7 +180,7 @@ img {
         display: block;
         text-align: center;
     }
-    .nav__footer {
+    .nav__footerActive {
         padding: 0px;
     }
 }

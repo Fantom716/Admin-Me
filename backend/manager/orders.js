@@ -28,7 +28,6 @@ async function getOrders() {
           order["dateDeadline"] = moments(order["dateDeadline"]).format("DD.MM.YYYY HH:mm:ss");
         })
         resolve(results);
-        console.log(results);
       }
     })
   })
@@ -53,7 +52,6 @@ app.post("/orders/add", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
-        console.log("OK");
         res.send(results);
       }
     });
@@ -73,7 +71,6 @@ app.post("/orders/update", (req, res) => {
       console.log(err);
       res.send(err);
     } else {
-      console.log("OK");
       res.send(res);
     }
   })
@@ -89,7 +86,6 @@ app.post("/orders/delete", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
-        console.log("OK");
         res.send(results);
       }
     });

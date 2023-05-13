@@ -61,7 +61,6 @@ app.post("/clients/add", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
-        console.log("OK");
         res.send(results);
       }
     });
@@ -82,7 +81,6 @@ app.post("/clients/update", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
-        console.log("OK");
         res.send(results);
       }
     });

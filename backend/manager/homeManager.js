@@ -88,6 +88,28 @@ const statisticManager = [
   }
 ];
 
+const statisticUser = [
+  {
+    nameTable: "orders",
+    fieldInDB: "client",
+    name: "Количество заказов",
+    currentValue: 0,
+    lastValue: 0,
+    percentageState: 0,
+    image: "/card/icons/small card add/hourglass.svg",
+    alt: "hourglass"
+  },
+  {
+    nameTable: "clients",
+    fieldInDB: "rating",
+    name: "Рейтинг",
+    currentValue: 0,
+    lastValue: 0,
+    image: "/card/icons/small card add/user.svg",
+    alt: "users"
+  },
+];
+
 const nowDate = moment().format("YYYY-MM-DD HH:mm:ss");
 const startCurrentWeek = moment().subtract(7, "days").format("YYYY-MM-DD HH:mm:ss");
 const startLastWeek = moment().subtract(14, "days").format("YYYY-MM-DD HH:mm:ss");
@@ -127,10 +149,22 @@ async function startStat() {
 }
 
 app.get("/dashboard/managers/statisticCard", (req, res) => {
+  console.log(statisticManager)
   getStatisticManager(statisticManager)
-    .then((arrayList) => res.send(arrayList))
-    .catch((err) => console.log(err));
+  .then((arrayList) => res.send(arrayList))
+  .catch((err) => console.log(err));
 });
+
+async function statUser() {
+  await getStatisticManager(statisticUser)
+}
+
+app.get("/dashboard/clients/statistics"), (req, res) => {
+  console.log(statisticUser)
+  getStatisticManager(statisticUser)
+  .then((arrayList) => res.send(arrayList))
+  .catch((err) => console.log(err));
+}
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
@@ -140,5 +174,6 @@ module.exports = {
   nowDate,
   startCurrentWeek,
   startLastWeek,
-  startStat
+  startStat,
+  statUser
 }
