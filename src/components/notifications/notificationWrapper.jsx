@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import '../../styles/pop-up\'s/notifys.scss'
-import { clearNotifys, reverseNotyfi, removeNotify } from "../redux/notifications/actions";
+import { clearNotifys, removeNotify } from "../redux/notifications/actions";
 
 function NotificationWrapper() {
   const dispatch = useDispatch();
   const notifys = useSelector((state) => state.notifys.notifications);
-  const store = useSelector((state) => state)
 
   const clearNotifyses = () => {
     dispatch(clearNotifys())

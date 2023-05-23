@@ -16,7 +16,6 @@ function OrderCardManager(props) {
   const [responseOrder, setResponseOrder] = useState([]);
   const [orders, setOrders] = useState([]);
   const [originalOrder, setOriginalOrder] = useState([]);
-  const [deleteClick, setDeleteClick] = useState(false);
   const [addOrder, setAddOrder] = useState({
     client: 0,
     composition: "",
@@ -61,8 +60,6 @@ function OrderCardManager(props) {
       setEditIndex(index);
     }
   }
-
-  const order = useSelector((state) => state)
 
   const addingOrder = (e) => {
     e.preventDefault();

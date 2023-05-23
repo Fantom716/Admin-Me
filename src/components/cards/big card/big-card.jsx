@@ -16,7 +16,7 @@ function BigCard(props) {
                 {props.data.percentageState !== undefined ? (
                   <div className="headerPersentageWrapper">
                     {+props.data.percentageState <= 0 ? <img className="headerArrow" src="/card/icons/Arrow bottom.svg" alt="" /> : <img className="headerArrow" src="/card/icons/Arrow up.svg" alt="" />}
-                    <p style={+props.data.percentageState <= 0 ? { color: "#FF0000" } : { color: "#8bf705" }} className="headerPersentageTitle">{props.data.percentageState == "Infinity" ? 0 : props.data.percentageState + "%"}</p>
+                    <p style={+props.data.percentageState <= 0 ? { color: "#FF0000" } : { color: "#8bf705" }} className="headerPersentageTitle">{props.data.percentageState === "Infinity" ? 0 : props.data.percentageState + "%"}</p>
                   </div>
                 ) : null}
                 {props.data.percentageState !== undefined ? (

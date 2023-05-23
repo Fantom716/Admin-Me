@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeManager from './pages/manager/home';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Clients from './pages/manager/clients';
 import Orders from './pages/manager/orders';
 import Sells from './pages/manager/sells';
@@ -13,7 +13,6 @@ import OrdersUser from './pages/user/orderUser';
 import Profile from './pages/user/profile';
 import HomeAdmin from './pages/admin/home';
 import AdminUsers from './pages/admin/users';
-import Versions from './components/cards/admin/versions';
 import VersionsPage from './pages/admin/versions';
 import Support from './pages/user/support';
 

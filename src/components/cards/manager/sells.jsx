@@ -19,20 +19,6 @@ function SellsCard(props) {
       })
   }, []);
 
-  console.log(data)
-
-  const cleanedPhoneNumber = (number) => {
-    return number.replace(/[^+0-9]/g, "");
-  }
-
-  const toggleEdit = (index) => {
-    if (index === editIndex) {
-      setEditIndex(-1);
-    } else {
-      setEditIndex(index);
-    }
-  };
-
   const handleChange = (event, index, field) => {
     const newData = [...data];
     newData[index][field] = event.target.value;

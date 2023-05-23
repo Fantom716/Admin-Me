@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../../../styles/support.scss"
-import { submitTicket } from "../../redux/users/actions";
 import { useDispatch } from "react-redux";
 import { sumbitTicketNotify } from "../../redux/notifications/actions";
 
@@ -47,8 +46,6 @@ function SupportCard() {
           }
         )
     }
-    console.log(title)
-    console.log(text)
   };
 
   return (

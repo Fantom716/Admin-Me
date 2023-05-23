@@ -1,8 +1,5 @@
-import React, { useEffect } from "react";
 import Navigation from "../../components/nav/navigation";
 import Header from "../../components/header/ready header";
-import axios from "axios";
-import { useState } from "react";
 import ClientCard from "../../components/cards/manager/clientCard";
 
 function Clients(props) {

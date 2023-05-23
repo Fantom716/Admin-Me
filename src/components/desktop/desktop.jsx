@@ -3,7 +3,7 @@ import BigCard from "../cards/big card/big-card";
 import InformationCard from "../cards/card for information/informationCard";
 import "../../styles/desktop.scss";
 import MainDesktopCard from "../cards/big card/mainDesktopCard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Desktop(props) {
     const { statistic, infoForMain, dataForInfoCard } = props;

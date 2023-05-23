@@ -49,11 +49,6 @@ function ProductCard(props) {
   }, []);
 
   const dispatch = useDispatch()
-  const selector = useSelector((state) => state)
-
-  const cleanedPhoneNumber = (number) => {
-    return number.replace(/[^+0-9]/g, "");
-  }
 
   const handleInputChange = (e) => {
     e.preventDefault();

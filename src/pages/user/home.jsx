@@ -35,10 +35,6 @@ function HomeUser(props) {
     },
   ])
 
-  const [test, setTest] = useState({});
-
-  const id ={ data: localStorage.getItem("idUser") }
-
   useEffect(() => {
     axios
       .get("http://localhost:5001/dashboard/managers/infoCard")
@@ -66,7 +62,7 @@ function HomeUser(props) {
         setStatistic(statistic["error"] = [error]);
         console.log(statistic["error"]);
       })
-  }, []);
+  }, [dataForInfoCard, products, statistic]);
 
   return (
     <div style={{ display: "flex", height: "100vh", width: "100vw" }}>

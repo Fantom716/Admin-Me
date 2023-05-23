@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../styles/notifications.scss";
 
 function NotificationAccount(props) {

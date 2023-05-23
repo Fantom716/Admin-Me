@@ -1,7 +1,6 @@
 import React from "react";
 import Navigation from "../../components/nav/navigation";
 import Header from "../../components/header/ready header";
-import ClientCard from "../../components/cards/manager/clientCard";
 import Desktop from "../../components/desktop/desktop";
 import axios from "axios";
 import { useEffect, useState } from "react";

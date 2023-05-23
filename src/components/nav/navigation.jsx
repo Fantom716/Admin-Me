@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import NotificationAccount from "../pop-up's/account";
 import "../../styles/navigation.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,31 +11,37 @@ export const linksNavManager = [
   {
     href: `/manager/${localStorage.getItem("idUser")}/dashboard`,
     icon: "/navigation/icons/home.svg",
+    alt: "home",
     title: "Главная"
   },
   {
     href: `/manager/${localStorage.getItem("idUser")}/clients`,
     icon: "/navigation/icons/clients.svg",
+    alt: "clients",
     title: "Клиенты",
   },
   {
     href: `/manager/${localStorage.getItem("idUser")}/orders`,
     icon: "/navigation/icons/orders.svg",
+    alt: "orders",
     title: "Заказы"
   },
   {
     href: `/manager/${localStorage.getItem("idUser")}/sells`,
     icon: "/navigation/icons/sells.svg",
+    alt: "sells",
     title: "Продажи",
   },
   {
     href: `/manager/${localStorage.getItem("idUser")}/partners`,
     icon: "/navigation/icons/partners.svg",
+    alt: "partners",
     title: "Партнеры",
   },
   {
     href: `/manager/${localStorage.getItem("idUser")}/products`,
     icon: "/navigation/icons/products.svg",
+    alt: "products",
     title: "Продукты",
   }
 ]
@@ -44,16 +50,19 @@ export const linksNavClient = [
   {
     href: `/user/${localStorage.getItem("idUser")}/dashboard`,
     icon: "/navigation/icons/home.svg",
+    alt: "home",
     title: "Главная"
   },
   {
     href: `/user/${localStorage.getItem("idUser")}/orders`,
     icon: "/navigation/icons/orders.svg",
+    alt: "orders",
     title: "Мои заказы"
   },
   {
     href: `/user/${localStorage.getItem("idUser")}/profile`,
     icon: "/navigation/icons/sells.svg",
+    alt: "sells",
     title: "Мой профиль"
   }
 ]
@@ -62,16 +71,19 @@ export const linksNavAdmin = [
   {
     href: `/admin/${localStorage.getItem("idUser")}/dashboard`,
     icon: "/navigation/icons/home.svg",
+    alt: "home",
     title: "Главная"
   },
   {
     href: `/admin/${localStorage.getItem("idUser")}/users`,
     icon: "/navigation/icons/orders.svg",
+    alt: "orders",
     title: "Пользователи"
   },
   {
     href: `/admin/${localStorage.getItem("idUser")}/versions`,
     icon: "/navigation/icons/sells.svg",
+    alt: "sells",
     title: "Версии"
   }
 ]
@@ -109,7 +121,7 @@ function Navigation() {
           {linksNavManager.map((item, idx) =>
             <li key={idx} className="navItem">
               <NavLink className={isActiveMenuSel ? "navLinkActive" : "navLinkDisable"} to={item.href}>
-                <img src={item.icon} className={isActiveMenuSel ? "iconSectionActive" : "iconSectionDisable"}></img>
+                <img alt={item.alt} src={item.icon} className={isActiveMenuSel ? "iconSectionActive" : "iconSectionDisable"}></img>
                 <p className={isActiveMenuSel ? "linkTitleActive" : "linkTitleDisable"}>{item.title}</p>
               </NavLink>
             </li>)}
@@ -122,7 +134,7 @@ function Navigation() {
           {linksNavClient.map((item, idx) =>
             <li key={idx} className="navItem">
               <NavLink className={isActiveMenuSel ? "navLinkActive" : "navLinkDisable"} to={item.href}>
-                <img src={item.icon} className={isActiveMenuSel ? "iconSectionActive" : "iconSectionDisable"}></img>
+                <img alt={item.alt} src={item.icon} className={isActiveMenuSel ? "iconSectionActive" : "iconSectionDisable"}></img>
                 <p className={isActiveMenuSel ? "linkTitleActive" : "linkTitleDisable"}>{item.title}</p>
               </NavLink>
             </li>)}
@@ -135,7 +147,7 @@ function Navigation() {
           {linksNavAdmin.map((item, idx) =>
             <li key={idx} className="navItem">
               <NavLink className={isActiveMenuSel ? "navLinkActive" : "navLinkDisable"} to={item.href}>
-                <img src={item.icon} className={isActiveMenuSel ? "iconSectionActive" : "iconSectionDisable"}></img>
+                <img alt={item.alt} src={item.icon} className={isActiveMenuSel ? "iconSectionActive" : "iconSectionDisable"}></img>
                 <p className={isActiveMenuSel ? "linkTitleActive" : "linkTitleDisable"}>{item.title}</p>
               </NavLink>
             </li>)}

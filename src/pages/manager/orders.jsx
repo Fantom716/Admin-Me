@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import Navigation from "../../components/nav/navigation";
 import Header from "../../components/header/ready header";
 import OrderCardManager from "../../components/cards/manager/orderManager";

@@ -2,20 +2,6 @@ import React, { useState } from "react";
 import "../../../styles/auth/authorization.scss"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-
-const authorizationPlaceholder = [
-  {
-    name: "login",
-    type: "text",
-    title: "Логин",
-  },
-  {
-    name: "password",
-    type: "password",
-    title: "Пароль",
-  },
-];
 
 
 function Authorization() {

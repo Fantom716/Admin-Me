@@ -41,7 +41,6 @@ function PartnerCard(props) {
   }, []);
 
   const dispatch = useDispatch()
-  const selector = useSelector((state) => state)
 
   const handleInputChange = (e) => {
     e.preventDefault();

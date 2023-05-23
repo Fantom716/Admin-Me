@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../../styles/cardManager.scss";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addClientSuccess, addClientFailure, updateClientRequest, incrementAddClient, incrementUpdateClient } from "../../redux/manager/clients/actions";
+import { addClientSuccess, addClientFailure, updateClientRequest } from "../../redux/manager/clients/actions";
 import { addNotify, editNotify } from "../../redux/notifications/actions";
 
 export const actions = {
@@ -31,8 +31,6 @@ function ClientCard(props) {
   const dispatch = useDispatch()
 
   const [responseAddClient, setResponseAddClient] = useState([]);
-
-  const order = null
 
   useEffect(() => {
     axios.get("http://localhost:5015/clients")
@@ -99,8 +97,6 @@ function ClientCard(props) {
     newData[index][field] = event.target.value;
     setData(newData);
   };
-
-  const updateClient = useSelector((state) => state.clients.updateClient)
 
   const handleSave = (index, event) => {
     event.preventDefault();

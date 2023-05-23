@@ -48,30 +48,6 @@ function Registration() {
   });
 
   const [error, setError] = useState("");
-  const [buttonTypeReg, setButtonTypeReg] = useState("user")
-
-  function changeButtonReg(value) {
-    setButtonTypeReg(value)
-    if (value === "user" && registrationPlaceholder.length < 7) {
-      registrationPlaceholder.unshift([
-        {
-          name: "firstName",
-          type: "text",
-          title: "Имя"
-        },
-        {
-          name: "lastName",
-          type: "text",
-          title: "Фамилия"
-        },
-        {
-          name: "middleName",
-          type: "text",
-          title: "Отчество"
-        },
-      ])
-    }
-  }
 
   function changeError(error) {
     setError(error);
@@ -90,16 +66,16 @@ function Registration() {
   }
 
   function handleSubmit() {
-    axios.get("http://localhost:5007/users")
+    axios
+      .get("http://localhost:5007/users")
       .then(res => {
         const logins = res.data;
         let loginsBool = false;
-        logins.map(item => {
+        logins.forEach(item => {
           if (item.login === formValue.login) {
             loginsBool = true;
             changeError("Логин уже занят");
-          }
-          else if (item.email === formValue.email) {
+          } else if (item.email === formValue.email) {
             changeError("Почта уже занята");
           }
         });
@@ -135,6 +111,7 @@ function Registration() {
         changeError(`Произошла ошибка: ${err}`);
       });
   }
+
 
   return (
     <div className="formWrapper">
