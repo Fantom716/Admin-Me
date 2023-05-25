@@ -5,17 +5,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const id = require("../utils/getRandomUniqueNumber");
 const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
+const cors = require("cors");
+const conn = require("../utils/connectionDB");
+
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const PORT = 5012;
 
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-})
+const PORT = 5012;
 
 async function getOrders() {
   return new Promise((resolve, reject) => {
@@ -28,6 +25,7 @@ async function getOrders() {
           order["dateDeadline"] = moments(order["dateDeadline"]).format("DD.MM.YYYY HH:mm:ss");
         })
         resolve(results);
+        console.log(results);
       }
     })
   })
@@ -52,6 +50,7 @@ app.post("/orders/add", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
+        console.log("OK");
         res.send(results);
       }
     });
@@ -71,6 +70,7 @@ app.post("/orders/update", (req, res) => {
       console.log(err);
       res.send(err);
     } else {
+      console.log("OK");
       res.send(res);
     }
   })
@@ -86,6 +86,7 @@ app.post("/orders/delete", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
+        console.log("OK");
         res.send(results);
       }
     });

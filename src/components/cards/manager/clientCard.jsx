@@ -4,6 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addClientSuccess, addClientFailure, updateClientRequest } from "../../redux/manager/clients/actions";
 import { addNotify, editNotify } from "../../redux/notifications/actions";
+const host = process.env.REACT_APP_HOST;
 
 export const actions = {
   add: "добавлен",
@@ -33,7 +34,7 @@ function ClientCard(props) {
   const [responseAddClient, setResponseAddClient] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5015/clients")
+    axios.get(`http://${host}:5015/clients`)
       .then((response) => {
         setData(response.data);
       })
@@ -60,7 +61,7 @@ function ClientCard(props) {
       dispatch(addClientFailure(errors));
       return;
     }
-    axios.post("http://localhost:5015/clients/add", addClient)
+    axios.post(`http://${host}:5015/clients/add`, addClient)
       .then((response) => {
         const fioAdd = `${addClient.name} ${addClient.surname} ${addClient.patronimyc}`
         dispatch(addClientSuccess(addClient));
@@ -105,7 +106,7 @@ function ClientCard(props) {
     const fio = `${updatedClient.name} ${updatedClient.surname} ${updatedClient.patronimyc}`
 
     dispatch(updateClientRequest(updatedClient));
-    axios.post(`http://localhost:5015/clients/update`, updatedClient)
+    axios.post(`http://176.99.12.175:5015/clients/update`, updatedClient)
       .then((response) => {
         setResponseAddClient(response.data);
         toggleEdit();

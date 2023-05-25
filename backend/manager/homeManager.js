@@ -1,25 +1,12 @@
 const express = require("express");
 const mysql = require("mysql");
 const moment = require("moment");
+const cors = require("cors");
+const conn = require("../utils/connectionDB");
 
 const app = express();
+app.use(cors());
 const PORT = 5001;
-
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-});
-
-conn.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Connected!");
-  }
-});
 
 app.get("/dashboard/managers/infoCard", (req, res) => {
   conn.query("SELECT login, email FROM users WHERE role = 'Менеджер'", (err, results) => {
@@ -88,28 +75,6 @@ const statisticManager = [
   }
 ];
 
-const statisticUser = [
-  {
-    nameTable: "orders",
-    fieldInDB: "client",
-    name: "Количество заказов",
-    currentValue: 0,
-    lastValue: 0,
-    percentageState: 0,
-    image: "/card/icons/small card add/hourglass.svg",
-    alt: "hourglass"
-  },
-  {
-    nameTable: "clients",
-    fieldInDB: "rating",
-    name: "Рейтинг",
-    currentValue: 0,
-    lastValue: 0,
-    image: "/card/icons/small card add/user.svg",
-    alt: "users"
-  },
-];
-
 const nowDate = moment().format("YYYY-MM-DD HH:mm:ss");
 const startCurrentWeek = moment().subtract(7, "days").format("YYYY-MM-DD HH:mm:ss");
 const startLastWeek = moment().subtract(14, "days").format("YYYY-MM-DD HH:mm:ss");
@@ -149,31 +114,18 @@ async function startStat() {
 }
 
 app.get("/dashboard/managers/statisticCard", (req, res) => {
-  console.log(statisticManager)
   getStatisticManager(statisticManager)
-  .then((arrayList) => res.send(arrayList))
-  .catch((err) => console.log(err));
+    .then((arrayList) => res.send(arrayList))
+    .catch((err) => console.log(err));
 });
 
-async function statUser() {
-  await getStatisticManager(statisticUser)
-}
-
-app.get("/dashboard/clients/statistics"), (req, res) => {
-  console.log(statisticUser)
-  getStatisticManager(statisticUser)
-  .then((arrayList) => res.send(arrayList))
-  .catch((err) => console.log(err));
-}
-
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 });
 
 module.exports = {
   nowDate,
   startCurrentWeek,
   startLastWeek,
-  startStat,
-  statUser
+  startStat
 }

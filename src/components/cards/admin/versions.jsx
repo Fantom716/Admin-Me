@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+const host = process.env.REACT_APP_HOST;
 
 function VersionsCard() {
 
@@ -8,7 +9,7 @@ function VersionsCard() {
 
   useEffect(() => {
     axios
-    .get("http://localhost:5023/admin/versions")
+    .get(`http://${host}:5023/admin/versions`)
     .then((res) => {
         setData(res.data)
       })

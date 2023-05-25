@@ -7,6 +7,7 @@ import { addOrderSuccess, updateOrderRequest, addOrderFailure } from "../../redu
 import { deleteOrderRequest, deleteOrderSuccess, deleteOrderFailure } from "../../redux/manager/orders/actions";
 import { addNotify, deleteNotify, editNotify } from "../../redux/notifications/actions";
 import { actions } from "./clientCard";
+const host = process.env.REACT_APP_HOST;
 
 function OrderCardManager(props) {
 
@@ -27,14 +28,14 @@ function OrderCardManager(props) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:5012/orders")
+    axios.get(`http://${host}:5012/orders`)
       .then((response) => {
         setData(response.data);
       })
       .catch((error) => {
         setData(error);
       })
-    axios.get("http://localhost:5015/clients")
+    axios.get(`http://${host}:5015/clients`)
       .then((response) => {
         setOrders(response.data);
       })
@@ -68,7 +69,7 @@ function OrderCardManager(props) {
       dispatch(addOrderFailure(errors))
       return;
     }
-    axios.post("http://localhost:5012/orders/add", addOrder)
+    axios.post(`http://${host}:5012/orders/add`, addOrder)
     .then((response) => {
         console.log("1:" + topic)
         dispatch(addNotify(addOrder.client, topic, actions.add))
@@ -83,7 +84,7 @@ function OrderCardManager(props) {
     const idOrder = id
     dispatch(deleteOrderRequest());
     dispatch(deleteNotify(idOrder, topic, actions.delete))
-    axios.post(`http://localhost:5012/orders/delete`, { idOrder: id })
+    axios.post(`http://${host}:5012/orders/delete`, { idOrder: id })
       .then((response) => {
         dispatch(deleteOrderSuccess(response.data));
       })
@@ -110,7 +111,7 @@ function OrderCardManager(props) {
 
     dispatch(updateOrderRequest(updatedOrder))
     dispatch(editNotify(updatedOrder.idOrder, topic, actions.edit))
-    axios.post("http://localhost:5012/orders/update", updatedOrder)
+    axios.post(`http://${host}:5012/orders/update`, updatedOrder)
     .then((response) => {
         setResponseOrder(response.data);
         toggleEdit()

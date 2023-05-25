@@ -3,36 +3,7 @@ import { useState } from "react";
 import "../../../styles/auth/authorization.scss"
 import axios from "axios";
 var validator = require('validator');
-
-const registrationPlaceholder = [
-  {
-    name: "login",
-    type: "text",
-    title: "Логин"
-  },
-  {
-    name: "email",
-    type: "text",
-    title: "Почта",
-  },
-  {
-    name: "role",
-    type: "",
-    title: "Роль",
-  },
-  {
-    name: "password",
-    type: "password",
-    title: "Пароль"
-  },
-  {
-    name: "repeatPassword",
-    type: "password",
-    title: "Повторите пароль"
-  }
-]
-
-console.log(registrationPlaceholder)
+const host = process.env.REACT_APP_HOST;
 
 function Registration() {
 
@@ -67,7 +38,7 @@ function Registration() {
 
   function handleSubmit() {
     axios
-      .get("http://localhost:5007/users")
+      .get(`http://${host}:5007/users`)
       .then(res => {
         const logins = res.data;
         let loginsBool = false;
@@ -103,7 +74,7 @@ function Registration() {
               patronimyc: formValue.patronimyc
             };
             console.log(postData)
-            axios.post("http://localhost:5007/registration", postData);
+            axios.post(`http://${host}:5007/registration`, postData);
           }
         }
       })
@@ -111,7 +82,6 @@ function Registration() {
         changeError(`Произошла ошибка: ${err}`);
       });
   }
-
 
   return (
     <div className="formWrapper">

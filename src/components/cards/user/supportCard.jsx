@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../../../styles/support.scss"
 import { useDispatch } from "react-redux";
 import { sumbitTicketNotify } from "../../redux/notifications/actions";
+const host = process.env.REACT_APP_HOST;
 
 function SupportCard() {
   const [title, setTitle] = useState("");
@@ -12,7 +13,7 @@ function SupportCard() {
 
   useEffect(() => {
     axios
-    .get("http://localhost:5030/supportUser")
+    .get(`http://${host}:5030/supportUser`)
     .then((res) => {
         setData(res.data);
       })
@@ -36,7 +37,7 @@ function SupportCard() {
     const id = localStorage.getItem("idUser")
     if (title && text) {
       dispatch(sumbitTicketNotify("dyegyde"))
-      axios.post("http://localhost:5030/support", {id, title, text} )
+      axios.post(`http://${host}:5030/support`, {id, title, text} )
         .then(
           (response) => {
             console.log(response);

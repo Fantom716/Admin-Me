@@ -2,6 +2,7 @@ import React from "react";
 import "../../../styles/cardManager.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
+const host = process.env.REACT_APP_HOST;
 
 function SellsCard(props) {
 
@@ -10,7 +11,7 @@ function SellsCard(props) {
   const [editIndex, setEditIndex] = useState(-1);
 
   useEffect(() => {
-    axios.get("http://localhost:5010/sells")
+    axios.get(`http://${host}:5010/sells`)
       .then((response) => {
         setData(response.data);
       })

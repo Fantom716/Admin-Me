@@ -3,7 +3,10 @@ const mysql = require("mysql");
 const moments = require("moment");
 const bodyParser = require('body-parser');
 const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
+const cors = require("cors");
 const app = express();
+app.use(cors())
+const conn = require("../utils/connectionDB");
 
 // Разбор тела запроса в формате json
 app.use(bodyParser.json());
@@ -12,14 +15,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = 5015;
-
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-})
 
 async function getClients() {
   return new Promise((resolve, reject) => {
@@ -61,6 +56,7 @@ app.post("/clients/add", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
+        console.log("OK");
         res.send(results);
       }
     });
@@ -81,6 +77,7 @@ app.post("/clients/update", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
+        console.log("OK");
         res.send(results);
       }
     });

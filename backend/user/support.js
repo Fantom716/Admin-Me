@@ -6,25 +6,10 @@ const bp = require("body-parser");
 const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
 const app = express();
 const PORT = 5030;
+const conn = require("../utils/connectionDB")
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
-
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-});
-
-conn.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Connected!");
-  }
-});
 
 app.post("/support", (req, err) => {
   getRandomUniqueNumber("idTicket", "support").then((idTicket) => {
@@ -34,6 +19,8 @@ app.post("/support", (req, err) => {
       if (err) {
         console.log(err);
       } else {
+        console.log(values)
+        console.log(result);
       }
     });
   });
@@ -67,7 +54,7 @@ function getSupports(idUser) {
 }
 
 app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 })
 
 

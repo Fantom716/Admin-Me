@@ -4,18 +4,14 @@ const moments = require("moment");
 const app = express();
 const bodyParser = require('body-parser');
 const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
+const cors = require("cors");
+const conn = require("../utils/connectionDB");
+
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = 5011;
-
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-})
 
 async function getProducts() {
   return new Promise((resolve, reject) => {
@@ -27,6 +23,7 @@ async function getProducts() {
         results.map((product) => {
           product["dateOfSell"] = moment(product["dateOfSell"]).format("DD.MM.YYYY")
         })
+        console.log(results)
         resolve(results);
       }
     })
@@ -45,6 +42,7 @@ app.post('/products/add', async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
+        console.log("OK");
         res.send(results);
       }
     });
@@ -72,6 +70,7 @@ app.post("/products/delete", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
+        console.log("OK");
         res.send(results);
       }
     });
@@ -92,6 +91,7 @@ app.post("/products/update", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
+        console.log("OK");
         res.send(results);
       }
     });

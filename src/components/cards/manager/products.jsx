@@ -10,6 +10,7 @@ import {
 } from '../../redux/manager/products/actions';
 import { addNotify, deleteNotify, editNotify } from "../../redux/notifications/actions";
 import { actions } from "./clientCard";
+const host = process.env.REACT_APP_HOST;
 
 function ProductCard(props) {
 
@@ -32,14 +33,14 @@ function ProductCard(props) {
   })
 
   useEffect(() => {
-    axios.get("http://localhost:5011/products")
+    axios.get(`http://${host}:5011/products`)
       .then((response) => {
         setData(response.data);
       })
       .catch((error) => {
         setData(error);
       })
-    axios.get("http://localhost:5003/partners")
+    axios.get(`http://${host}:5003/partners`)
       .then((response) => {
         setPartners(response.data);
       })
@@ -79,7 +80,7 @@ function ProductCard(props) {
 
     dispatch(addProductRequest());
     dispatch(addNotify(addProduct.nameProduct, topic, actions.add))
-    axios.post("http://localhost:5011/products/add", addProduct)
+    axios.post(`http://${host}:5011/products/add`, addProduct)
       .then((response) => {
         dispatch(addProductSuccess(response.data));
         setResponceAddProduct(response.data);
@@ -119,7 +120,7 @@ function ProductCard(props) {
     const handleSave = (index) => {
       const updatedProduct = data[index];
       dispatch(editNotify(updatedProduct.nameProduct, topic, actions.edit))
-      axios.post("http://localhost:5011/products/update", updatedProduct)
+      axios.post(`http://${host}:5011/products/update`, updatedProduct)
         .then((response) => {
           setResponceAddProduct(response.data);
         })
@@ -130,7 +131,7 @@ function ProductCard(props) {
 
     const handleDelete = (index) => {
       const deletedProduct = data[index];
-      axios.post("http://localhost:5011/products/delete", deletedProduct)
+      axios.post(`http://${host}:5011/products/delete`, deletedProduct)
         .then((response) => {
           dispatch(deleteNotify(deletedProduct.nameProduct, topic, actions.delete))
         })

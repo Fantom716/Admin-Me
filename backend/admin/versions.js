@@ -3,25 +3,13 @@ const mysql = require("mysql");
 const moment = require("moment");
 const axios = require("axios");
 const { startLastWeek, startCurrentWeek } = require("../manager/homeManager");
+const cors = require("cors")
+const conn = require("../utils/connectionDB");
 
 const app = express();
 const PORT = 5023;
 
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-});
-
-conn.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Connected!");
-  }
-});
+app.use(cors());
 
 let githubData;
 let versions = [];
@@ -74,7 +62,7 @@ app.get("/admin/versions", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 })
 
 module.exports = getRelease;

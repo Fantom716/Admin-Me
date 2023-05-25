@@ -4,14 +4,14 @@ import Header from "../../components/header/ready header";
 import "../../styles/profile.scss"
 import axios from "axios";
 import { useState } from "react";
-
+const host = process.env.REACT_APP_HOST;
 
 function Profile(props) {
 
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5095/clients/profile").then((res) => {
+        axios.get(`http://${host}:5095/clients/profile`).then((res) => {
             setData(res.data);
         });
     }, [])

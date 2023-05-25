@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import "../../../styles/auth/authorization.scss"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+const host = process.env.REACT_APP_HOST;
 
 function Authorization() {
+
+  console.log(host)
+
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState({
     login: "",
@@ -13,7 +16,6 @@ function Authorization() {
     role: "",
     error: ""
   });
-
 
   const [autho, setAutho] = useState({
     authoBool: false,
@@ -38,7 +40,7 @@ function Authorization() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    axios.get("http://localhost:5007/users").then((response) => {
+    axios.get(`http://${host}:3092/users`).then((response) => {
       console.log(response.data)
       console.log(response.data[0].login)
       const user = response.data.find(
@@ -54,7 +56,7 @@ function Authorization() {
         localStorage.setItem("login", formValue.login);
         setFormValue({ error: "" });
         const valuesSubmit = [formValue.login, formValue.password, formValue.role, localStorage.getItem("idUser")]
-        axios.post(`http://localhost:5007/form`, valuesSubmit)
+        axios.post(`http://${host}:3092/form`, valuesSubmit)
           .then((response) => {
             console.log(response.data);
             if (formValue.role === "Пользователь") {

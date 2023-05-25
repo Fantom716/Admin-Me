@@ -1,12 +1,4 @@
-const mysql = require("mysql")
-
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-})
+const conn = require("./connectionDB")
 
 const checkMatch = (number, array) => {
   return array.some((item) => item.idSession === number);

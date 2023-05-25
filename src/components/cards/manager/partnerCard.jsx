@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addPartnerFailure } from "../../redux/manager/partners/actions";
 import { addNotify, deleteNotify, editNotify } from "../../redux/notifications/actions";
 import { actions } from "./clientCard";
-
+const host = process.env.REACT_APP_HOST;
 
 function PartnerCard(props) {
 
@@ -31,7 +31,7 @@ function PartnerCard(props) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:5003/partners")
+    axios.get(`http://${host}:5003/partners`)
       .then((response) => {
         setData(response.data);
       })
@@ -63,7 +63,7 @@ function PartnerCard(props) {
     }
     console.log(addPartner)
     dispatch(addNotify(addPartner.nameCompany, topic, actions.add))
-    axios.post("http://localhost:5003/partners/add", {
+    axios.post(`http://${host}:5003/partners/add`, {
       nameCompany,
       type,
       address,
@@ -121,7 +121,7 @@ function PartnerCard(props) {
     dispatch(updatePartnerRequest());
 
     dispatch(editNotify(updatedPartner.nameCompany, topic, actions.edit));
-    axios.post("http://localhost:5003/partners/update", updatedPartner)
+    axios.post(`http://${host}:5003/partners/update`, updatedPartner)
     .then((response) => {
       dispatch(updatePartnerSuccess(response.data));
       setResponsePartner(response.data);
@@ -143,7 +143,7 @@ function PartnerCard(props) {
   const handleDelete = (id) => {
     dispatch(deletePartnerRequest());
     dispatch(deleteNotify(id, topic, actions.delete))
-    axios.post("http://localhost:5003/partners/delete", {
+    axios.post(`http://${host}:5003/partners/delete`, {
       idPartner: id
     })
       .then((response) => {

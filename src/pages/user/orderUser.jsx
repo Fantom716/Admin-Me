@@ -5,7 +5,7 @@ import "../../styles/ordersUser.scss"
 import axios from "axios";
 import OrderCard from "../../components/cards/big card/orderCard";
 import { useState } from "react";
-
+const host = process.env.REACT_APP_HOST;
 
 function OrdersUser(props) {
     const [orders, setOrders] = useState([]);
@@ -13,7 +13,7 @@ function OrdersUser(props) {
     console.log(localStorage.getItem("idUser"))
 
     useEffect(() => {
-      axios.get(`http://localhost:5008/orders`)
+      axios.get(`http://${host}:5008/orders`)
       .then((response) => {
         console.log(response.data);
         setOrders(response.data);
@@ -21,7 +21,7 @@ function OrdersUser(props) {
         console.log(error);
       })
       axios
-        .get("http://localhost:5008/orders")
+        .get(`http://${host}:5008/orders`)
         .then((response) => {
           setOrders(response.data);
         })

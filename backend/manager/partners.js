@@ -3,19 +3,15 @@ const mysql = require("mysql");
 const moment = require("moment");
 const bodyParser = require('body-parser');
 const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
+const cors = require ("cors");
 const app = express();
+const conn = require("../utils/connectionDB");
+
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = 5003;
-
-const conn = mysql.createConnection({
-	host: "DESKTOP-ASKKTC8",
-	user: "serverJS",
-	database: "mydb",
-	password: "jK7JgP5YbFyMRr",
-	port: 3306,
-})
 
 async function getPartners() {
 	return new Promise((resolve, reject) => {
@@ -43,6 +39,7 @@ app.post("/partners/add", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
+        console.log("OK");
         res.send(results);
       }
     });
@@ -62,6 +59,7 @@ app.post("/partners/delete", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
+        console.log("OK");
         res.send(results);
       }
     });
@@ -72,6 +70,7 @@ app.post("/partners/delete", async (req, res) => {
 });
 
 app.post("/partners/update", async (req, res) => {
+  console.log(req.body);
   try {
     const { type, phoneNumber, address, dateConclusionContract, email, nameDelegate, surnameDelegate, patronymicDelegate, nameCompany, idPartner } = req.body;
     const formattedDate = moment(dateConclusionContract, "DD.MM.YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss");
@@ -82,6 +81,7 @@ app.post("/partners/update", async (req, res) => {
         console.log(err);
         res.send(err);
       } else {
+        console.log("OK");
         res.send(results);
       }
     });

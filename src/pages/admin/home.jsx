@@ -5,6 +5,7 @@ import Desktop from "../../components/desktop/desktop";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { greetingElement } from "../../components/header/greeting";
+const host = process.env.REACT_APP_HOST;
 
 function HomeAdmin() {
 
@@ -36,7 +37,7 @@ function HomeAdmin() {
 
       useEffect(() => {
         axios
-          .get("http://localhost:5021/dashboard/admin/infoCard")
+          .get(`http://${host}:5021/dashboard/admin/infoCard`)
           .then((response) => {
             setDataForInfoCard(response.data);
           })
@@ -44,7 +45,7 @@ function HomeAdmin() {
             setDataForInfoCard(dataForInfoCard["error"] = [error]);
           });
           axios
-            .get("http://localhost:5021/dashboard/admin/users")
+            .get(`http://${host}:5021/dashboard/admin/users`)
             .then((response) => {
               setOrders(response.data);
             })
@@ -52,7 +53,7 @@ function HomeAdmin() {
               setOrders(orders["error"] = [error]);
             })
           axios.
-          get("http://localhost:5021/dashboard/admin/statisticCard")
+          get(`http://${host}:5021/dashboard/admin/statisticCard`)
           .then((response) => {
             console.log(response);
             setStatistic(response.data);
