@@ -11,14 +11,10 @@ function Profile(props) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://${host}:5095/clients/profile`).then((res) => {
+        axios.post(`http://${host}:5095/client/profile?user=${localStorage.getItem("idUser")}`).then((res) => {
             setData(res.data);
-        });
+        })
     }, [])
-
-    console.log(typeof (data))
-    console.log(data)
-    console.log(data["name"])
 
     return (
         <div style={{ display: "flex", height: "100vh" }}>

@@ -9,6 +9,7 @@ function OrderCard(props) {
             <p className="title">Название товара: {props.data.composition}</p>
             <p className="date">Дата создания: {props.data.dateDeadline}</p>
             <p className="status">Статус заказа: {props.data.status}</p>
+            <p className="quantity">Количество: {props.data.quantity}</p>
             <div className="wrapperFooter" style={{display: "flex"}}>
                 <p className="price">Номер заказа: {props.data.idOrder}</p>
                 <button className="buttonDetail">Подробнее</button>

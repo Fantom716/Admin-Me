@@ -3,14 +3,23 @@ const mysql = require("mysql");
 const moment = require("moment");
 const cors = require("cors")
 const conn = require("../utils/connectionDB")
+const bodyParser = require("body-parser")
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = 5002;
 
 const nowDate = moment().format("YYYY-MM-DD HH:mm:ss");
 const startCurrentWeek = moment().subtract(7, "days").format("YYYY-MM-DD HH:mm:ss");
 const startLastWeek = moment().subtract(14, "days").format("YYYY-MM-DD HH:mm:ss");
+
+app.post("/user/dashboard/getdata", (req, res) => {
+  const idUser = req.body.id;
+  const stat = updateStatistics(idUser);
+  res.send(stat);
+})
 
 app.get("/dashboard/clients/products", (req, res) => {
   conn.query("SELECT nameProduct, descriptionProduct FROM products", (err, results) => {
@@ -46,58 +55,53 @@ const statisticUser = [
     fieldInDB: "rating",
     name: "Рейтинг",
     currentValue: 0,
-    lastValue: 0,
     image: "/card/icons/small card add/user.svg",
     alt: "users"
   },
 ];
 
 const getClientId = (idUser) => {
-  console.log("id: " + idUser)
-  query = `SELECT idClientInUser FROM users WHERE idUser = ${idUser}`
-  conn.query("SELECT * FROM users"), (err, res) => {
-    console.log(res)
-  }
+  const values = idUser;
+  const query = `SELECT idClientInUser FROM users WHERE idUser = ?`;
+
   return new Promise((resolve, reject) => {
     try {
-      conn.query(query, (err, results) => {
+      conn.query(query, values, (err, results) => {
         if (err) {
           reject(err);
         } else {
-          console.log(query)
-          console.log(results)
-          resolve(results[0]?.idClientInUser);
+          resolve(results[0].idClientInUser);
         }
-        console.log(err)
-      })
+      });
+    } catch (error) {
+      reject(error);
     }
-    catch (error) {
-      reject(error)
-    }
-  })
+  });
 };
 
 const getCurrentWeekOrdersCount = (idClient) => {
-  setTimeout(() => {
-    return new Promise((resolve, reject) => {
-      const query = `SELECT COUNT(*) FROM orders WHERE client = ${idClient} AND dateDeadline BETWEEN '${startCurrentWeek}' AND '${nowDate}'`;
-      conn.query(query, (err, results) => {
+  const query = 'SELECT COUNT(*) FROM orders WHERE client = ? AND dateDeadline BETWEEN ? AND ?';
+  const values = [idClient, startCurrentWeek, nowDate];
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      conn.query(query, values, (err, results) => {
         if (err) {
           reject(err);
         } else {
-          console.log(query)
-          console.log(results[0]["COUNT(*)"])
           resolve(results[0]["COUNT(*)"]);
         }
       });
-    });
-  }, 1000);
+    }, 1000);
+  });
 };
 
 const getLastWeekOrdersCount = (idClient) => {
+  const values = [idClient, startLastWeek, startCurrentWeek]
+  const query = 'SELECT COUNT(*) FROM orders WHERE client = ? AND dateDeadline BETWEEN ? AND ?';
+
   return new Promise((resolve, reject) => {
-    const query = `SELECT COUNT(*) FROM orders WHERE client = ${idClient} AND dateDeadline BETWEEN '${startLastWeek}' AND '${startCurrentWeek}'`;
-    conn.query(query, (err, results) => {
+    conn.query(query, values, (err, results) => {
       if (err) {
         reject(err);
       } else {
@@ -108,8 +112,11 @@ const getLastWeekOrdersCount = (idClient) => {
 };
 
 const getClientRating = (idClient) => {
+  const query = 'SELECT rating FROM clients WHERE idClient = ?';
+  const values = idClient
+
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT rating FROM clients WHERE idClient = ${idClient}`, (err, results) => {
+    conn.query(query, values, (err, results) => {
       if (err) {
         reject(err);
       } else {
@@ -119,33 +126,17 @@ const getClientRating = (idClient) => {
   });
 };
 
-const getClientManager = (idClient) => {
-  return new Promise((resolve, reject) => {
-    conn.query(`SELECT MAX(manager) FROM orders WHERE client = ${idClient}`, (err, results) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(results[0]['MAX(manager)']);
-      }
-    });
-  });
-};
-
-const updateStatistics = async () => {
+const updateStatistics = async (idUser) => {
   try {
     const idClient = await getClientId(idUser);
     const currentWeekOrders = await getCurrentWeekOrdersCount(idClient);
-    console.log("c:" + currentWeekOrders)
     const lastWeekOrders = await getLastWeekOrdersCount(idClient);
     const rating = await getClientRating(idClient);
-    const manager = await getClientManager(idClient);
 
     statisticUser[0].currentValue = currentWeekOrders;
     statisticUser[0].lastValue = lastWeekOrders;
-    statisticUser[0].percentageState = (currentWeekOrders / lastWeekOrders) * 100;
+    statisticUser[0].percentageState = ((currentWeekOrders / lastWeekOrders) * 100).toFixed(2);
     statisticUser[1].currentValue = rating;
-    statisticUser[1].lastValue = rating;
-    statisticUser[1].percentageState = 100;
 
     console.log('Statistics updated successfully');
   } catch (error) {
@@ -153,17 +144,7 @@ const updateStatistics = async () => {
   }
 }
 
-async function getStat(idUser) {
-  await updateStatistics(idUser);
-  console.log(statisticUser)
-  app.get("/dashboard/clients/statistics", (req, res) => {
-    res.send(statisticUser);
-  });
-}
-
 app.get("/dashboard/clients/statistics", async (req, res) => {
-  await updateStatistics();
-  console.log(statisticUser)
   res.send(statisticUser);
 });
 
@@ -171,4 +152,4 @@ app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
 
-module.exports = {getClientId, getStat};
+module.exports = updateStatistics;

@@ -13,7 +13,7 @@ function SupportCard() {
 
   useEffect(() => {
     axios
-    .get(`http://${host}:5030/supportUser`)
+    .get(`http://${host}:5030/support/all?user=${localStorage.getItem('idUser')}`)
     .then((res) => {
         setData(res.data);
       })

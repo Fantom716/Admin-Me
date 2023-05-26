@@ -13,23 +13,15 @@ function OrdersUser(props) {
     console.log(localStorage.getItem("idUser"))
 
     useEffect(() => {
-      axios.get(`http://${host}:5008/orders`)
-      .then((response) => {
-        console.log(response.data);
-        setOrders(response.data);
-      }).catch((error) => {
-        console.log(error);
-      })
-      axios
-        .get(`http://${host}:5008/orders`)
+      axios.
+        post(`http://${host}:5008/orders?user=${localStorage.getItem("idUser")}`)
         .then((response) => {
-          setOrders(response.data);
+          setOrders(response.data)
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+          console.log(err);
         })
     }, []);
-
 
     return (
         <div style={{ display: "flex", height: "100vh"}}>

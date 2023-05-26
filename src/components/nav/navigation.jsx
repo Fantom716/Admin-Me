@@ -16,31 +16,31 @@ export const linksNavManager = [
   },
   {
     href: `/manager/${localStorage.getItem("idUser")}/clients`,
-    icon: "/navigation/icons/clients.svg",
+    icon: "/navigation/icons/manager/clients.svg",
     alt: "clients",
     title: "Клиенты",
   },
   {
     href: `/manager/${localStorage.getItem("idUser")}/orders`,
-    icon: "/navigation/icons/orders.svg",
+    icon: "/navigation/icons/manager/orders.svg",
     alt: "orders",
     title: "Заказы"
   },
   {
     href: `/manager/${localStorage.getItem("idUser")}/sells`,
-    icon: "/navigation/icons/sells.svg",
+    icon: "/navigation/icons/manager/sells.svg",
     alt: "sells",
     title: "Продажи",
   },
   {
     href: `/manager/${localStorage.getItem("idUser")}/partners`,
-    icon: "/navigation/icons/partners.svg",
+    icon: "/navigation/icons/manager/partners.svg",
     alt: "partners",
     title: "Партнеры",
   },
   {
     href: `/manager/${localStorage.getItem("idUser")}/products`,
-    icon: "/navigation/icons/products.svg",
+    icon: "/navigation/icons/manager/products.svg",
     alt: "products",
     title: "Продукты",
   }
@@ -55,14 +55,14 @@ export const linksNavClient = [
   },
   {
     href: `/user/${localStorage.getItem("idUser")}/orders`,
-    icon: "/navigation/icons/orders.svg",
+    icon: "/navigation/icons/user/orders.svg",
     alt: "orders",
     title: "Мои заказы"
   },
   {
     href: `/user/${localStorage.getItem("idUser")}/profile`,
-    icon: "/navigation/icons/sells.svg",
-    alt: "sells",
+    icon: "/navigation/icons/user/profile.svg",
+    alt: "profile",
     title: "Мой профиль"
   }
 ]
@@ -76,15 +76,15 @@ export const linksNavAdmin = [
   },
   {
     href: `/admin/${localStorage.getItem("idUser")}/users`,
-    icon: "/navigation/icons/orders.svg",
-    alt: "orders",
+    icon: "/navigation/icons/admin/users.svg",
+    alt: "users",
     title: "Пользователи"
   },
   {
     href: `/admin/${localStorage.getItem("idUser")}/versions`,
-    icon: "/navigation/icons/sells.svg",
-    alt: "sells",
-    title: "Версии"
+    icon: "/navigation/icons/admin/versions.svg",
+    alt: "versions",
+    title: "Версии системы"
   }
 ]
 
@@ -120,7 +120,7 @@ function Navigation() {
         <ul className="nav__list">
           {linksNavManager.map((item, idx) =>
             <li key={idx} className="navItem">
-              <NavLink className={isActiveMenuSel ? "navLinkActive" : "navLinkDisable"} to={item.href}>
+              <NavLink title={item.title} className={isActiveMenuSel ? "navLinkActive" : "navLinkDisable"} to={item.href}>
                 <img alt={item.alt} src={item.icon} className={isActiveMenuSel ? "iconSectionActive" : "iconSectionDisable"}></img>
                 <p className={isActiveMenuSel ? "linkTitleActive" : "linkTitleDisable"}>{item.title}</p>
               </NavLink>
@@ -133,7 +133,7 @@ function Navigation() {
         <ul className="nav__list">
           {linksNavClient.map((item, idx) =>
             <li key={idx} className="navItem">
-              <NavLink className={isActiveMenuSel ? "navLinkActive" : "navLinkDisable"} to={item.href}>
+              <NavLink title={item.title} className={isActiveMenuSel ? "navLinkActive" : "navLinkDisable"} to={item.href}>
                 <img alt={item.alt} src={item.icon} className={isActiveMenuSel ? "iconSectionActive" : "iconSectionDisable"}></img>
                 <p className={isActiveMenuSel ? "linkTitleActive" : "linkTitleDisable"}>{item.title}</p>
               </NavLink>
@@ -146,7 +146,7 @@ function Navigation() {
         <ul className="nav__list">
           {linksNavAdmin.map((item, idx) =>
             <li key={idx} className="navItem">
-              <NavLink className={isActiveMenuSel ? "navLinkActive" : "navLinkDisable"} to={item.href}>
+              <NavLink title={item.title} className={isActiveMenuSel ? "navLinkActive" : "navLinkDisable"} to={item.href}>
                 <img alt={item.alt} src={item.icon} className={isActiveMenuSel ? "iconSectionActive" : "iconSectionDisable"}></img>
                 <p className={isActiveMenuSel ? "linkTitleActive" : "linkTitleDisable"}>{item.title}</p>
               </NavLink>

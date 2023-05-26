@@ -37,6 +37,14 @@ function HomeUser(props) {
 
   useEffect(() => {
     axios
+      .post(`http://${host}:5002/user/dashboard/getdata`,  {"id": localStorage.getItem("idUser")})
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    axios
       .get(`http://${host}:5001/dashboard/managers/infoCard`)
       .then((response) => {
         setDataForInfoCard(response.data);
@@ -53,7 +61,7 @@ function HomeUser(props) {
           setProducts(products["error"] = [error]);
         })
       axios
-      .get(`http://${host}:5001/dashboard/clients/statistics`)
+      .get(`http://${host}:5002/dashboard/clients/statistics`)
       .then((response) => {
         console.log(response);
         setStatistic(response.data);

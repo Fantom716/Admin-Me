@@ -21,15 +21,15 @@ function NotificationAccount(props) {
         <div className={props.name ? "notificationAccountWrapperActive" : "notificationAccountWrapperDisable"} style={props.openMenu ? { visibility: "hidden" } : { visibility: "visible" }}>
             <ul className="notificationList">
                 <button className="notificationItem">
-                    <img className="notificationIcon" src="/notification/account/info.svg" alt="i" />
+                    <img className="notificationIcon" src="/notification/account/about_system.svg" alt="about system" />
                     О системе
                 </button>
                 <button onClick={() => goToSupport()} className="notificationItem">
-                    <img className="notificationIcon" src="/notification/account/question.svg" alt="question" />
+                    <img className="notificationIcon" src="/notification/account/support.svg" alt="support" />
                     Поддержка
                 </button>
                 <button className="notificationItem">
-                    <img className="notificationIcon" src="/notification/account/file_dock.svg" alt="file" />
+                    <img className="notificationIcon" src="/notification/account/faq.svg" alt="faq" />
                     FAQ
                 </button>
                 <button className="notificationItem">

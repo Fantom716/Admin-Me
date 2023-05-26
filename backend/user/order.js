@@ -9,42 +9,49 @@ moment = require('moment');
 
 const PORT = 5008;
 
-const selectOrder = async (idUser) => {
+app.post("/orders", async (req, res) => {
+  const idUser = req.query.user;
+  const orders = await getOrder(idUser);
+  res.send(orders)
+})
+
+const getClient = async (idUser) => {
+  const query = `SELECT idClientInUser FROM users WHERE idUser = ${idUser}`;
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT idClientInUser FROM users WHERE idUser = ${idUser}`, (err, result) => {
+    conn.query(query, (err, result) => {
       if (err) {
-        reject(err)
+        reject(err);
+      } else {
+        const idClient = result[0].idClientInUser;
+        resolve(idClient);
       }
-      else {
-        idClient = result[0].idClientInUser
-        query = `SELECT * FROM orders WHERE client = ${idClient}`
-        conn.query(query, (err, result) => {
-          if (err) {
-            reject(err)
-          }
-          result.map((order) => {
-            order.dateDeadline = moment(order.dateDeadline).format("DD.MM.YYYY HH:mm:ss");
+    });
+  });
+};
+
+const getOrder = async (idUser) => {
+  const idClient = await getClient(idUser);
+  try {
+    const query = `SELECT * FROM orders WHERE client = ${idClient}`;
+    return new Promise((resolve, reject) => {
+      conn.query(query, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          result.map((res) => {
+            res["dateDeadline"] = moment(res["dateDeadline"]).format("YYYY:MM:DD HH:mm:ss")
           })
-          console.log("udedhudehu")
-          resolve(result)
-        })
-      }
-    })
-  })
+          console.log(result)
+          resolve(result);
+        }
+      });
+    });
+  }
+  catch {
+    return console.log("error")
+  }
 }
-
-function insertOrder(idUser) {
-  app.get('/orders', (req, res) => {
-    selectOrder(idUser).then((result) => {
-      res.send(result)
-    })
-  })
-}
-
-insertOrder(1);
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
-
-module.exports = insertOrder

@@ -11,7 +11,8 @@ const conn = require("../utils/connectionDB")
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 
-app.post("/support", (req, err) => {
+app.post("/support", (req, res, err) => {
+  console.log(req.body)
   getRandomUniqueNumber("idTicket", "support").then((idTicket) => {
     values = [idTicket, req.body.id, moment().format("YYYY-MM-DD HH:mm:ss"), req.body.title, req.body.text, "Ожидает ответа"];
     query = "INSERT INTO support (idTicket, user, dateOfApplication, title, descriptionProblem, status) VALUES (?, ?, ?, ?, ?, ?)";
@@ -19,12 +20,28 @@ app.post("/support", (req, err) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(values)
-        console.log(result);
+        res.send(result);
       }
     });
   });
 });
+
+app.get("/support/all", (req, res, err) => {
+  const idUser = req.query.user
+  const query = `SELECT * FROM support WHERE user = ?`
+  const values = idUser
+  conn.query(query, values, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      result.map((res) => {
+        res["dateOfApplication"] = moment(res["dateDeadline"]).format("YYYY:MM:DD HH:mm:ss")
+      })
+      console.log(result)
+      res.send(result);
+    }
+  });
+})
 
 const getSupportsUser = async (idUser) => {
   const query = `SELECT * FROM support WHERE user = ${idUser}`;

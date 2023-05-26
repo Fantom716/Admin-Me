@@ -17,6 +17,7 @@ const getUsers = require("../admin/users");
 const startGetClients = require("../manager/clients");
 const getSupports = require("../user/support");
 const conn = require("../utils/connectionDB");
+const updateStatistics = require("../user/homeUser");
 
 const app = express();
 const PORT = 3092;
@@ -48,10 +49,7 @@ app.post('/form', async (req, res) => {
     await startGetOrders
 
     // Get data for users
-    await queryAndUpdate.getClientId(idUser)
-    await insertOrder(idUser)
-    await sendDataProfile(idUser)
-    await getSupports(idUser)
+    await updateStatistics(idUser)
 
     // Get data for admin
     await getStatisticAdmin
