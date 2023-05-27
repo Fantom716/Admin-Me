@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build application
-        run: npm run build  # Replace with your build commdand
+        run: CI=false npm run build  # Replace with your build commdand
 
       - name: SSH Deploy
         uses: appleboy/scp-action@master
