@@ -32,3 +32,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: build
           target: testst
+      - name: Deploy to Remote Server
+        run: |
+            ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'bash -s' < backups/backup.sh
