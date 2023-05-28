@@ -3,7 +3,10 @@ name: Deploy to Remote Server
 on:
   push:
     branches:
-      - ops
+      - dev
+  pull_request:
+    branches:
+      - master
 
 jobs:
   deploy:
@@ -39,8 +42,6 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          before: |
-            rm -rf /var/www/admin-ru/html/*
           source: build/*
           target: /var/www/admin-ru/html
 
@@ -50,8 +51,6 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          before: |
-            rm -rf ~/dashboard-master/*
           source: backend/*
           target: ~/dashboard-master/
           
