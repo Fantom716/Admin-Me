@@ -19,20 +19,53 @@ jobs:
           node-version: 20.x
 
       - name: Install dependencies
-        run: npm install
+        run: yarn install
 
       - name: Build application
-        run: CI=false npm run build  # Replace with your build commdand
+        run: CI=false npm run build
 
-      - name: SSH Deploy
+      - name: SSH backup
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd backups && bash -c "sh backup.sh"
+
+      - name: SSH Deploy - Build
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: build
-          target: testst
-      - name: Deploy to Remote Server
-        run: |
-            cd ~/
-            ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'bash -s' < backups/backup.sh
+          before: |
+            rm -rf /var/www/admin-ru/html/*
+          source: build/*
+          target: /var/www/admin-ru/html
+
+      - name: SSH Deploy - Backend
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          before: |
+            rm -rf ~/dashboard-master/*
+          source: backend/*
+          target: ~/dashboard-master/
+          
+      - name: SSH Move Backend
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            target_dir=~/dashboard-master
+            source_dir=~/dashboard-master/backend
+
+            mkdir -p $target_dir
+            rm -rf $target_dir/{admin,auth,manager,user,utils}
+            mv $source_dir/* $target_dir
+            rm -rf $source_dir
