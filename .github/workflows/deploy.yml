@@ -34,7 +34,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd backups && bash -c "sh backup.sh"
+            cd /home/backups && bash -c "sh backup.sh"
 
       - name: SSH Deploy - Build
         uses: appleboy/scp-action@master
@@ -52,7 +52,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: backend/*
-          target: ~/dashboard-master/
+          target: /home/dashboard-master
           
       - name: SSH Move Backend
         uses: appleboy/ssh-action@master
@@ -61,10 +61,12 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            target_dir=~/dashboard-master
-            source_dir=~/dashboard-master/backend
+            target_dir=/home/dashboard-master
+            source_dir=/home/dashboard-master/backend
 
             mkdir -p $target_dir
             rm -rf $target_dir/{admin,auth,manager,user,utils}
             mv $source_dir/* $target_dir
             rm -rf $source_dir
+            cd /home/dashboard-master
+            bash idep.sh
