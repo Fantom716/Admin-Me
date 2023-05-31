@@ -96,6 +96,7 @@ async function writingSession(idUser) {
     }
   });
 }
+
 async function addUser(valuesUser) {
   const queryUser = `INSERT INTO users(idUser, login, email, role, regDate, password, idClientInUser) VALUES (?, ?, ?, ?, ?, ?, ?)`;
   console.log(queryUser)

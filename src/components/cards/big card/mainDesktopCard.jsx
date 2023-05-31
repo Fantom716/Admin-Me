@@ -3,7 +3,6 @@ import "../../../styles/cards.scss";
 
 function MainDesktopCard(props) {
 
-    console.log(props)
     return(
         <div className="wrapperProductCard">
             <p className="productCardTitle">{props.infoForMain.title}</p>

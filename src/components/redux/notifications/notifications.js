@@ -21,12 +21,27 @@ const notifyReducer = (state = initialState, action) => {
         ...state,
         notifications: [...state.notifications, action.payload]
       }
+    case "ADD_NOTIFY_FAILURE":
+      return {
+        ...state,
+        notifications: [...state.notifications, action.payload]
+      }
     case "EDIT_NOTIFY":
       return {
         ...state,
         notifications: [...state.notifications, action.payload]
       }
+    case "EDIT_NOTIFY_FAILURE":
+      return {
+        ...state,
+        notifications: [...state.notifications, action.payload]
+      }
     case "DELETE_NOTIFY":
+      return {
+        ...state,
+        notifications: [...state.notifications, action.payload]
+      }
+    case "DELETE_NOTIFY_FAILURE":
       return {
         ...state,
         notifications: [...state.notifications, action.payload]

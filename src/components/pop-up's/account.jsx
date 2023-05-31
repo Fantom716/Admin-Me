@@ -1,13 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/notifications.scss";
+import { useDispatch } from "react-redux";
+import { removeUser } from "../redux/users/actions";
 
 function NotificationAccount(props) {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     function handleLogout() {
         navigate("/");
+        dispatch(removeUser(localStorage.getItem("idUser")))
         localStorage.removeItem("idUser");
         localStorage.removeItem("login");
     }

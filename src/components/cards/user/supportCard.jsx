@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../../../styles/support.scss"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { sumbitTicketNotify } from "../../redux/notifications/actions";
 const host = process.env.REACT_APP_HOST;
 
@@ -10,6 +10,7 @@ function SupportCard() {
   const [text, setText] = useState("");
   const [data, setData] = useState([])
   const dispatch = useDispatch()
+  const selector = useSelector((state) => state)
 
   useEffect(() => {
     axios
@@ -21,8 +22,6 @@ function SupportCard() {
         console.log(err);
       });
   }, []);
-
-  console.log(data)
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -36,7 +35,7 @@ function SupportCard() {
     event.preventDefault();
     const id = localStorage.getItem("idUser")
     if (title && text) {
-      dispatch(sumbitTicketNotify("dyegyde"))
+      dispatch(sumbitTicketNotify(id, selector))
       axios.post(`http://${host}:5030/support`, {id, title, text} )
         .then(
           (response) => {
