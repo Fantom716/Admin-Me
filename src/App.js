@@ -42,7 +42,7 @@ function App() {
         <Route path='/admin/:id/versions' element={<VersionsPage />} />
       </Routes>
       <Routes>
-        {/* <Route path='/faq' element={<Faq />}/> */}
+        <Route path='/test' />
       </Routes>
     </>
   );
