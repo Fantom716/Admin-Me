@@ -2,15 +2,9 @@ import React, { useState, useEffect } from "react";
 import "../../../styles/cardManager.scss";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addClientSuccess, addClientFailure, updateClientRequest } from "../../redux/manager/clients/actions";
-import { addNotify, editNotify } from "../../redux/notifications/actions";
+import { addNotify, addNotifyFailure, editNotify } from "../../redux/notifications/actions";
+import { cleanedPhoneNumber, actions, idUser } from "../consts";
 const host = process.env.REACT_APP_HOST;
-
-export const actions = {
-  add: "добавлен",
-  edit: "изменен",
-  delete: "удален"
-}
 
 function ClientCard(props) {
 
@@ -53,29 +47,23 @@ function ClientCard(props) {
 
   const error = useSelector((state) => state.clients.error);
   const topic = "Клиенты";
+  const selector = useSelector((state) => state)
 
   function addingClient(e) {
 
     if (!addClient.surname || !addClient.name || !addClient.patronimyc || !addClient.dateBirthday || !addClient.phoneNumber || !addClient.passportInfo || !addClient.rating) {
       const errors = "Заполнены не все поля"
-      dispatch(addClientFailure(errors));
+      dispatch(addNotifyFailure(topic, actions.failure.add, selector, idUser, errors))
       return;
     }
     axios.post(`http://${host}:5015/clients/add`, addClient)
       .then((response) => {
         const fioAdd = `${addClient.name} ${addClient.surname} ${addClient.patronimyc}`
-        dispatch(addClientSuccess(addClient));
-        dispatch(addNotify(fioAdd, topic, actions.add))
+        dispatch(addNotify(fioAdd, topic, actions.add, selector, idUser))
       })
       .catch((error) => {
-        dispatch(addClientFailure(error.message));
+        dispatch(addNotifyFailure(topic, actions.failure.add, selector, idUser, error.messsage))
       });
-  }
-
-  const cleanedPhoneNumber = (phoneNumber) => {
-    if (phoneNumber) {
-      return phoneNumber.replace(/\D/g, "");
-    }
   }
 
   const toggleEdit = (index) => {
@@ -105,15 +93,14 @@ function ClientCard(props) {
     const updatedClient = data[index];
     const fio = `${updatedClient.name} ${updatedClient.surname} ${updatedClient.patronimyc}`
 
-    dispatch(updateClientRequest(updatedClient));
-    axios.post(`http://176.99.12.175:5015/clients/update`, updatedClient)
+    axios.post(`http://${host}:5015/clients/update`, updatedClient)
       .then((response) => {
         setResponseAddClient(response.data);
         toggleEdit();
-        dispatch(editNotify(fio, topic, actions.edit))
+        dispatch(editNotify(fio, topic, actions.success.edit, selector, idUser))
       })
       .catch((error) => {
-        setResponseAddClient(error);
+        dispatch(addNotifyFailure(topic, actions.failure.edit, selector, idUser, error.message))
       });
   };
 

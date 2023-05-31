@@ -63,15 +63,15 @@ app.post("/orders/add", async (req, res) => {
 app.post("/orders/update", (req, res) => {
   console.log(req.body);
   const { idOrder, composition, dateDeadline, manager, quantity, status } = req.body;
-  const values = [ client, composition, dateDeadline, manager, quantity, status ]
-  const query = "UPDATE orders SET ? ? ? ? ? ? ? ? WHERE idOrder = ?";
-  conn.query(query, values, (err, res) => {
+  const values = [ composition, moment(dateDeadline).format('YYYY-MM-DD HH:mm:ss'), manager, quantity, status, idOrder ]
+  const query = "UPDATE orders SET composition = ?, dateDeadline = ?, manager = ?, quantity = ?, status = ? WHERE idOrder = ?";
+  console.log(moment(dateDeadline).format('YYYY-MM-DD HH:mm:ss'))
+  conn.query(query, values, (err, result) => {
     if (err) {
       console.log(err);
-      res.send(err);
     } else {
       console.log("OK");
-      res.send(res);
+      res.send(result);
     }
   })
 })

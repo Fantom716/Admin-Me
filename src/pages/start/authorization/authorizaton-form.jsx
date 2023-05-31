@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import "../../../styles/auth/authorization.scss"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { addUser } from "../../../components/redux/users/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { clearNotifys } from "../../../components/redux/notifications/actions";
 const host = process.env.REACT_APP_HOST;
 
 function Authorization() {
 
-  console.log(host)
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state)
+
+  const clear = () => {
+    dispatch(clearNotifys())
+  }
 
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState({
@@ -38,6 +46,8 @@ function Authorization() {
     });
   }
 
+  console.log(selector.auht)
+
   function handleSubmit(event) {
     event.preventDefault();
     axios.get(`http://${host}:3092/users`).then((response) => {
@@ -45,17 +55,15 @@ function Authorization() {
       console.log(response.data[0].login)
       const user = response.data.find(
         (user) => user.login === formValue.login && user.password === formValue.password
-        );
-        console.log("login:" + formValue.login)
-        console.log(user + ": user") // undefined
-        if (user) {
-        console.log(formValue)
+      );
+      if (user) {
         formValue.id = user["idUser"]
         formValue.role = user["role"]
         localStorage.setItem("idUser", formValue.id);
         localStorage.setItem("login", formValue.login);
         setFormValue({ error: "" });
-        const valuesSubmit = [formValue.login, formValue.password, formValue.role, localStorage.getItem("idUser")]
+        const id = localStorage.getItem("idUser")
+        const valuesSubmit = [formValue.login, formValue.password, formValue.role, id]
         axios.post(`http://${host}:3092/form`, valuesSubmit)
           .then((response) => {
             console.log(response.data);
@@ -70,6 +78,8 @@ function Authorization() {
           .catch((error) => {
             console.log(error);
           });
+        console.log("ok")
+        dispatch(addUser({ id }, selector));
       } else {
         setFormValue({ error: "Неверный логин или пароль" });
         setAutho({ authoBool: false, login: false, password: false });
@@ -101,7 +111,13 @@ function Authorization() {
           placeholder="Пароль"
         />
         {formValue ? <p className="errorNotify">{formValue.error}</p> : {}}
-        <button onClick={checkAutho} className="mainButton" type="submit">Авторизоваться</button>
+        <button
+          onClick={checkAutho}
+          className="mainButton"
+          type="submit"
+        >
+        Авторизоваться
+        </button>
         <div className="footerForm">
           <p className="footerArticle">или</p>
           <a className="registerLink" href="/registration">Зарегистрировать аккаунт</a>

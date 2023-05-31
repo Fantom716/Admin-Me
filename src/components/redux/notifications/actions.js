@@ -17,9 +17,11 @@ export const removeNotify = (id) => ({
   payload: id,
 });
 
-export const addNotify = (element, topic, action) => {
+export const addNotify = (element, topic, action, state, userId) => {
   const time = moment().format("HH:mm:ss");
   const id = Math.random().toString(36).substr(2, 9);
+  const user = state.users.users.find((user) => user.id === userId)
+  console.log("usus: " + user)
   return {
     type: "ADD_NOTIFY",
     payload: {
@@ -29,13 +31,33 @@ export const addNotify = (element, topic, action) => {
       icon: "/card/icons/notifys/add_client.svg",
       action,
       time,
+      user
     }
   };
 }
 
-export const editNotify = (element, topic, action) => {
+export const addNotifyFailure = (topic, action, state, userId, error) => {
   const time = moment().format("HH:mm:ss");
   const id = Math.random().toString(36).substr(2, 9);
+  const user = state.users.users.find((user) => user.id === userId)
+  return {
+    type: "ADD_NOTIFY_FAILURE",
+    payload: {
+      id,
+      topic,
+      icon: "/card/icons/notifys/add_client.svg",
+      action,
+      time,
+      user,
+      error
+    }
+  }
+}
+
+export const editNotify = (element, topic, action, state, userId) => {
+  const time = moment().format("HH:mm:ss");
+  const id = Math.random().toString(36).substr(2, 9);
+  const user = state.users.users.find((user) => user.id === userId)
   return {
     type: "EDIT_NOTIFY",
     payload: {
@@ -45,13 +67,35 @@ export const editNotify = (element, topic, action) => {
       icon: "/card/icons/notifys/edit.svg",
       action,
       time,
+      user
     }
   };
 }
 
-export const deleteNotify = (element, topic, action) => {
+export const editNotifyFailure = (element, topic, action, state, userId, error) => {
   const time = moment().format("HH:mm:ss");
   const id = Math.random().toString(36).substr(2, 9);
+  const user = state.users.users.find((user) => user.id === userId)
+  return {
+    type: "EDIT_NOTIFY_FAILURE",
+    payload: {
+      id,
+      element,
+      topic,
+      icon: "/card/icons/notifys/edit.svg",
+      action,
+      time,
+      user,
+      error
+    }
+  };
+}
+
+export const deleteNotify = (element, topic, action, state, userId) => {
+  const time = moment().format("HH:mm:ss");
+  const id = Math.random().toString(36).substr(2, 9);
+  console.log(state)
+  const user = state.users.users.find((user) => user.id === userId)
   return {
     type: "DELETE_NOTIFY",
     payload: {
@@ -61,13 +105,35 @@ export const deleteNotify = (element, topic, action) => {
       icon: "/card/icons/notifys/deleting_order.svg",
       action,
       time,
+      user
     }
   };
 }
 
-export const sumbitTicketNotify = () => {
+export const deleteNotifyFailure = (element, topic, action, state, userId, error) => {
   const time = moment().format("HH:mm:ss");
   const id = Math.random().toString(36).substr(2, 9);
+  const user = state.users.users.find((user) => user.id === userId)
+  return {
+    type: "DELETE_NOTIFY_FAILURE",
+    payload: {
+      id,
+      element,
+      topic,
+      icon: "/card/icons/notifys/deleting_order.svg",
+      action,
+      time,
+      user,
+      error
+    }
+  };
+}
+
+export const sumbitTicketNotify = (userId, state) => {
+  const time = moment().format("HH:mm:ss");
+  const id = Math.random().toString(36).substr(2, 9);
+  console.log(id)
+  const user = state.users.users.find((user) => user.id === userId)
   return {
     type: "SUBMIT_TICKET_NOTIFY",
     payload: {
@@ -75,6 +141,7 @@ export const sumbitTicketNotify = () => {
       text: "Тикет успешно отправлен. Ожидайте ответа",
       icon: "/card/icons/notifys/ticket.svg",
       time,
+      user
     }
   }
 }
