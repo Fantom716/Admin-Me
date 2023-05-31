@@ -15,7 +15,7 @@ import HomeAdmin from './pages/admin/home';
 import AdminUsers from './pages/admin/users';
 import VersionsPage from './pages/admin/versions';
 import Support from './pages/user/support';
-import Faq from './pages/faq/faq';
+// import Faq from './pages/faq/faq';
 
 function App() {
   return (
@@ -42,7 +42,7 @@ function App() {
         <Route path='/admin/:id/versions' element={<VersionsPage />} />
       </Routes>
       <Routes>
-        {/* <Route path='/faq' element={<Faq />}/> */}
+        {/* <Route path='/test' /> */}
       </Routes>
     </>
   );
