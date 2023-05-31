@@ -14,7 +14,6 @@ import Profile from './pages/user/profile';
 import HomeAdmin from './pages/admin/home';
 import AdminUsers from './pages/admin/users';
 import VersionsPage from './pages/admin/versions';
-import Support from './pages/user/support';
 
 function App() {
   return (
