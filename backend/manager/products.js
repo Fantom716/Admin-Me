@@ -4,18 +4,14 @@ const moments = require("moment");
 const app = express();
 const bodyParser = require('body-parser');
 const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
+const cors = require("cors");
+const conn = require("../utils/connectionDB");
+
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = 5011;
-
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-})
 
 async function getProducts() {
   return new Promise((resolve, reject) => {

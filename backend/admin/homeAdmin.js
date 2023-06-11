@@ -4,38 +4,32 @@ const moment = require("moment");
 const axios = require("axios");
 const { nowDate, startLastWeek, startCurrentWeek } = require("../manager/homeManager");
 const getRelease = require("./versions");
+const cors = require("cors");
+const conn = require("../utils/connectionDB");
 
 const app = express();
 const PORT = 5021;
 
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-});
+app.use(cors());
 
-conn.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Connected!");
-  }
-});
-
-app.get("/dashboard/admin/infoCard", (req, res) => {
-  conn.query("SELECT login, email FROM users WHERE role = 'Администратор'", (err, results) => {
+app.get("/dashboard/admin/users", (req, res) => {
+  conn.query(`SELECT * FROM users WHERE regDate BETWEEN '${startCurrentWeek}' AND '${nowDate}'`, (err, results) => {
     if (err) {
       console.log(err);
     } else {
-      const newResult = results.map(({ login, email }) => {
-        return {
-          title: "Администраторы",
-          info: login,
-          link: email,
-        }
-      })
+      let newResult;
+      if (results.length > 0) {
+        newResult = results.map(({ login, regDate }) => {
+          return {
+            title: login,
+            description: moment(regDate).format("DD.MM.YYYY HH:mm:ss"),
+            titleRubric: "Последние зарегистрированные пользователи",
+          }
+        })
+      }
+      else {
+        newResult = ["Новых пользователей нет"]
+      }
       res.send(newResult);
     }
   })
@@ -54,6 +48,24 @@ app.get("/dashboard/admin/users", (req, res) => {
         }
       })
       res.send(newResult);
+    }
+  })
+})
+
+app.get("/dashboard/admin/infoCard", (req, res) => {
+  conn.query("SELECT * FROM users WHERE role = 'Администратор'", (err, results) => {
+    if (err) {
+      console.log(err)
+    }
+    else {
+      const newResults = results.map(({login, email}) => {
+        return {
+          title: "Админы",
+          info: login,
+          link: email,
+        };
+      });
+      res.send(newResults);
     }
   })
 })
@@ -123,10 +135,12 @@ async function getStatisticAdmin() {
       fieldInDB: "versions",
       name: "Версия системы",
       currentValue: releases[0]["version"],
-      lastValue: releases[1]["version"],
+      lastValue: releases[releases.length - 1]["version"],
       image: "/card/icons/small card add/user.svg",
     }
   ];
+
+  console.log(statisticAdmin[1]["lastValue"])
 
   const statistic = await getStatistic();
   statisticAdmin[0]["currentValue"] = statistic[0]["currentValue"];
@@ -147,7 +161,7 @@ app.get("/dashboard/admin/statisticCard", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 })
 
 module.exports = getStatisticAdmin;

@@ -5,7 +5,7 @@ import Desktop from "../../components/desktop/desktop";
 import axios from "axios";
 import { useState } from "react";
 import { greetingElement } from "../../components/header/greeting";
-
+const host = process.env.REACT_APP_HOST;
 
 function HomeUser(props) {
 
@@ -35,13 +35,17 @@ function HomeUser(props) {
     },
   ])
 
-  const [test, setTest] = useState({});
-
-  const id ={ data: localStorage.getItem("idUser") }
-
   useEffect(() => {
     axios
-      .get("http://localhost:5001/dashboard/managers/infoCard")
+      .post(`http://${host}:5002/user/dashboard/getdata`,  {"id": localStorage.getItem("idUser")})
+      .then((response) => {
+
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    axios
+      .get(`http://${host}:5001/dashboard/managers/infoCard`)
       .then((response) => {
         setDataForInfoCard(response.data);
       })
@@ -49,7 +53,7 @@ function HomeUser(props) {
         setDataForInfoCard(dataForInfoCard["error"] = [error]);
       });
       axios
-        .get("http://localhost:5002/dashboard/clients/products")
+        .get(`http://${host}:5002/dashboard/clients/products`)
         .then((response) => {
           setProducts(response.data);
         })
@@ -57,9 +61,8 @@ function HomeUser(props) {
           setProducts(products["error"] = [error]);
         })
       axios
-      .get("http://localhost:5002/dashboard/clients/statistics")
+      .get(`http://${host}:5002/dashboard/clients/statistics`)
       .then((response) => {
-        console.log(response);
         setStatistic(response.data);
       })
       .catch((error) => {

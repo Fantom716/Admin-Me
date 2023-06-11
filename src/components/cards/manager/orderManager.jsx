@@ -3,12 +3,12 @@ import "../../../styles/cardManager.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addOrderSuccess, updateOrderRequest, addOrderFailure } from "../../redux/manager/orders/actions";
-import { deleteOrderRequest, deleteOrderSuccess, deleteOrderFailure } from "../../redux/manager/orders/actions";
-import { addNotify, deleteNotify, editNotify } from "../../redux/notifications/actions";
-import { actions } from "./clientCard";
+// import { addOrderFailure, addOrderSuccess } from "../../redux/manager/orders/actions";
+import { addNotify, addNotifyFailure, deleteNotify, deleteNotifyFailure, editNotify, editNotifyFailure } from "../../redux/notifications/actions";
+import { actions } from "../consts";
+const host = process.env.REACT_APP_HOST;
 
-function OrderCardManager(props) {
+function OrderCardManager() {
 
   const [data, setData] = useState([]);
   const [addElement, setAddElement] = useState(false);
@@ -16,7 +16,6 @@ function OrderCardManager(props) {
   const [responseOrder, setResponseOrder] = useState([]);
   const [orders, setOrders] = useState([]);
   const [originalOrder, setOriginalOrder] = useState([]);
-  const [deleteClick, setDeleteClick] = useState(false);
   const [addOrder, setAddOrder] = useState({
     client: 0,
     composition: "",
@@ -28,14 +27,14 @@ function OrderCardManager(props) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:5012/orders")
+    axios.get(`http://${host}:5012/orders`)
       .then((response) => {
         setData(response.data);
       })
       .catch((error) => {
         setData(error);
       })
-    axios.get("http://localhost:5015/clients")
+    axios.get(`http://${host}:5015/clients`)
       .then((response) => {
         setOrders(response.data);
       })
@@ -46,8 +45,9 @@ function OrderCardManager(props) {
 
   const dispatch = useDispatch()
   const error = useSelector((state) => state.orders.error)
+  const selector = useSelector((state) => state)
   const topic = "Заказы"
-  console.log(topic)
+  const idUser = localStorage.getItem("idUser")
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -57,41 +57,37 @@ function OrderCardManager(props) {
   const toggleEdit = (index) => {
     if (editIndex === index) {
       setEditIndex(-1);
+      setData(originalOrder);
+      setOriginalOrder([]);
     } else {
       setEditIndex(index);
+      setOriginalOrder([...data]);
     }
-  }
-
-  const order = useSelector((state) => state)
+  };
 
   const addingOrder = (e) => {
     e.preventDefault();
     if (!addOrder.client || !addOrder.composition || !addOrder.dateDeadline || !addOrder.manager || !addOrder.quantity || !addOrder.status) {
-      const errors = "Заполнены не все поля"
-      dispatch(addOrderFailure(errors))
+      dispatch(addNotifyFailure(topic, actions.failure.add, selector, idUser))
       return;
     }
-    axios.post("http://localhost:5012/orders/add", addOrder)
+    axios.post(`http://${host}:5012/orders/add`, addOrder)
     .then((response) => {
-        console.log("1:" + topic)
-        dispatch(addNotify(addOrder.client, topic, actions.add))
-        dispatch(addOrderSuccess(addOrder))
-      })
+      dispatch(addNotify(addOrder.client, topic, actions.success.add, selector, idUser))
+    })
       .catch((error) => {
-        dispatch(addOrderFailure(error.message))
+        dispatch(addNotifyFailure(topic, actions.failure.add, selector, idUser, error.message))
       });
   };
 
   const deletingOrder = (id) => {
     const idOrder = id
-    dispatch(deleteOrderRequest());
-    dispatch(deleteNotify(idOrder, topic, actions.delete))
-    axios.post(`http://localhost:5012/orders/delete`, { idOrder: id })
+    axios.post(`http://${host}:5012/orders/delete`, { idOrder: id })
       .then((response) => {
-        dispatch(deleteOrderSuccess(response.data));
+        dispatch(deleteNotify(idOrder, topic, actions.success.delete, selector, idUser))
       })
       .catch((error) => {
-        dispatch(deleteOrderFailure(error));
+        dispatch(deleteNotifyFailure(idOrder, topic, actions.failure.delete, selector, idUser, error.message))
       })
   }
 
@@ -111,22 +107,22 @@ function OrderCardManager(props) {
 
     const updatedOrder = data[index];
 
-    dispatch(updateOrderRequest(updatedOrder))
-    dispatch(editNotify(updatedOrder.idOrder, topic, actions.edit))
-    axios.post("http://localhost:5012/orders/update", updatedOrder)
+    axios.post(`http://${host}:5012/orders/update`, updatedOrder)
     .then((response) => {
+        dispatch(addNotify(updatedOrder.idOrder, topic, actions.success.edit, selector, idUser))
         setResponseOrder(response.data);
         toggleEdit()
         setData(data.map((order, orderIndex) => orderIndex === index ? response.data : order));
+        handleCancel()
       })
       .catch((error) => {
-        setResponseOrder(error);
+        dispatch(editNotifyFailure(updatedOrder.nameCompany, topic, actions.failure.edit, selector, idUser, error.message))
       })
   }
 
   const handleCancel = () => {
     setEditIndex(-1);
-    setData(data.map((order, index) => index === editIndex ? originalOrder : order));
+    setData(originalOrder.map((order, index) => index === editIndex ? data[index] : order));
   };
 
   return (
@@ -171,14 +167,7 @@ function OrderCardManager(props) {
               {editIndex === index ? (
                 <form>
                   <input className="inputValueCard" placeholder="ID заказа" value={order.idOrder} onChange={(event) => handleChange(event, index, "idOrder")} type="text" />
-                  <select className="inputValueCard selectInput" name="client" id="" placeholder="Заказ" value={addOrder.client} onChange={handleInputChange}>
-                    <option disabled selected value="selectDisabled">Клиент</option>
-                    {orders.map((client, index) => {
-                      return (
-                        <option name="client" key={index} value={client.idClient}>{client.name} {client.surname}</option>
-                      )
-                    })}
-                  </select>
+                  <input disabled className="inputValueCard" value={order.surname + " " + order.name + " " + order.patronimyc} type="text" />
                   <input className="inputValueCard" placeholder="Состав заказа" value={order.composition} onChange={(event) => handleChange(event, index, "composition")} type="text" />
                   <input className="inputValueCard" placeholder="Дата сдачи заказа" value={order.dateDeadline} onChange={(event) => handleChange(event, index, "dateDeadline")} type="date" />
                   <input className="inputValueCard" placeholder="Менеджер" value={order.manager} onChange={(event) => handleChange(event, index, "manager")} type="text" />

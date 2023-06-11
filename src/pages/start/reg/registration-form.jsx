@@ -2,37 +2,9 @@ import React from "react";
 import { useState } from "react";
 import "../../../styles/auth/authorization.scss"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 var validator = require('validator');
-
-const registrationPlaceholder = [
-  {
-    name: "login",
-    type: "text",
-    title: "Логин"
-  },
-  {
-    name: "email",
-    type: "text",
-    title: "Почта",
-  },
-  {
-    name: "role",
-    type: "",
-    title: "Роль",
-  },
-  {
-    name: "password",
-    type: "password",
-    title: "Пароль"
-  },
-  {
-    name: "repeatPassword",
-    type: "password",
-    title: "Повторите пароль"
-  }
-]
-
-console.log(registrationPlaceholder)
+const host = process.env.REACT_APP_HOST;
 
 function Registration() {
 
@@ -47,31 +19,8 @@ function Registration() {
     patronimyc: ""
   });
 
+  const navigate = useNavigate();
   const [error, setError] = useState("");
-  const [buttonTypeReg, setButtonTypeReg] = useState("user")
-
-  function changeButtonReg(value) {
-    setButtonTypeReg(value)
-    if (value === "user" && registrationPlaceholder.length < 7) {
-      registrationPlaceholder.unshift([
-        {
-          name: "firstName",
-          type: "text",
-          title: "Имя"
-        },
-        {
-          name: "lastName",
-          type: "text",
-          title: "Фамилия"
-        },
-        {
-          name: "middleName",
-          type: "text",
-          title: "Отчество"
-        },
-      ])
-    }
-  }
 
   function changeError(error) {
     setError(error);
@@ -90,16 +39,17 @@ function Registration() {
   }
 
   function handleSubmit() {
-    axios.get("http://localhost:5007/users")
+    axios
+      .get(`http://${host}:3092/users`)
       .then(res => {
         const logins = res.data;
+        console.log(logins)
         let loginsBool = false;
-        logins.map(item => {
+        logins.forEach(item => {
           if (item.login === formValue.login) {
             loginsBool = true;
             changeError("Логин уже занят");
-          }
-          else if (item.email === formValue.email) {
+          } else if (item.email === formValue.email) {
             changeError("Почта уже занята");
           }
         });
@@ -115,7 +65,6 @@ function Registration() {
           } else if (formValue.password !== formValue.repeatPassword) {
             changeError("Пароли не совпадают");
           } else {
-            changeError("");
             const postData = {
               login: formValue.login,
               email: formValue.email,
@@ -126,8 +75,7 @@ function Registration() {
               name: formValue.name,
               patronimyc: formValue.patronimyc
             };
-            console.log(postData)
-            axios.post("http://localhost:5007/registration", postData);
+            changeError("Вы успешно зарегистрированы, перейдите на страницу авторизации по ссылке ниже");
           }
         }
       })
@@ -138,10 +86,10 @@ function Registration() {
 
   return (
     <div className="formWrapper">
-      <form onSubmit={handleFormSubmit} action="" method="post" className="mainForm">
+      <form onSubmit={handleFormSubmit} method="post" className="mainForm">
         <div className="headerForm">
           <p className="headerGreetingForm">Регистрация в информационной системе</p>
-          <p className="headerNameSystem">Admin</p>
+          <p className="headerNameSystem">Admin<span className="prefixTitleSystem">-Me</span></p>
         </div>
           <>
             <input
@@ -180,14 +128,14 @@ function Registration() {
               className="formInput formInputRegister"
             />
             <input
-              type="text"
+              type="password"
               name="password"
               onChange={handleChange}
               placeholder="Пароль"
               className="formInput formInputRegister"
             />
             <input
-              type="text"
+              type="password"
               name="repeatPassword"
               onChange={handleChange}
               placeholder="Повторите пароль"
@@ -200,10 +148,7 @@ function Registration() {
               <option
                 defaultValue="Пользователь"
                 value="Пользователь">Пользователь</option>
-              <option
-                value="Менеджер">Менеджер</option>
-              <option
-                value="Администратор">Администратор</option>
+              <option value="Менеджер">Менеджер</option>
             </select>
           </>
         <p className="errorNotify">{error}</p>
@@ -213,7 +158,7 @@ function Registration() {
           onClick={handleSubmit}>Зарегистрироваться</button>
         <div className="footerForm">
           <p className="footerArticle">или</p>
-          <a className="registerLink" href="/">Хочу войти в аккаунт</a>
+          <a className="registerLink" href="/">У меня уже есть аккаунт</a>
         </div>
       </form>
     </div>

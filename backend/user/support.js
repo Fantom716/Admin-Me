@@ -6,27 +6,13 @@ const bp = require("body-parser");
 const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
 const app = express();
 const PORT = 5030;
+const conn = require("../utils/connectionDB")
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-});
-
-conn.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Connected!");
-  }
-});
-
-app.post("/support", (req, err) => {
+app.post("/support", (req, res, err) => {
+  console.log(req.body)
   getRandomUniqueNumber("idTicket", "support").then((idTicket) => {
     values = [idTicket, req.body.id, moment().format("YYYY-MM-DD HH:mm:ss"), req.body.title, req.body.text, "Ожидает ответа"];
     query = "INSERT INTO support (idTicket, user, dateOfApplication, title, descriptionProblem, status) VALUES (?, ?, ?, ?, ?, ?)";
@@ -34,12 +20,28 @@ app.post("/support", (req, err) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(values)
-        console.log(result);
+        res.send(result);
       }
     });
   });
 });
+
+app.get("/support/all", (req, res, err) => {
+  const idUser = req.query.user
+  const query = `SELECT * FROM support WHERE user = ?`
+  const values = idUser
+  conn.query(query, values, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      result.map((res) => {
+        res["dateOfApplication"] = moment(res["dateDeadline"]).format("YYYY:MM:DD HH:mm:ss")
+      })
+      console.log(result)
+      res.send(result);
+    }
+  });
+})
 
 const getSupportsUser = async (idUser) => {
   const query = `SELECT * FROM support WHERE user = ${idUser}`;
@@ -69,7 +71,7 @@ function getSupports(idUser) {
 }
 
 app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 })
 
 

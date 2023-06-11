@@ -5,7 +5,7 @@ import "../../styles/header.scss";
 
 function Header(props) {
     return (
-        <header style={window.location.pathname == "/" ? {marginBottom: "0px"} : {marginBottom: "54px"}}>
+        <header style={window.location.pathname === "/" ? {marginBottom: "0px"} : {marginBottom: "54px"}}>
             <Greeting title={props.title} isDashboard="no" />
             <Notification />
         </header>

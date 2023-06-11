@@ -1,22 +1,16 @@
-const mysql = require("mysql")
-
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-})
+const conn = require("./connectionDB")
 
 const checkMatch = (number, array) => {
   return array.some((item) => item.idSession === number);
 };
 
 const getRandomUniqueNumber = async (idField, table) => {
+  const query = `SELECT ${idField} FROM ${table}`;
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT ${idField} FROM ${table}`, (err, results) => {
+    conn.query(query, (err, results) => {
       if (err) console.log(err);
       else {
+        console.log(query)
         let newResult = results;
         let randomNumber = Math.floor(Math.random() * 10000);
         while (checkMatch(randomNumber, newResult)) {

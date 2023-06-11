@@ -1,25 +1,12 @@
 const express = require("express");
 const mysql = require("mysql");
 const moments = require("moment");
-
+const cors = require("cors")
 const app = express();
+const conn = require("../utils/connectionDB");
+
+app.use(cors());
 const PORT = 5010;
-
-const conn = mysql.createConnection({
-    host: "DESKTOP-ASKKTC8",
-    user: "serverJS",
-    database: "mydb",
-    password: "jK7JgP5YbFyMRr",
-    port: 3306,
-})
-
-conn.connect((err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log("Connected!");
-    }
-})
 
 async function getSells() {
     return new Promise((resolve, reject) => {

@@ -1,58 +1,57 @@
 const mysql = require('mysql');
 const express = require('express');
+const cors = require("cors");
 const app = express();
+app.use(cors());
+const conn = require("../utils/connectionDB")
+
 moment = require('moment');
 
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
+const PORT = 5008;
+
+app.post("/orders", async (req, res) => {
+  const idUser = req.query.user;
+  const orders = await getOrder(idUser);
+  res.send(orders)
 })
-const PORT = 5008
 
-let order = {
-  composition: "",
-  dateDeadline: "",
-  status: "",
-  idOrder: "",
-}
-
-const selectOrder = async (idUser) => {
+const getClient = async (idUser) => {
+  const query = `SELECT idClientInUser FROM users WHERE idUser = ${idUser}`;
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT idClientInUser FROM users WHERE idUser = ${idUser}`, (err, result) => {
+    conn.query(query, (err, result) => {
       if (err) {
-        reject(err)
+        reject(err);
+      } else {
+        const idClient = result[0].idClientInUser;
+        resolve(idClient);
       }
-      else {
-        idClient = result[0].idClientInUser
-        query = `SELECT * FROM orders WHERE client = ${idClient}`
-        conn.query(query, (err, result) => {
-          if (err) {
-            reject(err)
-          }
-          result.map((order) => {
-            order.dateDeadline = moment(order.dateDeadline).format("DD.MM.YYYY HH:mm:ss");
-          })
-          console.log("udedhudehu")
-          resolve(result)
-        })
-      }
-    })
-  })
-}
+    });
+  });
+};
 
-function insertOrder(idUser) {
-  app.get('/orders', (req, res) => {
-    selectOrder(idUser).then((result) => {
-      res.send(result)
-    })
-  })
+const getOrder = async (idUser) => {
+  const idClient = await getClient(idUser);
+  try {
+    const query = `SELECT * FROM orders WHERE client = ${idClient}`;
+    return new Promise((resolve, reject) => {
+      conn.query(query, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          result.map((res) => {
+            res["dateDeadline"] = moment(res["dateDeadline"]).format("YYYY:MM:DD HH:mm:ss")
+          })
+          console.log(result)
+          resolve(result);
+        }
+      });
+    });
+  }
+  catch {
+    return console.log("error")
+  }
 }
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 });
-
-module.exports = insertOrder

@@ -1,25 +1,13 @@
 const express = require("express");
 const mysql = require("mysql");
 const moment = require("moment");
+const cors = require("cors");
+const conn = require("../utils/connectionDB");
 
 const app = express();
 const PORT = 5022;
 
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-});
-
-conn.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Connected!");
-  }
-});
+app.use(cors());
 
 async function getUsers() {
     return new Promise((resolve, reject) => {
@@ -43,7 +31,7 @@ app.get("/admin/users", (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server started on port ${PORT}`);
 })
 
 module.exports = getUsers;

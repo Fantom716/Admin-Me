@@ -76,12 +76,6 @@
     background-color: #fff;
 }
 
-@media (max-width: 1390px) {
-    .infoCardWrapper {
-        display: none;
-    }
-}
-
 .infoCardTitle {
     font-size: 1.5rem;
     font-weight: 700;
@@ -91,6 +85,10 @@
 
 .infoCardContent:not(:last-child) {
     margin-bottom: 30px;
+}
+
+.infoCardContent {
+    @include overflow-text
 }
 
 .infoCardName {
@@ -120,6 +118,7 @@
     padding: 20px;
     border-radius: 14px;
     p {
+        word-break: break-all;
         line-height: 2rem;
     }
     .productCardTitle {

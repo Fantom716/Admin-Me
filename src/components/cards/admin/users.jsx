@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+const host = process.env.REACT_APP_HOST;
 
 function AdminUsersCard() {
 
@@ -8,7 +9,7 @@ function AdminUsersCard() {
 
   useEffect(() => {
     axios
-    .get("http://localhost:5022/admin/users")
+    .get(`http://${host}:5022/admin/users`)
     .then((res) => {
         setData(res.data)
       })

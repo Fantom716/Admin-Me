@@ -2,13 +2,10 @@ import React from "react";
 import "../../../styles/cardManager.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { deletePartnerRequest, deletePartnerSuccess, deletePartnerFailure } from "../../redux/manager/partners/actions";
-import { updatePartnerRequest, updatePartnerSuccess, updatePartnerFailure } from "../../redux/manager/partners/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { addPartnerFailure } from "../../redux/manager/partners/actions";
-import { addNotify, deleteNotify, editNotify } from "../../redux/notifications/actions";
-import { actions } from "./clientCard";
-
+import { addNotify, addNotifyFailure, deleteNotify, deleteNotifyFailure, editNotify, editNotifyFailure } from "../../redux/notifications/actions";
+import { actions, idUser } from "../consts";
+const host = process.env.REACT_APP_HOST;
 
 function PartnerCard(props) {
 
@@ -31,7 +28,7 @@ function PartnerCard(props) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:5003/partners")
+    axios.get(`http://${host}:5003/partners`)
       .then((response) => {
         setData(response.data);
       })
@@ -39,9 +36,6 @@ function PartnerCard(props) {
         setData(error);
       })
   }, []);
-
-  const dispatch = useDispatch()
-  const selector = useSelector((state) => state)
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -51,20 +45,18 @@ function PartnerCard(props) {
     });
   }
 
+  const dispatch = useDispatch()
   const { nameCompany, type, address, surnameDelegate, nameDelegate, patronymicDelegate, email, phoneNumber, dateConclusionContract } = addPartner;
-  const error = useSelector((state) => state.partners.error)
+  const selector = useSelector((state) => state)
   const topic = "Партнеры"
 
   const addingPartner = () => {
     if (!nameCompany || !type || !address || !surnameDelegate || !nameDelegate || !patronymicDelegate || !email || !phoneNumber || !dateConclusionContract) {
       const error = "Заполнены не все поля"
-      console.log(error)
-      dispatch(addPartnerFailure(error))
+      dispatch(addNotifyFailure(topic, actions.failure.add, selector, idUser, error))
       return;
     }
-    console.log(addPartner)
-    dispatch(addNotify(addPartner.nameCompany, topic, actions.add))
-    axios.post("http://localhost:5003/partners/add", {
+    axios.post(`http://${host}:5003/partners/add`, {
       nameCompany,
       type,
       address,
@@ -89,11 +81,14 @@ function PartnerCard(props) {
           dateConclusionContract: "",
           error: "",
         });
+        dispatch(addNotify(addPartner.nameCompany, topic, actions.success.add, selector, idUser))
+      }).catch((error) => {
+        dispatch(addNotifyFailure(topic, actions.success.add, selector, idUser, error.message))
       })
   }
 
   const cleanedPhoneNumber = (phoneNumber) => {
-    if(phoneNumber) {
+    if (phoneNumber) {
       return phoneNumber.replace(/[^+0-9]/g, "");
     }
   }
@@ -102,6 +97,7 @@ function PartnerCard(props) {
     if (index === editIndex) {
       setEditIndex(-1);
     } else {
+      setOriginalPartner(data[index]);
       setEditIndex(index);
     }
   };
@@ -119,21 +115,16 @@ function PartnerCard(props) {
 
   const handleSave = (index) => {
     const updatedPartner = data[index];
-    dispatch(updatePartnerRequest());
 
-    dispatch(editNotify(updatedPartner.nameCompany, topic, actions.edit));
-    axios.post("http://localhost:5003/partners/update", updatedPartner)
-    .then((response) => {
-      dispatch(updatePartnerSuccess(response.data));
-      setResponsePartner(response.data);
-      toggleEdit(index);
-    })
-    .catch((error) => {
-      dispatch(updatePartnerFailure(error.message));
-      setResponsePartner(error);
-    })
-
-    console.log(updatedPartner)
+    axios.post(`http://${host}:5003/partners/update`, updatedPartner)
+      .then((response) => {
+        dispatch(addNotify(updatedPartner.nameCompany, topic, actions.success.edit, selector, idUser));
+        setResponsePartner(response.data);
+        toggleEdit(index);
+      })
+      .catch((error) => {
+        dispatch(editNotifyFailure(updatedPartner.nameCompany, topic, actions.failure.edit, selector, idUser, error.message));
+      })
   };
 
   const handleCancel = () => {
@@ -142,13 +133,11 @@ function PartnerCard(props) {
   };
 
   const handleDelete = (id) => {
-    dispatch(deletePartnerRequest());
-    dispatch(deleteNotify(id, topic, actions.delete))
-    axios.post("http://localhost:5003/partners/delete", {
+    axios.post(`http://${host}:5003/partners/delete`, {
       idPartner: id
     })
       .then((response) => {
-        dispatch(deletePartnerSuccess(response.data));
+        dispatch(deleteNotify(id, topic, actions.success.delete, selector, idUser));
         setResponsePartner(response.data);
         setAddPartner({
           nameCompany: "",
@@ -160,11 +149,10 @@ function PartnerCard(props) {
           email: "",
           phoneNumber: "",
           dateConclusionContract: "",
-          error: "",
         });
       })
       .catch((error) => {
-        dispatch(deletePartnerFailure(error.message));
+        dispatch(deleteNotifyFailure(id, topic, actions.failure.delete, selector, idUser, error.message));
       });
   };
 
@@ -190,7 +178,7 @@ function PartnerCard(props) {
                 <input type="email" required name="email" placeholder="Рабочая почта" className="inputValueCard" onChange={handleInputChange} />
                 <input type="text" required name="phoneNumber" placeholder="Номер телефона" className="inputValueCard" onChange={handleInputChange} />
                 <input type="datetime-local" required name="dateConclusionContract" placeholder="Дата заключения контракта" className="inputValueCard" onChange={handleInputChange} />
-                <p className="error">{error}</p>
+                {/* <p className="error">{error}</p> */}
                 <p>Все поля являются обязательными</p>
               </div>
               <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
@@ -216,7 +204,7 @@ function PartnerCard(props) {
                   <input type="email" value={partner.email} onChange={(event) => handleChange(event, index, "email")} placeholder="Рабочая почта" className="inputValueCard"></input>
                   <input type="text" value={partner.phoneNumber} onChange={(event) => handleChange(event, index, "phoneNumber")} placeholder="Номер телефона" className="inputValueCard"></input>
                   <input type="datetime-local" value={partner.dateConclusionContract} onChange={(event) => handleChange(event, index, "dateConclusionContract")} placeholder="Дата заключения контракта" className="inputValueCard"></input>
-                  <p>{error}</p>
+                  {/* <p>{error}</p> */}
                   <p>Все поля являются обязательными</p>
                 </>
               ) : (

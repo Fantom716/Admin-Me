@@ -1,19 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../../../styles/support.scss"
-import { submitTicket } from "../../redux/users/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { sumbitTicketNotify } from "../../redux/notifications/actions";
+const host = process.env.REACT_APP_HOST;
 
 function SupportCard() {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [data, setData] = useState([])
   const dispatch = useDispatch()
+  const selector = useSelector((state) => state)
 
   useEffect(() => {
     axios
-    .get("http://localhost:5030/supportUser")
+    .get(`http://${host}:5030/support/all?user=${localStorage.getItem('idUser')}`)
     .then((res) => {
         setData(res.data);
       })
@@ -21,8 +22,6 @@ function SupportCard() {
         console.log(err);
       });
   }, []);
-
-  console.log(data)
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -36,8 +35,8 @@ function SupportCard() {
     event.preventDefault();
     const id = localStorage.getItem("idUser")
     if (title && text) {
-      dispatch(sumbitTicketNotify("dyegyde"))
-      axios.post("http://localhost:5030/support", {id, title, text} )
+      dispatch(sumbitTicketNotify(id, selector))
+      axios.post(`http://${host}:5030/support`, {id, title, text} )
         .then(
           (response) => {
             console.log(response);
@@ -47,8 +46,6 @@ function SupportCard() {
           }
         )
     }
-    console.log(title)
-    console.log(text)
   };
 
   return (

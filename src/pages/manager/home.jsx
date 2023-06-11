@@ -54,7 +54,6 @@ function HomeManager(props) {
       axios.
       get("http://localhost:5001/dashboard/managers/statisticCard")
       .then((response) => {
-        console.log(response);
         setStatistic(response.data);
       })
       .catch((error) => {
@@ -62,8 +61,6 @@ function HomeManager(props) {
         console.log(statistic["error"]);
       })
   }, []);
-
-  console.log(orders);
 
   return (
     <div style={{ display: "flex", height: "100vh", width: "100vw" }}>

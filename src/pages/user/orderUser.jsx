@@ -5,7 +5,7 @@ import "../../styles/ordersUser.scss"
 import axios from "axios";
 import OrderCard from "../../components/cards/big card/orderCard";
 import { useState } from "react";
-
+const host = process.env.REACT_APP_HOST;
 
 function OrdersUser(props) {
     const [orders, setOrders] = useState([]);
@@ -13,23 +13,15 @@ function OrdersUser(props) {
     console.log(localStorage.getItem("idUser"))
 
     useEffect(() => {
-      axios.get(`http://localhost:5008/orders`)
-      .then((response) => {
-        console.log(response.data);
-        setOrders(response.data);
-      }).catch((error) => {
-        console.log(error);
-      })
-      axios
-        .get("http://localhost:5008/orders")
+      axios.
+        post(`http://${host}:5008/orders?user=${localStorage.getItem("idUser")}`)
         .then((response) => {
-          setOrders(response.data);
+          setOrders(response.data)
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+          console.log(err);
         })
     }, []);
-
 
     return (
         <div style={{ display: "flex", height: "100vh"}}>

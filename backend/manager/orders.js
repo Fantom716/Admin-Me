@@ -5,17 +5,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const id = require("../utils/getRandomUniqueNumber");
 const getRandomUniqueNumber = require("../utils/getRandomUniqueNumber");
+const cors = require("cors");
+const conn = require("../utils/connectionDB");
+
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const PORT = 5012;
 
-const conn = mysql.createConnection({
-  host: "DESKTOP-ASKKTC8",
-  user: "serverJS",
-  database: "mydb",
-  password: "jK7JgP5YbFyMRr",
-  port: 3306,
-})
+const PORT = 5012;
 
 async function getOrders() {
   return new Promise((resolve, reject) => {
@@ -66,18 +63,20 @@ app.post("/orders/add", async (req, res) => {
 app.post("/orders/update", (req, res) => {
   console.log(req.body);
   const { idOrder, composition, dateDeadline, manager, quantity, status } = req.body;
-  const values = [ client, composition, dateDeadline, manager, quantity, status ]
-  const query = "UPDATE orders SET ? ? ? ? ? ? ? ? WHERE idOrder = ?";
-  conn.query(query, values, (err, res) => {
+  const values = [composition, moment(dateDeadline).format('YYYY-MM-DD HH:mm:ss'), manager, quantity, status, idOrder];
+  const query = "UPDATE orders SET composition = ?, dateDeadline = ?, manager = ?, quantity = ?, status = ? WHERE idOrder = ?";
+  console.log(dateDeadline)
+  console.log(moment(dateDeadline).format('YYYY-MM-DD HH:mm:ss'))
+  conn.query(query, values, (err, result) => {
     if (err) {
       console.log(err);
-      res.send(err);
     } else {
       console.log("OK");
-      res.send(res);
+      res.send(result);
     }
-  })
+  });
 })
+
 
 app.post("/orders/delete", async (req, res) => {
   try {
@@ -98,7 +97,6 @@ app.post("/orders/delete", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
 
 startGetOrders();
 
