@@ -14,14 +14,7 @@ function Notification() {
   const convertingNotify = notifys.filter((notify) => notify.user && parseInt(notify.user.id)).map((notify) => parseInt(notify.user.id));
   const countNotify = convertingNotify.reduce((acc, curr) => curr === +localStorage.getItem("idUser") ? acc + 1 : acc, 0)
 
-  console.log("cn:" + convertingNotify)
-  console.log("ls:" + +localStorage.getItem("idUser"))
-  console.log("count" + countNotify)
-  // console.log(notifys)
-
   const notys = notifys.filter(notify => parseInt(notify.user.id) === parseInt(localStorage.getItem("idUser")));
-
-  console.log(notys)
 
   const handleClick = () => {
     dispatch(notifyButton());

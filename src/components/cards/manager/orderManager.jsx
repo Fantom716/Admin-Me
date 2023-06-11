@@ -107,7 +107,6 @@ function OrderCardManager() {
 
     const updatedOrder = data[index];
 
-    console.log(updatedOrder)
     axios.post(`http://${host}:5012/orders/update`, updatedOrder)
     .then((response) => {
         dispatch(addNotify(updatedOrder.idOrder, topic, actions.success.edit, selector, idUser))

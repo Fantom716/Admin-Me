@@ -30,7 +30,7 @@ async function getRelease() {
     }
 
     // Если мы еще не загрузили данные из GitHub, то загружаем их и сохраняем
-    const response = await axios.get("https://api.github.com/repos/OwlCarousel2/OwlCarousel2/releases");
+    const response = await axios.get("https://api.github.com/repos/Fantom716/dashboard/releases");
     githubData = response.data;
     versions = githubData.map(release => {
       return {

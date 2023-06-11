@@ -53,7 +53,6 @@ function PartnerCard(props) {
   const addingPartner = () => {
     if (!nameCompany || !type || !address || !surnameDelegate || !nameDelegate || !patronymicDelegate || !email || !phoneNumber || !dateConclusionContract) {
       const error = "Заполнены не все поля"
-      console.log(error)
       dispatch(addNotifyFailure(topic, actions.failure.add, selector, idUser, error))
       return;
     }
@@ -98,6 +97,7 @@ function PartnerCard(props) {
     if (index === editIndex) {
       setEditIndex(-1);
     } else {
+      setOriginalPartner(data[index]);
       setEditIndex(index);
     }
   };

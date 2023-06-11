@@ -39,7 +39,7 @@ function HomeUser(props) {
     axios
       .post(`http://${host}:5002/user/dashboard/getdata`,  {"id": localStorage.getItem("idUser")})
       .then((response) => {
-        console.log(response);
+
       })
       .catch((err) => {
         console.log(err)
@@ -63,7 +63,6 @@ function HomeUser(props) {
       axios
       .get(`http://${host}:5002/dashboard/clients/statistics`)
       .then((response) => {
-        console.log(response);
         setStatistic(response.data);
       })
       .catch((error) => {

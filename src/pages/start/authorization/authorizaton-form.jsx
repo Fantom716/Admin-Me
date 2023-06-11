@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "../../../styles/auth/authorization.scss"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,8 @@ function Authorization() {
     dispatch(clearNotifys())
   }
 
+  const refPass = useRef(null)
+  const refLogin = useRef(null)
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState({
     login: "",
@@ -46,13 +48,9 @@ function Authorization() {
     });
   }
 
-  console.log(selector.auht)
-
   function handleSubmit(event) {
     event.preventDefault();
     axios.get(`http://${host}:3092/users`).then((response) => {
-      console.log(response.data)
-      console.log(response.data[0].login)
       const user = response.data.find(
         (user) => user.login === formValue.login && user.password === formValue.password
       );
@@ -65,8 +63,7 @@ function Authorization() {
         const id = localStorage.getItem("idUser")
         const valuesSubmit = [formValue.login, formValue.password, formValue.role, id]
         axios.post(`http://${host}:3092/form`, valuesSubmit)
-          .then((response) => {
-            console.log(response.data);
+        .then((response) => {
             if (formValue.role === "Пользователь") {
               navigate(`user/${formValue.id}/dashboard/`);
             } else if (formValue.role === "Менеджер") {
@@ -78,11 +75,16 @@ function Authorization() {
           .catch((error) => {
             console.log(error);
           });
-        console.log("ok")
         dispatch(addUser({ id }, selector));
       } else {
-        setFormValue({ error: "Неверный логин или пароль" });
+        setFormValue({
+          error: "Неверный логин или пароль",
+          password: "",
+          login: "",
+        });
         setAutho({ authoBool: false, login: false, password: false });
+        refLogin.current.value = "";
+        refPass.current.value = "";
       }
     }).catch((error) => {
       console.log(error);
@@ -94,7 +96,7 @@ function Authorization() {
       <form onSubmit={handleSubmit} className="mainForm formAuthorization">
         <div className="headerForm">
           <p className="headerGreetingForm">Авторизация в информационной системе</p>
-          <p className="headerNameSystem">Admin</p>
+          <p className="headerNameSystem">Admin<span className="prefixTitleSystem">-Me</span></p>
         </div>
         <input
           type="text"
@@ -102,6 +104,7 @@ function Authorization() {
           onChange={handleChange}
           className="formInput formInputAuthorization"
           placeholder="Логин"
+          ref={refLogin}
         />
         <input
           type="password"
@@ -109,6 +112,7 @@ function Authorization() {
           onChange={handleChange}
           className="formInput formInputAuthorization"
           placeholder="Пароль"
+          ref={refPass}
         />
         {formValue ? <p className="errorNotify">{formValue.error}</p> : {}}
         <button

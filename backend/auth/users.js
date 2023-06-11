@@ -66,7 +66,8 @@ app.post('/form', async (req, res) => {
 app.post("/registration", async (req, res) => {
   try {
     console.log(req.body)
-    const idUser = await getRandomUniqueNumber(conn, "idUser", "users")
+    const idUser = await getRandomUniqueNumber("idUser", "users")
+    console.log(idUser)
     console.log(idUser + ": id")
     const idClient  = await getRandomUniqueNumber("idClient", "clients")
     const valuesUser = [idUser, req.body.login, req.body.email, req.body.role, moment().format("YYYY-DD-MM HH:mm:ss"), req.body.password, idClient ]
@@ -100,12 +101,12 @@ async function writingSession(idUser) {
 async function addUser(valuesUser) {
   const queryUser = `INSERT INTO users(idUser, login, email, role, regDate, password, idClientInUser) VALUES (?, ?, ?, ?, ?, ?, ?)`;
   console.log(queryUser)
-  conn.query(queryUser, valuesUser), (err, res) => {
+  conn.query(queryUser, valuesUser, (err, res) => {
     if (err) console.log(err);
     else {
       console.log("OK")
     }
-  }
+  })
 }
 
 async function addClient(valuesClient) {

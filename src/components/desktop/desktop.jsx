@@ -9,6 +9,7 @@ function Desktop(props) {
     const { statistic, infoForMain, dataForInfoCard } = props;
     const lastTitleRubric = infoForMain[infoForMain.length - 1]["titleRubric"];
     const isFirstInfoAxiosError = infoForMain[0]["name"] === "AxiosError";
+    console.log(infoForMain)
     const cards = isFirstInfoAxiosError ? <p className="errorGetMainDesktopCard">Ошибка подключения к серверу</p> : infoForMain.map((item) => <MainDesktopCard infoForMain={item} />);
     const [displayInfoCard, setdisplayInfoCard] = useState(false)
 

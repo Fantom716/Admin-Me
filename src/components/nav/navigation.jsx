@@ -88,8 +88,8 @@ export const linksNavAdmin = [
   }
 ]
 
-const hideMenu = <svg width="49" height="49" viewBox="0 0 49 49" fill="none"><path d="M10.2084 14.2917H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 24.5H30.625" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 34.7083H22.4584" stroke="#222222" stroke-linecap="round" /></svg>
-const showMenu = <svg width="49" height="49" viewBox="0 0 49 49" fill="none"><path d="M10.2084 14.2917H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 24.5H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 34.7083H38.7917" stroke="#222222" stroke-linecap="round" /></svg>
+// const hideMenu = <svg width="49" height="49" viewBox="0 0 49 49" fill="none"><path d="M10.2084 14.2917H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 24.5H30.625" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 34.7083H22.4584" stroke="#222222" stroke-linecap="round" /></svg>
+// const showMenu = <svg width="49" height="49" viewBox="0 0 49 49" fill="none"><path d="M10.2084 14.2917H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 24.5H38.7917" stroke="#222222" stroke-linecap="round" /><path d="M10.2084 34.7083H38.7917" stroke="#222222" stroke-linecap="round" /></svg>
 
 /* Output links */
 
@@ -98,21 +98,17 @@ function Navigation() {
   const dispatch = useDispatch()
   const selector = useSelector((state) => state)
   const isActiveMenuSel = selector.nav.active
-  console.log(selector)
   const [isActive, setActive] = useState("false");
   const [menuActive, setMenu] = useState("false");
 
   function Change() {
     setActive(!isActive);
-    console.log(isActive)
     dispatch(isActiveMenu(isActive))
   }
 
   function openMenu() {
     setMenu(!menuActive);
   }
-
-  console.log(window.location.pathname)
 
   function test() {
     if (window.location.pathname.match("/manager/.*")) {
@@ -159,9 +155,9 @@ function Navigation() {
   return (
     <nav className={isActiveMenuSel ? "navActive" : "navDisable"}>
       <div className={"navHeader"}>
-        <p className={isActiveMenuSel ? "navTitleActive" : "navTitleDisable"}>Admin</p>
+        <p className={isActiveMenuSel ? "navTitleActive" : "navTitleDisable"}>Admin<span className="prefixTitleSystem">-Me</span></p>
         <button className="buttonNav" onClick={Change}>
-          {isActiveMenuSel ? hideMenu : showMenu}
+          {/* {isActiveMenuSel ? hideMenu : showMenu} */}
         </button>
       </div>
       {test()}

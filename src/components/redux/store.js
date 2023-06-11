@@ -8,7 +8,6 @@ import orderReducer from './manager/orders/orders';
 import partnerReducer from './manager/partners/partners';
 import productsReducer from './manager/products/products';
 import notifyReducer from './notifications/notifications';
-// import ticketReducer from './users/support';
 import authReducer from './users/auth'
 import navReducer from './navigation/navigations';
 
@@ -23,7 +22,6 @@ const rootReducer = combineReducers({
   partners: partnerReducer,
   products: productsReducer,
   notifys: notifyReducer,
-  // ticketReducer: ticketReducer,
   users: authReducer,
   nav: navReducer,
 });

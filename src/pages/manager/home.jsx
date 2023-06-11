@@ -54,7 +54,6 @@ function HomeManager(props) {
       axios.
       get("http://localhost:5001/dashboard/managers/statisticCard")
       .then((response) => {
-        console.log(response);
         setStatistic(response.data);
       })
       .catch((error) => {

@@ -63,8 +63,9 @@ app.post("/orders/add", async (req, res) => {
 app.post("/orders/update", (req, res) => {
   console.log(req.body);
   const { idOrder, composition, dateDeadline, manager, quantity, status } = req.body;
-  const values = [ composition, moment(dateDeadline).format('YYYY-MM-DD HH:mm:ss'), manager, quantity, status, idOrder ]
+  const values = [composition, moment(dateDeadline).format('YYYY-MM-DD HH:mm:ss'), manager, quantity, status, idOrder];
   const query = "UPDATE orders SET composition = ?, dateDeadline = ?, manager = ?, quantity = ?, status = ? WHERE idOrder = ?";
+  console.log(dateDeadline)
   console.log(moment(dateDeadline).format('YYYY-MM-DD HH:mm:ss'))
   conn.query(query, values, (err, result) => {
     if (err) {
@@ -73,8 +74,9 @@ app.post("/orders/update", (req, res) => {
       console.log("OK");
       res.send(result);
     }
-  })
+  });
 })
+
 
 app.post("/orders/delete", async (req, res) => {
   try {
@@ -95,7 +97,6 @@ app.post("/orders/delete", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
 
 startGetOrders();
 

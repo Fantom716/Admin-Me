@@ -49,7 +49,6 @@ function NotificationAccount(props) {
                     Выход
                 </button>
             </ul>
-            {console.log(props.openMenu)}
         </div>
     )
 }

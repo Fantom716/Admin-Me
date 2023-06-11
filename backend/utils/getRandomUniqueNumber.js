@@ -5,10 +5,12 @@ const checkMatch = (number, array) => {
 };
 
 const getRandomUniqueNumber = async (idField, table) => {
+  const query = `SELECT ${idField} FROM ${table}`;
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT ${idField} FROM ${table}`, (err, results) => {
+    conn.query(query, (err, results) => {
       if (err) console.log(err);
       else {
+        console.log(query)
         let newResult = results;
         let randomNumber = Math.floor(Math.random() * 10000);
         while (checkMatch(randomNumber, newResult)) {

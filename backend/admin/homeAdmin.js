@@ -52,6 +52,24 @@ app.get("/dashboard/admin/users", (req, res) => {
   })
 })
 
+app.get("/dashboard/admin/infoCard", (req, res) => {
+  conn.query("SELECT * FROM users WHERE role = 'Администратор'", (err, results) => {
+    if (err) {
+      console.log(err)
+    }
+    else {
+      const newResults = results.map(({login, email}) => {
+        return {
+          title: "Админы",
+          info: login,
+          link: email,
+        };
+      });
+      res.send(newResults);
+    }
+  })
+})
+
 const statisticAdmin = [
   {
     nameTable: "users",
@@ -117,10 +135,12 @@ async function getStatisticAdmin() {
       fieldInDB: "versions",
       name: "Версия системы",
       currentValue: releases[0]["version"],
-      lastValue: releases[1]["version"],
+      lastValue: releases[releases.length - 1]["version"],
       image: "/card/icons/small card add/user.svg",
     }
   ];
+
+  console.log(statisticAdmin[1]["lastValue"])
 
   const statistic = await getStatistic();
   statisticAdmin[0]["currentValue"] = statistic[0]["currentValue"];

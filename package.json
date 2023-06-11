@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@types/validator": "^13.7.17",
     "node-sass": "^8.0.0",
     "sass-loader": "^13.2.2",
     "webpack": "^5.81.0",

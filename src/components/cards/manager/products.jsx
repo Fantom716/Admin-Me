@@ -78,13 +78,11 @@ function ProductCard(props) {
     if (!addProduct.nameProduct || !addProduct.categoryProduct || !addProduct.count || !addProduct.countSell || !addProduct.dateOfSell || !addProduct.descriptionProduct || !addProduct.developer || !addProduct.priceProduct) {
       const error = "Заполнены не все поля"
       dispatch(addNotifyFailure(topic, actions.failure.add, selector, idUser, error));
-      console.log(addProduct)
       return;
     }
 
     axios.post(`http://${host}:5011/products/add`, addProduct)
       .then((response) => {
-        console.log("ok")
         dispatch(addNotify(addProduct.developer, topic, actions.success.add, selector, idUser))
         setResponceAddProduct(response.data);
         setAddProduct({
@@ -137,10 +135,8 @@ function ProductCard(props) {
     axios.post(`http://${host}:5011/products/delete`, deletedProduct)
       .then((response) => {
         dispatch(deleteNotify(deletedProduct.nameProduct, topic, actions.success.delete, selector, idUser))
-        console.log("ol")
       }).catch((error) => {
         dispatch(deleteNotifyFailure(deletedProduct.nameProduct, topic, actions.failure.delete, selector, idUser, error.message))
-        console.log("ok")
       })
   }
 
