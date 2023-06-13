@@ -29,6 +29,10 @@
     font-weight: 600;
 }
 
+.formCard {
+    width: 100%;
+}
+
 .wrapperButtons {
     display: flex;
     justify-content: space-between;
@@ -53,7 +57,7 @@
     height: auto;
     padding: 1%;
     margin-bottom: 30px;
-    width: 90%;
+    width: 100%;
     border: $input-border;
 }
 

@@ -165,7 +165,7 @@ function OrderCardManager() {
           <div className="aboutCard">
             <div className="valuesCard">
               {editIndex === index ? (
-                <form>
+                <form className="formCard">
                   <input className="inputValueCard" placeholder="ID заказа" value={order.idOrder} onChange={(event) => handleChange(event, index, "idOrder")} type="text" />
                   <input disabled className="inputValueCard" value={order.surname + " " + order.name + " " + order.patronimyc} type="text" />
                   <input className="inputValueCard" placeholder="Состав заказа" value={order.composition} onChange={(event) => handleChange(event, index, "composition")} type="text" />

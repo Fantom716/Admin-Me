@@ -118,7 +118,7 @@ function ClientCard(props) {
           <>
             <button onClick={addNewElement} className="mainButtonAddDel buttonDel"></button>
             <div className="addingAboutCard aboutCard">
-              <div className="inputValuesCard valuesCard">
+              <form className="inputValuesCard valuesCard">
                 <p className="valueCard">Заполните следующие данные:</p>
                 <input type="text" required placeholder="Фамилия" className="inputValueCard" name="surname" onChange={handleInputChange}></input>
                 <input type="text" required placeholder="Имя" className="inputValueCard" name="name" onChange={handleInputChange}></input>
@@ -129,7 +129,7 @@ function ClientCard(props) {
                 <input type="number" required placeholder="Начальный рейтинг" className="inputValueCard" name="rating" onChange={handleInputChange}></input>
                 {error ? <p className="error">{error}</p> : null}
                 <p>Все поля являются обязательными</p>
-              </div>
+              </form>
               <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
                 <button onClick={addingClient} className="addButton headerButtonMain"></button>
               </div>
@@ -140,7 +140,7 @@ function ClientCard(props) {
       {data.map((client, index) => {
         return (
           <div className="aboutCard" key={client.id}>
-            <div className="valuesCard">
+            <form className="formCard">
               {editIndex === index ? (
                 <>
                   <input type="text" className="inputValueCard" value={client.surname} onChange={(event) => handleChange(event, index, "surname")} />
@@ -160,7 +160,7 @@ function ClientCard(props) {
                   <p className="valueCard">Рейтинг: {client.rating}</p>
                 </>
               )}
-            </div>
+            </form>
             <div className="wrapperButtons">
               <div className="headerButtons headerButtonsClients">
                 {editIndex === index ? (

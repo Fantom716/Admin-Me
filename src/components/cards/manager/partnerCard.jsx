@@ -166,7 +166,7 @@ function PartnerCard(props) {
           <>
             <button onClick={addNewElement} className="mainButtonAddDel buttonDel"></button>
             <div className="addingAboutCard aboutCard">
-              <div className="valuesCard">
+              <form className="valuesCard">
                 <p className="valueCard">Заполните следующие данные:</p>
                 <input type="text" required name="nameCompany" placeholder="Название компании" className="inputValueCard" onChange={handleInputChange} />
                 <input type="text" required name="type" placeholder="Тип партнера" className="inputValueCard" onChange={handleInputChange} />
@@ -180,7 +180,7 @@ function PartnerCard(props) {
                 <input type="datetime-local" required name="dateConclusionContract" placeholder="Дата заключения контракта" className="inputValueCard" onChange={handleInputChange} />
                 {/* <p className="error">{error}</p> */}
                 <p>Все поля являются обязательными</p>
-              </div>
+              </form>
               <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
                 <button onClick={() => addingPartner()} className="addButton headerButtonMain"></button>
               </div>
@@ -193,7 +193,7 @@ function PartnerCard(props) {
           <div className="aboutCard">
             <div className="valuesCard">
               {editIndex === index ? (
-                <>
+                <form className="formCard">
                   <input type="text" value={partner.nameCompany} onChange={(event) => handleChange(event, index, "nameCompany")} placeholder="Название компании" className="inputValueCard"></input>
                   <input type="text" value={partner.type} onChange={(event) => handleChange(event, index, "type")} placeholder="Тип партнера" className="inputValueCard"></input>
                   <input type="text" value={partner.address} onChange={(event) => handleChange(event, index, "address")} placeholder="Физический адрес" className="inputValueCard"></input>
@@ -206,7 +206,7 @@ function PartnerCard(props) {
                   <input type="datetime-local" value={partner.dateConclusionContract} onChange={(event) => handleChange(event, index, "dateConclusionContract")} placeholder="Дата заключения контракта" className="inputValueCard"></input>
                   {/* <p>{error}</p> */}
                   <p>Все поля являются обязательными</p>
-                </>
+                </form>
               ) : (
                 <>
                   <p className="valueCard">{partner.nameCompany}</p>

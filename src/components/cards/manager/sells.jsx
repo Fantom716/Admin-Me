@@ -35,13 +35,13 @@ function SellsCard(props) {
           <div key={index} className="aboutCard">
             <div className="valuesCard">
               {editIndex === index ? (
-                <>
+                <form className="formCard">
                   <input type="text" className="inputValueCard" value={sell.countSell} onChange={(event) => handleChange(event, index, "countSell")}></input>
                   <input type="text" className="inputValueCard" value={sell.dateSell} onChange={(event) => handleChange(event, index, "dateSell")}></input>
                   <input type="text" className="inputValueCard" value={sell.idOrder} onChange={(event) => handleChange(event, index, "idOrder")}></input>
                   <input type="text" className="inputValueCard" value={sell.price} onChange={(event) => handleChange(event, index, "price")}></input>
                   <input type="text" className="inputValueCard" value={sell.seller} onChange={(event) => handleChange(event, index, "seller")}></input>
-                </>
+                </form>
               ) : (
                 <>
                   <p className="valueCard">{sell.idSell}</p>

@@ -149,7 +149,7 @@ function ProductCard(props) {
         <>
           <button onClick={addNewElement} className="mainButtonAddDel buttonDel"></button>
           <div className="addingAboutCard aboutCard">
-            <div className="inputValuesCard valuesCard">
+            <form className="inputValuesCard valuesCard">
               <p className="valueCard">Заполните следующие данные:</p>
               <input type="text" required placeholder="Название продукта" className="inputValueCard" name="nameProduct" onChange={handleInputChange} />
               <input type="number" required placeholder="Количество" className="inputValueCard" name="count" onChange={handleInputChange} />
@@ -175,7 +175,7 @@ function ProductCard(props) {
               <input type="number" required placeholder="Цена" className="inputValueCard" name="priceProduct" onChange={handleInputChange} />
               <p className="error">{error}</p>
               <p>Все поля являются обязательными</p>
-            </div>
+            </form>
             <div className="wrapperButtons" style={{ flexDirection: "row", justifyContent: "space-around" }}>
               <button onClick={addingProduct} className="addButton headerButtonMain"></button>
             </div>
@@ -188,7 +188,7 @@ function ProductCard(props) {
           <div key={index} className="aboutCard">
             <div className="valuesCard">
               {editIndex === index ? (
-                <>
+                <form className="formCard">
                   <input type="text" className="inputValueCard" value={product.nameProduct} onChange={(event) => handleChange(event, index, "nameProduct")}></input>
                   <input type="text" className="inputValueCard" value={product.categoryProduct} onChange={(event) => handleChange(event, index, "categoryProduct")}></input>
                   <input type="number" className="inputValueCard" value={product.count} onChange={(event) => handleChange(event, index, "count")}></input>
@@ -197,7 +197,7 @@ function ProductCard(props) {
                   <input type="text" className="inputValueCard" value={product.descriptionProduct} onChange={(event) => handleChange(event, index, "descriptionProduct")}></input>
                   <input type="text" className="inputValueCard" value={product.developer} onChange={(event) => handleChange(event, index, "developer")}></input>
                   <input type="text" className="inputValueCard" value={product.priceProduct} onChange={(event) => handleChange(event, index, "priceProduct")}></input>
-                </>
+                </form>
               ) : (
                 <>
                   <p className="valueCard">{product.nameProduct}</p>
